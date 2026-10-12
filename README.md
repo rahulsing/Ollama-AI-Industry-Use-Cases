@@ -4,7 +4,7 @@
 
 ### Simple, local AI agents for real business problems, built with **Ollama**, **CrewAI** and **LangChain**
 
-**[🌐 Interactive Explorer](https://rahulsing.github.io/AI-Industry-Use-Cases/)** · [Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
+**[🌐 Interactive Explorer](https://rahulsing.github.io/Ollama-AI-Industry-Use-Cases/)** · [Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
 
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
@@ -21,7 +21,7 @@
 
 ---
 
-> **🌐 Browse without installing anything:** the [Interactive Explorer](https://rahulsing.github.io/AI-Industry-Use-Cases/) lets you pick an industry,
+> **🌐 Browse without installing anything:** the [Interactive Explorer](https://rahulsing.github.io/Ollama-AI-Industry-Use-Cases/) lets you pick an industry,
 > search every solution, read the business problem in plain English, and view the implementation code.
 
 ## 💡 What is this?
@@ -83,8 +83,8 @@ ollama pull qwen2.5:7b-instruct        # default: strong tool calling at 7B
 ollama pull nomic-embed-text           # embeddings for the RAG use cases
 
 # 2. Clone and install (Python 3.10 - 3.13)
-git clone https://github.com/rahulsing/AI-Industry-Use-Cases.git
-cd AI-Industry-Use-Cases
+git clone https://github.com/rahulsing/Ollama-AI-Industry-Use-Cases.git
+cd Ollama-AI-Industry-Use-Cases
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env                                   # optional: change model / Ollama URL

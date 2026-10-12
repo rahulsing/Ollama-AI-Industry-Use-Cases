@@ -14,8 +14,8 @@ import json
 from domains import ROOT, load_domains
 
 DEMO_GIF = ROOT / "docs" / "demo.gif"
-REPO_URL = "https://github.com/rahulsing/AI-Industry-Use-Cases"
-SITE_URL = "https://rahulsing.github.io/AI-Industry-Use-Cases/"
+REPO_URL = "https://github.com/rahulsing/Ollama-AI-Industry-Use-Cases"
+SITE_URL = "https://rahulsing.github.io/Ollama-AI-Industry-Use-Cases/"
 
 FW_BADGE = {
     "CrewAI": "![CrewAI](https://img.shields.io/badge/CrewAI-multi--agent-FF5A50)",
@@ -272,8 +272,8 @@ ollama pull qwen2.5:7b-instruct        # default: strong tool calling at 7B
 ollama pull nomic-embed-text           # embeddings for the RAG use cases
 
 # 2. Clone and install (Python 3.10 - 3.13)
-git clone https://github.com/rahulsing/AI-Industry-Use-Cases.git
-cd AI-Industry-Use-Cases
+git clone https://github.com/rahulsing/Ollama-AI-Industry-Use-Cases.git
+cd Ollama-AI-Industry-Use-Cases
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 cp .env.example .env                                   # optional: change model / Ollama URL
