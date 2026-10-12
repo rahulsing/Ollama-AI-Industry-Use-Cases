@@ -4,7 +4,7 @@
 
 ### Simple, local AI agents for real business problems, built with **Ollama**, **CrewAI** and **LangChain**
 
-[Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
+**[🌐 Interactive Explorer](https://rahulsing.github.io/AI-Industry-Use-Cases/)** · [Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
 
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
@@ -20,6 +20,9 @@
 </div>
 
 ---
+
+> **🌐 Browse without installing anything:** the [Interactive Explorer](https://rahulsing.github.io/AI-Industry-Use-Cases/) lets you pick an industry,
+> search every solution, read the business problem in plain English, and view the implementation code.
 
 ## 💡 What is this?
 
@@ -159,7 +162,7 @@ flowchart LR
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
 ├── scripts/build_docs.py       # regenerates every README and primer
 ├── ui.py                       # optional Streamlit front end
-├── docs/demo.gif
+├── docs/                       # GitHub Pages: index.html (interactive explorer, generated) + demo.gif
 ├── requirements.txt
 └── .env.example
 ```

@@ -9,9 +9,13 @@ Writes:
 Run:  python scripts/build_docs.py
 """
 
+import json
+
 from domains import ROOT, load_domains
 
 DEMO_GIF = ROOT / "docs" / "demo.gif"
+REPO_URL = "https://github.com/rahulsing/AI-Industry-Use-Cases"
+SITE_URL = "https://rahulsing.github.io/AI-Industry-Use-Cases/"
 
 FW_BADGE = {
     "CrewAI": "![CrewAI](https://img.shields.io/badge/CrewAI-multi--agent-FF5A50)",
@@ -222,7 +226,7 @@ def root_readme(domains) -> str:
 
 ### Simple, local AI agents for real business problems, built with **Ollama**, **CrewAI** and **LangChain**
 
-[Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
+**[🌐 Interactive Explorer]({SITE_URL})** · [Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
 
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
@@ -236,6 +240,9 @@ def root_readme(domains) -> str:
 </div>
 
 ---
+
+> **🌐 Browse without installing anything:** the [Interactive Explorer]({SITE_URL}) lets you pick an industry,
+> search every solution, read the business problem in plain English, and view the implementation code.
 
 ## 💡 What is this?
 
@@ -344,7 +351,7 @@ flowchart LR
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
 ├── scripts/build_docs.py       # regenerates every README and primer
 ├── ui.py                       # optional Streamlit front end
-├── docs/demo.gif
+├── docs/                       # GitHub Pages: index.html (interactive explorer, generated) + demo.gif
 ├── requirements.txt
 └── .env.example
 ```
@@ -384,13 +391,36 @@ Calculations are simplified illustrations of industry concepts and are **not** p
 """
 
 
+# --------------------------------------------------------------------------- #
+# Interactive explorer (GitHub Pages: docs/index.html)
+# --------------------------------------------------------------------------- #
+def site(domains) -> str:
+    data = {"repo": REPO_URL, "industries": []}
+    for d in domains:
+        cases = []
+        for slug, title, cat, fw, pattern, desc, how in d.use_cases:
+            today, who, why, terms = d.business[slug]
+            cases.append({"slug": slug, "title": title, "category": cat, "framework": fw, "pattern": pattern,
+                          "description": desc, "how": how, "today": today, "who": who, "why": why, "terms": terms,
+                          "code": (d.path / slug / "app.py").read_text(encoding="utf-8")})
+        data["industries"].append({"folder": d.folder, "name": d.name, "icon": d.icon, "tagline": d.tagline,
+                                   "description": d.description, "industry_101": d.industry_101,
+                                   "categories": d.categories, "areas": d.areas, "glossary": d.glossary,
+                                   "use_cases": cases})
+    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")  # safe inside <script>
+    template = (ROOT / "scripts" / "site_template.html").read_text(encoding="utf-8")
+    return template.replace("__DATA__", payload)
+
+
 def main():
     domains = load_domains()
-    (ROOT / "README.md").write_text(root_readme(domains), encoding="utf-8")
+    (ROOT / "docs").mkdir(exist_ok=True)
+    (ROOT / "docs" / "index.html").write_text(site(domains), encoding="utf-8", newline="\n")
+    (ROOT / "README.md").write_text(root_readme(domains), encoding="utf-8", newline="\n")
     pages = 1
     for d in domains:
-        (d.path / "README.md").write_text(domain_readme(d), encoding="utf-8")
-        (d.path / "PRIMER.md").write_text(primer(d), encoding="utf-8")
+        (d.path / "README.md").write_text(domain_readme(d), encoding="utf-8", newline="\n")
+        (d.path / "PRIMER.md").write_text(primer(d), encoding="utf-8", newline="\n")
         pages += 2
         for u in d.use_cases:
             folder = d.path / u[0]
@@ -398,9 +428,9 @@ def main():
             assert u[0] in d.business, f"{d.folder}/business.py has no BUSINESS entry for {u[0]}"
             missing = [t for t in d.business[u[0]][3] if t not in d.glossary]
             assert not missing, f"{d.folder}: glossary missing {missing}"
-            (folder / "README.md").write_text(use_case_readme(d, u), encoding="utf-8")
+            (folder / "README.md").write_text(use_case_readme(d, u), encoding="utf-8", newline="\n")
             pages += 1
-    print(f"Wrote {pages} pages for {len(domains)} industries: "
+    print(f"Wrote docs/index.html and {pages} pages for {len(domains)} industries: "
           + ", ".join(f"{d.name} ({len(d.use_cases)})" for d in domains))
 
 

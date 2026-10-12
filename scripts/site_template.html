@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Industry Use Cases</title>
+<meta name="description" content="Explore simple, local AI agents for Banking, Retail and Insurance: the business problem, how the AI solves it, and the code.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<style>
+  :root {
+    --bg: #f7f8fa; --surface: #ffffff; --surface-2: #f0f2f5; --text: #1b1f24; --muted: #5b6573;
+    --border: #e1e5ea; --accent: #4f46e5; --accent-soft: #eef0ff; --crew: #e8553f; --lc: #1f6f5c;
+    --shadow: 0 1px 2px rgba(16,24,40,.05), 0 1px 3px rgba(16,24,40,.08); --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --surface: #171a21; --surface-2: #1f232c; --text: #e7eaf0; --muted: #9aa4b2;
+      --border: #2a2f3a; --accent: #8b85ff; --accent-soft: #23234a; --crew: #ff7a66; --lc: #4cc3a3;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .9em; background: var(--surface-2); padding: .1em .35em; border-radius: 5px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+
+  header { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; flex-wrap: wrap; }
+  .brand { font-weight: 700; font-size: 18px; color: var(--text); }
+  .brand span { color: var(--muted); font-weight: 500; font-size: 14px; margin-left: 6px; }
+  .top nav a { margin-left: 16px; font-size: 14px; }
+  .hero { padding: 28px 0 20px; }
+  .hero h1 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 34px); line-height: 1.2; }
+  .hero p { margin: 0; color: var(--muted); max-width: 760px; }
+  .stats { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+  .stats b { color: var(--text); font-size: 18px; margin-right: 4px; }
+
+  .tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 0; scrollbar-width: none; }
+  .tab { border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600; padding: 10px 14px; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .controls { display: flex; gap: 10px; align-items: center; margin: 18px 0 8px; flex-wrap: wrap; }
+  .search { flex: 1 1 260px; position: relative; }
+  .search input { width: 100%; padding: 10px 12px 10px 36px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .search::before { content: "🔎"; position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: .7; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 14px; }
+  .chip { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .about-link { font-size: 14px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; padding-bottom: 40px; }
+  .card { display: flex; flex-direction: column; gap: 8px; text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); cursor: pointer; color: inherit; font: inherit; transition: transform .12s, border-color .12s; }
+  .card:hover, .card:focus-visible { transform: translateY(-2px); border-color: var(--accent); outline: none; }
+  .card .meta { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+  .card h3 { margin: 0; font-size: 16px; line-height: 1.35; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--surface-2); color: var(--muted); }
+  .badge.CrewAI { color: var(--crew); }
+  .badge.LangChain { color: var(--lc); }
+  .empty { color: var(--muted); padding: 30px 0; text-align: center; grid-column: 1 / -1; }
+
+  .detail { padding: 22px 0 50px; }
+  .back { display: inline-block; margin-bottom: 14px; font-size: 14px; }
+  .detail h1 { margin: 0 0 4px; font-size: clamp(22px, 3.4vw, 30px); line-height: 1.25; }
+  .crumbs { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .cols { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); min-width: 0; }
+  .panel h2 { margin: 0 0 10px; font-size: 17px; }
+  .panel p { margin: 0 0 10px; }
+  .panel dl { margin: 0; }
+  .panel dt { font-weight: 600; }
+  .panel dd { margin: 0 0 12px; color: var(--muted); }
+  .full { grid-column: 1 / -1; }
+  @media (min-width: 801px) { .terms dl, .glossary-group dl { columns: 2; column-gap: 32px; } .terms dt, .glossary-group dt { break-after: avoid; } .terms dd, .glossary-group dd { break-before: avoid; } }
+  .run { display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap; }
+  .run code { flex: 1 1 260px; display: block; padding: 10px 12px; overflow-x: auto; white-space: nowrap; }
+  button.btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); border-radius: 8px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  button.btn:hover { border-color: var(--accent); }
+  .code-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  pre { margin: 0; max-height: 640px; overflow: auto; border-radius: 10px; border: 1px solid var(--border); }
+  pre code { display: block; padding: 14px; font-size: 13px; line-height: 1.5; background: var(--surface-2); white-space: pre; }
+  pre code.hljs { background: var(--surface-2); }
+  .md ol, .md ul { padding-left: 22px; margin: 6px 0 10px; }
+  .glossary-group h3 { margin: 16px 0 6px; font-size: 15px; }
+  .glossary-search { margin: 6px 0 4px; }
+  .note { font-size: 13px; color: var(--muted); }
+  footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; padding: 18px 0 30px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#/">🤖 AI Industry Use Cases <span>Ollama · CrewAI · LangChain</span></a>
+      <nav><a id="repo-link" href="#">GitHub repo</a><a id="readme-link" href="#">README</a></nav>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<footer>
+  <div class="wrap">
+    Sample data is fictional and calculations are simplified for learning; not professional advice.
+    Run any solution locally with Ollama: see the <a id="footer-readme" href="#">README</a>. MIT licensed.
+  </div>
+</footer>
+
+<script id="data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const IND = Object.fromEntries(DATA.industries.map(d => [d.folder, d]));
+const ALL = DATA.industries.flatMap(d => d.use_cases.map(u => ({ ...u, ind: d })));
+const app = document.getElementById("app");
+const state = { industry: "all", category: "all", query: "" };
+
+document.getElementById("repo-link").href = DATA.repo;
+for (const id of ["readme-link", "footer-readme"]) document.getElementById(id).href = DATA.repo + "#readme";
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+// Minimal markdown: paragraphs, numbered/bullet lists, **bold**, *italic*, `code`
+function md(text) {
+  const inline = s => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  const out = [];
+  let list = null;
+  for (const line of text.split("\n")) {
+    const m = line.match(/^\s*(\d+\.|[-*])\s+(.*)$/);
+    if (m) {
+      const tag = /\d/.test(m[1]) ? "ol" : "ul";
+      if (list !== tag) { if (list) out.push(`</${list}>`); out.push(`<${tag}>`); list = tag; }
+      out.push(`<li>${inline(m[2])}</li>`);
+    } else {
+      if (list) { out.push(`</${list}>`); list = null; }
+      if (line.trim()) out.push(`<p>${inline(line)}</p>`);
+    }
+  }
+  if (list) out.push(`</${list}>`);
+  return `<div class="md">${out.join("")}</div>`;
+}
+
+function renderTabs() {
+  const tabs = [{ key: "all", label: `All (${ALL.length})` },
+    ...DATA.industries.map(d => ({ key: d.folder, label: `${d.icon} ${d.name} (${d.use_cases.length})` }))];
+  document.getElementById("tabs").innerHTML = tabs.map(t =>
+    `<button class="tab" role="tab" aria-selected="${state.industry === t.key}" data-ind="${t.key}">${esc(t.label)}</button>`).join("");
+}
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest(".tab"); if (!b) return;
+  location.hash = b.dataset.ind === "all" ? "#/" : `#/${b.dataset.ind}`;
+});
+
+function matches(u) {
+  if (state.industry !== "all" && u.ind.folder !== state.industry) return false;
+  if (state.category !== "all" && u.category !== state.category) return false;
+  if (!state.query) return true;
+  const hay = [u.title, u.description, u.how, u.today, u.ind.name, u.ind.categories[u.category], u.framework, u.pattern, ...u.terms]
+    .join(" ").toLowerCase();
+  return state.query.toLowerCase().split(/\s+/).every(w => hay.includes(w));
+}
+
+function card(u) {
+  return `<button class="card" data-link="#/${u.ind.folder}/${u.slug}">
+    <div class="meta"><span>${u.ind.icon} ${esc(u.ind.name)} · ${esc(u.ind.categories[u.category])}</span><span>#${u.slug.slice(0, 2)}</span></div>
+    <h3>${esc(u.title)}</h3>
+    <p>${esc(u.description)}</p>
+    <div class="badges"><span class="badge ${u.framework}">${u.framework}</span><span class="badge">${esc(u.pattern)}</span></div>
+  </button>`;
+}
+
+function renderList() {
+  const d = IND[state.industry];
+  const hero = d
+    ? `<div class="hero"><h1>${d.icon} ${esc(d.name)}</h1><p>${esc(d.tagline)}. ${esc(d.description)}</p>
+         <p class="about-link" style="margin-top:8px"><a href="#/${d.folder}/about">🎓 New to ${esc(d.name.toLowerCase())}? How the industry works + glossary →</a></p></div>`
+    : `<div class="hero"><h1>Simple AI agents for real business problems</h1>
+         <p>Pick an industry, read the business problem in plain English, see how the AI solves it, and read the code.
+         Every solution runs locally on an open-source model via Ollama.</p>
+         <div class="stats"><span><b>${DATA.industries.length}</b>industries</span><span><b>${ALL.length}</b>solutions</span>
+         <span><b>${ALL.filter(u => u.framework === "CrewAI").length}</b>CrewAI crews</span>
+         <span><b>${ALL.filter(u => u.framework === "LangChain").length}</b>LangChain agents</span></div></div>`;
+  const cats = d ? Object.entries(d.categories) : [];
+  const chips = d ? `<div class="chips">${[["all", "All categories"], ...cats].map(([k, v]) =>
+      `<button class="chip" aria-pressed="${state.category === k}" data-cat="${k}">${esc(v)}</button>`).join("")}</div>` : "";
+  const items = ALL.filter(matches);
+  app.innerHTML = `${hero}
+    <div class="controls"><label class="search"><input id="q" type="search" placeholder="Search solutions, e.g. fraud, pricing, KYC, claims" value="${esc(state.query)}" aria-label="Search"></label></div>
+    ${chips}
+    <div class="grid">${items.length ? items.map(card).join("") : `<div class="empty">No solutions match your search.</div>`}</div>`;
+  const q = document.getElementById("q");
+  q.addEventListener("input", () => { state.query = q.value; const pos = q.selectionStart; renderList(); const n = document.getElementById("q"); n.focus(); n.setSelectionRange(pos, pos); });
+}
+
+app.addEventListener("click", e => {
+  const c = e.target.closest("[data-link]"); if (c) { location.hash = c.dataset.link; return; }
+  const chip = e.target.closest(".chip"); if (chip) { state.category = chip.dataset.cat; renderList(); return; }
+  const copy = e.target.closest("[data-copy]");
+  if (copy) {
+    navigator.clipboard.writeText(copy.dataset.copy).then(() => { copy.textContent = "Copied!"; setTimeout(() => copy.textContent = "Copy", 1500); });
+  }
+});
+
+function renderDetail(d, u) {
+  const run = `python ${d.folder}/${u.slug}/app.py`;
+  const folderUrl = `${DATA.repo}/tree/main/${d.folder}/${u.slug}`;
+  const terms = u.terms.map(t => `<dt>${esc(t)}</dt><dd>${esc(d.glossary[t][1])}</dd>`).join("");
+  app.innerHTML = `<div class="detail">
+    <a class="back" href="#/${d.folder}">← All ${esc(d.name)} solutions</a>
+    <h1>${esc(u.title)}</h1>
+    <div class="crumbs">${d.icon} ${esc(d.name)} · ${esc(d.categories[u.category])} ·
+      <span class="badge ${u.framework}">${u.framework}</span> <span class="badge">${esc(u.pattern)}</span></div>
+    <div class="cols">
+      <section class="panel"><h2>${d.icon} The business problem</h2>
+        <p><strong>In the business today:</strong> ${esc(u.today)}</p>
+        <p><strong>Who does this work:</strong> ${esc(u.who)}</p>
+        <p><strong>Why it's hard:</strong> ${esc(u.why)}</p></section>
+      <section class="panel"><h2>🤖 What the AI does</h2>
+        ${md(u.description)}
+        <p><strong>How it works:</strong></p>${md(u.how)}</section>
+      <section class="panel full terms"><h2>📖 Key terms</h2><dl>${terms}</dl>
+        <p class="note" style="margin-top:10px"><a href="#/${d.folder}/about">Full ${esc(d.name)} primer & glossary →</a></p></section>
+      <section class="panel full"><h2>▶ Run it locally</h2>
+        <div class="run"><code>${esc(run)}</code><button class="btn" data-copy="${esc(run)}">Copy</button></div>
+        <p class="note" style="margin-top:8px">Needs Python 3.10–3.13 and <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>.
+          Setup: <a href="${DATA.repo}#-quick-start" target="_blank" rel="noopener">Quick start</a>.</p></section>
+      <section class="panel full"><div class="code-head"><h2 style="margin:0">💻 Implementation: app.py</h2>
+          <span><button class="btn" data-copy="${esc(u.code)}">Copy</button> <a href="${folderUrl}" target="_blank" rel="noopener">View on GitHub ↗</a></span></div>
+        <pre><code class="language-python">${esc(u.code)}</code></pre></section>
+    </div></div>`;
+  if (window.hljs) hljs.highlightElement(app.querySelector("pre code"));
+  window.scrollTo(0, 0);
+}
+
+function renderAbout(d) {
+  const groups = {};
+  for (const [t, [g, def]] of Object.entries(d.glossary)) (groups[g] ??= []).push([t, def]);
+  const areas = d.areas.map(([key, name, what]) => {
+    const n = d.use_cases.filter(u => u.category === key).length;
+    return `<dt>${esc(d.categories[key].split(" ")[0])} ${esc(name)} <a href="#/${d.folder}" data-cat-link="${key}" class="note">(${n} solution${n === 1 ? "" : "s"})</a></dt><dd>${esc(what)}</dd>`;
+  }).join("");
+  const glossary = Object.entries(groups).map(([g, items]) => `<div class="glossary-group"><h3>${esc(g)}</h3><dl>${
+    items.sort((a, b) => a[0].localeCompare(b[0])).map(([t, def]) => `<dt data-term="${esc((t + " " + def).toLowerCase())}">${esc(t)}</dt><dd>${esc(def)}</dd>`).join("")}</dl></div>`).join("");
+  app.innerHTML = `<div class="detail">
+    <a class="back" href="#/${d.folder}">← ${esc(d.name)} solutions</a>
+    <h1>${d.icon} ${esc(d.name)}: how the industry works</h1>
+    <div class="crumbs">A plain-English primer for people new to ${esc(d.name.toLowerCase())}</div>
+    <div class="cols">
+      <section class="panel">${md(d.industry_101)}</section>
+      <section class="panel"><h2>Departments</h2><dl>${areas}</dl></section>
+      <section class="panel full"><h2>📖 Glossary (${Object.keys(d.glossary).length} terms)</h2>
+        <label class="search glossary-search"><input id="gq" type="search" placeholder="Filter terms" aria-label="Filter glossary"></label>
+        <div id="glossary">${glossary}</div></section>
+    </div></div>`;
+  document.getElementById("gq").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll("#glossary dt").forEach(dt => {
+      const show = dt.dataset.term.includes(q);
+      dt.style.display = dt.nextElementSibling.style.display = show ? "" : "none";
+    });
+    document.querySelectorAll(".glossary-group").forEach(g =>
+      g.style.display = [...g.querySelectorAll("dt")].some(dt => dt.style.display !== "none") ? "" : "none");
+  });
+  app.querySelectorAll("[data-cat-link]").forEach(a => a.addEventListener("click", () => { state.category = a.dataset.catLink; }));
+  window.scrollTo(0, 0);
+}
+
+function route() {
+  const [folder = "", slug = ""] = location.hash.replace(/^#\/?/, "").split("/");  // "#/<industry>/<use case>"
+  const d = IND[folder];
+  const prev = state.industry;
+  state.industry = d ? folder : "all";
+  if (state.industry !== prev && !(d && slug)) state.category = "all";
+  renderTabs();
+  if (d && slug === "about") return renderAbout(d);
+  const u = d && d.use_cases.find(x => x.slug === slug);
+  if (u) return renderDetail(d, { ...u, ind: d });
+  renderList();
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
