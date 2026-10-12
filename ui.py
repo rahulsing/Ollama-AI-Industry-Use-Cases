@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from domains import load_domains  # noqa: E402
 
-st.set_page_config(page_title="AI Industry Use Cases", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Ollama AI Industry Use Cases", page_icon="🦙", layout="wide")
 
 
 @st.cache_data
@@ -30,7 +30,7 @@ def domains():
 DOMAINS = domains()
 
 with st.sidebar:
-    st.title("🤖 AI Industry Use Cases")
+    st.title("🦙 Ollama AI Industry Use Cases")
     folder = st.selectbox("Industry", list(DOMAINS),
                           format_func=lambda f: f"{DOMAINS[f].icon} {DOMAINS[f].name} ({len(DOMAINS[f].use_cases)})")
     d = DOMAINS[folder]

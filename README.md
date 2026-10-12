@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 AI Industry Use Cases
+# 🦙 Ollama AI Industry Use Cases
 
 ### Simple, local AI agents for real business problems, built with **Ollama**, **CrewAI** and **LangChain**
 
