@@ -1,0 +1,72 @@
+============================================================
+  05 - Collections & Recovery Strategist (CrewAI)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Segments ---
+{
+  "1-29 (early) | PTP High": [
+    {
+      "id": "L-01",
+      "outstanding": 2400,
+      "hardship": false
+    },
+    {
+      "id": "L-04",
+      "outstanding": 900,
+      "hardship": false
+    }
+  ],
+  "30-59 | PTP Medium": [
+    {
+      "id": "L-02",
+      "outstanding": 8100,
+      "hardship": false
+    }
+  ],
+  "60-89 | PTP Medium": [
+    {
+      "id": "L-03",
+      "outstanding": 15200,
+      "hardship": true
+    }
+  ],
+  "90+ (NPA) | PTP Low": [
+    {
+      "id": "L-05",
+      "outstanding": 22000,
+      "hardship": false
+    }
+  ],
+  "30-59 | PTP High": [
+    {
+      "id": "L-06",
+      "outstanding": 4300,
+      "hardship": true
+    }
+  ]
+}
+
+
+--- Collections strategy ---
+| Segment                  | Channel       | Frequency | Offer                                      | Escalation Trigger                                                                 |
+|--------------------------|---------------|-----------|--------------------------------------------|------------------------------------------------------------------------------------|
+| 1-29 (early)             | PTP High      | Once       | No immediate action; monitor for changes  | If outstanding amount remains unchanged after 30 days, consider a friendly reminder |
+| 30-59                    | PTP Medium    | Twice      | Offer a payment plan (3-6 months)         | If no payment received after second reminder, escalate to a collection officer      |
+| 60-89                    | PTP Medium    | Three times| Offer a payment plan (3-6 months)         | If no payment received after third reminder, escalate to a collection officer      |
+| 90+ (NPA)                | PTP Low       | Twice      | Offer a settlement (70-80% of outstanding) | If no payment received after second reminder, escalate to a legal advisor           |
+| 30-59 hardship=true      | PTP Medium    | Twice      | Offer a payment plan (3-6 months)         | If no payment received after second reminder, escalate to a collection officer      |
+
+### Conduct Notes
+1. **Early Stage (1-29 Days):** For accounts flagged as `hardship=true`, the initial approach should be gentle and supportive. The focus should be on understanding the customer's situation and offering flexible payment options. If the account remains unchanged after 30 days, a friendly reminder should be issued, but aggressive actions should be avoided.
+
+2. **30-59 Days:** For accounts flagged as `hardship=true`, the offer of a payment plan should be made twice. If no payment is received after the second reminder, escalation to a collection officer should occur. The collection officer should be trained to handle these cases with empathy and understanding, ensuring that the customer feels supported rather than pressured.
+
+3. **60-89 Days:** For accounts flagged as `hardship=true`, the offer of a payment plan should be made three times. If no payment is received after the third reminder, escalation to a collection officer should occur. The collection officer should follow the same approach as in the 30-59 days segment, focusing on understanding the customer's situation and offering support.
+
+4. **90+ Days (NPA):** For accounts flagged as `hardship=true`, the offer of a settlement should be made twice. If no payment is received after the second reminder, escalation to a legal advisor should occur. The legal advisor should be trained to handle these cases with sensitivity, ensuring that the customer is treated fairly and with respect.
+
+5. **General Guidelines:** All collection officers should be trained to recognize and handle `hardship=true` cases with empathy and understanding. They should avoid aggressive language and tactics, focusing on building a supportive relationship with the customer. Regular training and support should be provided to ensure that all staff are equipped to handle these cases effectively.
+
+By implementing these strategies, we can ensure that vulnerable customers are treated fairly and with respect, while still maintaining a balanced approach to debt collection.

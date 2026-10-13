@@ -22,7 +22,8 @@
 ---
 
 > **🌐 Browse without installing anything:** the [Interactive Explorer](https://rahulsing.github.io/Ollama-AI-Industry-Use-Cases/) lets you pick an industry,
-> search every solution, read the business problem in plain English, and view the implementation code.
+> search every solution, read the business problem in plain English, see how the AI flows, read a real sample
+> response, and view the implementation code.
 
 ## 💡 What is this?
 
@@ -111,30 +112,45 @@ Switch with `OLLAMA_MODEL=llama3.1:8b python ...` or in `.env`. Set `CREW_VERBOS
 
 ## ⚙️ How It Works
 
+Every use case follows the same idea: **Python does the maths and the rules, the AI explains and writes**, and
+everything runs on your own machine.
+
 ```mermaid
 flowchart LR
-    D[(Sample data<br/>in app.py)] --> P[Python rules & maths<br/>ratios · scores · thresholds]
-    P -->|facts| L{{Ollama LLM}}
-    subgraph CrewAI
-      A1[Analyst agent] --> A2[Reviewer / Decision agent]
+    U["👤 You"] -->|"▶️ run app.py<br/>or the web UI"| D
+    subgraph PC["🔒 Your machine: no data leaves it"]
+        D["📄 Business data<br/>application · claims · sales"] --> P["🐍 Python rules<br/>ratios · scores · limits"]
+        P -->|"✅ hard facts"| A["🤖 AI agents<br/>CrewAI · LangChain"]
+        A <-.->|"💬 prompt / reply"| L(["🦙 Ollama<br/>local LLM"])
+        A --> O["📝 Result<br/>memo · decision · answer"]
     end
-    subgraph LangChain
-      T[Tool-calling agent] --- TL[(Python tools)]
-      C[Chain / RAG / Structured output]
-    end
-    L --> CrewAI
-    L --> LangChain
-    CrewAI --> O[Memo · Report · Decision]
-    LangChain --> O
+    O --> H["🧑‍⚖️ Human review<br/>& sign-off"]
+    classDef data fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef rules fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ai fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef llm fill:#1f2937,stroke:#111827,color:#ffffff
+    classDef out fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef human fill:#f3f4f6,stroke:#6b7280,color:#111827
+    class D data
+    class P rules
+    class A ai
+    class L llm
+    class O out
+    class U,H human
+    style PC fill:none,stroke:#64748b,stroke-dasharray:5 4
 ```
 
-| Pattern | When to use | Examples |
-|---------|-------------|----------|
-| **Multi-agent (CrewAI)** | Analysis + review + write-up, like a committee | [Credit risk](01_banking/01_credit_risk_assessment/), [AML](01_banking/09_aml_transaction_monitoring/), [Claims fraud](03_insurance/01_claims_triage_fraud/) |
-| **Tool-calling agent (LangChain)** | Questions that need live calculations or system lookups | [Loan underwriting](01_banking/02_loan_underwriting_assistant/), [Replenishment](02_retail/01_demand_forecasting_agent/), [Motor quote](03_insurance/03_motor_quote_agent/) |
-| **Chain (LangChain)** | Python decides, the LLM explains | [Card fraud](01_banking/13_card_fraud_explainer/), [Liquidity](01_banking/20_liquidity_lcr_nsfr_monitor/) |
-| **Structured extraction** | Unstructured text to a validated schema | [Loan documents](01_banking/08_loan_document_extractor/), [Product reviews](02_retail/02_product_review_analyzer/) |
-| **RAG** | Q&A grounded in policies or documents | [Bank policy Q&A](01_banking/24_policy_qa_rag/), [Insurance coverage Q&A](03_insurance/02_policy_coverage_qa/) |
+<sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
+
+Each use case README has its own diagram showing the real agents and tools from its code.
+
+| Pattern | Flow | When to use | Examples |
+|---------|------|-------------|----------|
+| **Multi-agent (CrewAI)** | 📄 → 🐍 → 🧑‍💼 → 👔 → 📝 | Analysis + review + write-up, like a committee | [Credit risk](01_banking/01_credit_risk_assessment/), [AML](01_banking/09_aml_transaction_monitoring/), [Claims fraud](03_insurance/01_claims_triage_fraud/) |
+| **Tool-calling agent (LangChain)** | 💬 → 🤖 ⇄ 🔧🐍 → 📝 | Questions that need live calculations or system lookups | [Loan underwriting](01_banking/02_loan_underwriting_assistant/), [Replenishment](02_retail/01_demand_forecasting_agent/), [Motor quote](03_insurance/03_motor_quote_agent/) |
+| **Chain (LangChain)** | 📄 → 🐍 decides → 🦙 explains → 📝 | Python decides, the LLM explains | [Card fraud](01_banking/13_card_fraud_explainer/), [Liquidity](01_banking/20_liquidity_lcr_nsfr_monitor/) |
+| **Structured extraction** | 📄 → 🧾 schema → 🐍 checks → 📝 | Unstructured text to a validated schema | [Loan documents](01_banking/08_loan_document_extractor/), [Product reviews](02_retail/02_product_review_analyzer/) |
+| **RAG** | ❓ → 🔎 📚 → 🦙 → 💬 + sources | Q&A grounded in policies or documents | [Bank policy Q&A](01_banking/24_policy_qa_rag/), [Insurance coverage Q&A](03_insurance/02_policy_coverage_qa/) |
 
 ### Framework comparison
 
@@ -157,10 +173,11 @@ flowchart LR
 │   ├── business.py             # plain-English business context + glossary
 │   └── 01_credit_risk_assessment/
 │       ├── app.py              # self-contained runnable use case
+│       ├── sample_output.txt   # real output from a local run (scripts/capture_samples.py)
 │       └── README.md
 ├── 02_retail/  03_insurance/   # same layout
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
-├── scripts/build_docs.py       # regenerates every README and primer
+├── scripts/build_docs.py       # regenerates every README, primer, flow diagram and the explorer
 ├── ui.py                       # optional Streamlit front end
 ├── docs/                       # GitHub Pages: index.html (interactive explorer, generated) + demo.gif
 ├── requirements.txt
@@ -172,7 +189,8 @@ flowchart LR
 ## 🤝 Contributing
 
 **Add a use case:** copy a folder with the same pattern into the industry folder, keep it self-contained (one
-`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py`, then run
+`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py` (business context plus a `FLOWS` entry for the
+diagram), then run `python scripts/capture_samples.py --missing` (saves a real sample response) and
 `python scripts/build_docs.py`.
 
 **Add an industry:** create `04_<industry>/` with a `catalog.py` and `business.py` (copy `02_retail/` as a template)

@@ -1,0 +1,57 @@
+============================================================
+  12 - SAR Narrative Generator (CrewAI)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- SAR narrative ---
+### Suspicious Activity Report (SAR) Narrative
+
+#### Introduction
+This SAR narrative documents the suspicious activity observed in the account of Daniel Okafor, a personal current account opened on 2026-05-03. The account has been flagged due to a series of transactions and behaviors that are indicative of potential money mule activity and authorized push payment (APP) fraud. The total amount involved in the suspicious activity is 41,250.
+
+#### Subject Information
+Daniel Okafor opened a personal current account on 2026-05-03, stating his occupation as a freelance graphic designer with an expected monthly income of 4,000. The account was initially used for legitimate transactions but later exhibited behaviors that raised significant concerns.
+
+#### Suspicious Activity
+1. **Incoming P2P Transfers (2026-07-01)**
+   - On 2026-07-01, 46 incoming peer-to-peer (P2P) transfers were received from 31 unrelated individuals, with values ranging from 300 to 1,900, totaling 41,250.
+   
+2. **Funds Transferred to Crypto Exchanges (2026-07-01 to 2026-09-30)**
+   - Between 2026-07-01 and 2026-09-30, 92% of the funds (37,950) were transferred to crypto exchanges, specifically CoinPeak and BitHarbor, within 24 hours of receipt.
+   
+3. **Requests for Information (2026-09-10 and 2026-09-20)**
+   - On 2026-09-10 and 2026-09-20, two requests for information were sent to Daniel Okafor, but he did not respond to either request.
+   
+4. **Account Restriction (2026-09-25)**
+   - Due to the non-response to information requests and the suspicious activity observed, the account was restricted on 2026-09-25.
+   
+5. **Recalled APP Fraud Payments (2026-09-30)**
+   - On 2026-09-30, 4 incoming payments were recalled by the sending banks as victims of authorized push payment (APP) fraud.
+
+#### Red Flags & Typology
+1. **Unusual Volume and Variety of Incoming Transfers**
+   - The account received 46 incoming P2P transfers from 31 unrelated individuals, indicating a high volume of transactions from multiple sources.
+   
+2. **High Percentage of Funds Transferred to Crypto Exchanges**
+   - 92% of the total received funds (37,950) were transferred to crypto exchanges within 24 hours, suggesting a pattern of rapid conversion of funds.
+   
+3. **Lack of Response to Information Requests**
+   - Two requests for information were sent to Daniel Okafor, but he did not respond, indicating possible reluctance to disclose information.
+   
+4. **Suspicious Login Activity**
+   - There were multiple login IP addresses from 3 different countries within the same week, and the account showed 5 device changes within the same week.
+   
+5. **Recalled APP Fraud Payments**
+   - 4 incoming payments were recalled by sending banks as victims of APP fraud, highlighting the potential involvement in fraudulent activities.
+   
+6. **Unexplained Occupation and Income**
+   - The stated occupation as a freelance graphic designer with an expected monthly income of 4,000 does not align with the volume of transactions.
+
+#### Actions Taken
+- **Information Requests:** Two requests for information were sent to Daniel Okafor on 2026-09-10 and 2026-09-20, but no response was received.
+- **Account Restriction:** The account was restricted on 2026-09-25 due to the non-response to information requests and the suspicious activity observed.
+- **Recalled Payments:** 4 incoming payments were recalled by the sending banks as victims of APP fraud on 2026-09-30.
+
+#### Conclusion
+The account of Daniel Okafor exhibits behaviors and transactions that are highly suspicious and indicative of potential money mule activity and authorized push payment (APP) fraud. The large volume of incoming P2P transfers, the high percentage of funds transferred to crypto exchanges, the lack of response to information requests, and the suspicious login activity all contribute to this conclusion. Further investigation is recommended to determine the exact nature of the activity and to ensure compliance with regulatory requirements.

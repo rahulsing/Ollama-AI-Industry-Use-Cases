@@ -93,6 +93,19 @@
   .glossary-group h3 { margin: 16px 0 6px; font-size: 15px; }
   .glossary-search { margin: 6px 0 4px; }
   .note { font-size: 13px; color: var(--muted); }
+  .flow { overflow-x: auto; text-align: center; padding: 6px 0; }
+  .flow svg { max-width: 100%; height: auto; }
+  .legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .sample { max-height: 640px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; padding: 4px 16px 12px; background: var(--surface-2); }
+  .sample h3 { font-size: 13px; margin: 14px 0 6px; color: var(--accent); text-transform: uppercase; letter-spacing: .03em; }
+  .sample pre { max-height: none; }
+  .sample pre code, .sample pre code.hljs { background: var(--surface); }
+  .md h4 { margin: 12px 0 4px; font-size: 15px; }
+  .md table { border-collapse: collapse; margin: 8px 0; font-size: 13px; display: block; overflow-x: auto; }
+  .md th, .md td { border: 1px solid var(--border); padding: 4px 8px; text-align: left; }
+  .md hr { border: 0; border-top: 1px solid var(--border); }
+  details.how { margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; }
+  details.how summary { cursor: pointer; font-weight: 600; }
   footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; padding: 18px 0 30px; }
 </style>
 </head>
@@ -118,6 +131,7 @@
 
 <script id="data" type="application/json">__DATA__</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <script>
 const DATA = JSON.parse(document.getElementById("data").textContent);
 const IND = Object.fromEntries(DATA.industries.map(d => [d.folder, d]));
@@ -130,14 +144,26 @@ for (const id of ["readme-link", "footer-readme"]) document.getElementById(id).h
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-// Minimal markdown: paragraphs, numbered/bullet lists, **bold**, *italic*, `code`
+// Minimal markdown: paragraphs, headings, numbered/bullet lists, tables, rules, **bold**, *italic*, `code`
 function md(text) {
   const inline = s => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/\*([^*]+)\*/g, "<em>$1</em>");
   const out = [];
-  let list = null;
+  let list = null, table = null;
+  const endList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  const endTable = () => {
+    if (!table) return;
+    const rows = table.filter(r => !/^\|?[\s:|-]+\|?$/.test(r)).map(r => r.replace(/^\||\|$/g, "").split("|").map(c => inline(c.trim())));
+    out.push(`<table>${rows.map((r, i) => `<tr>${r.map(c => i ? `<td>${c}</td>` : `<th>${c}</th>`).join("")}</tr>`).join("")}</table>`);
+    table = null;
+  };
   for (const line of text.split("\n")) {
-    const m = line.match(/^\s*(\d+\.|[-*])\s+(.*)$/);
+    if (/^\s*\|.*\|\s*$/.test(line)) { endList(); (table ??= []).push(line.trim()); continue; }
+    endTable();
+    const h = line.match(/^\s*#{1,6}\s+(.*)$/);
+    if (h) { endList(); out.push(`<h4>${inline(h[1])}</h4>`); continue; }
+    if (/^\s*(-{3,}|\*{3,})\s*$/.test(line)) { endList(); out.push("<hr>"); continue; }
+    const m = line.match(/^\s*(\d+\.|[-*•])\s+(.*)$/);
     if (m) {
       const tag = /\d/.test(m[1]) ? "ol" : "ul";
       if (list !== tag) { if (list) out.push(`</${list}>`); out.push(`<${tag}>`); list = tag; }
@@ -147,8 +173,34 @@ function md(text) {
       if (line.trim()) out.push(`<p>${inline(line)}</p>`);
     }
   }
-  if (list) out.push(`</${list}>`);
+  endTable();
+  endList();
   return `<div class="md">${out.join("")}</div>`;
+}
+
+const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+if (window.mermaid) mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "default", securityLevel: "strict",
+  fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" });
+let flowId = 0;
+async function drawFlows() {
+  for (const el of app.querySelectorAll(".flow[data-src]")) {
+    try { el.innerHTML = (await mermaid.render(`flow${++flowId}`, el.dataset.src)).svg; }
+    catch { el.innerHTML = `<pre><code>${esc(el.dataset.src)}</code></pre>`; }  // no CDN: show the source
+  }
+}
+const flowBox = (src, label) => `<div class="flow" data-src="${esc(src)}" role="img" aria-label="${esc(label)}"></div>
+  <div class="legend">${esc(DATA.legend)}</div>`;
+
+// app.py prints "--- Section ---" blocks: show JSON-looking bodies as code, the rest as markdown
+function sampleHtml(text) {
+  const parts = text.split(/^--- (.+) ---$/m);
+  const blocks = parts[0].trim() ? [["", parts[0]]] : [];
+  for (let i = 1; i < parts.length; i += 2) blocks.push([parts[i], parts[i + 1] || ""]);
+  return blocks.map(([head, body]) => {
+    body = body.trim();
+    const code = /^[{\[]/.test(body) || /^\s*"[^"]+":/m.test(body);
+    return `${head ? `<h3>${esc(head)}</h3>` : ""}${code ? `<pre><code>${esc(body)}</code></pre>` : md(body)}`;
+  }).join("");
 }
 
 function renderTabs() {
@@ -190,7 +242,10 @@ function renderList() {
          Every solution runs locally on an open-source model via Ollama.</p>
          <div class="stats"><span><b>${DATA.industries.length}</b>industries</span><span><b>${ALL.length}</b>solutions</span>
          <span><b>${ALL.filter(u => u.framework === "CrewAI").length}</b>CrewAI crews</span>
-         <span><b>${ALL.filter(u => u.framework === "LangChain").length}</b>LangChain agents</span></div></div>`;
+         <span><b>${ALL.filter(u => u.framework === "LangChain").length}</b>LangChain agents</span></div>
+         <details class="how" open><summary>⚙️ How every solution works</summary>
+           <p class="note">Python does the maths and rules (auditable), the AI explains and writes, and nothing leaves your machine.</p>
+           ${flowBox(DATA.root_flow, "How every solution works")}</details></div>`;
   const cats = d ? Object.entries(d.categories) : [];
   const chips = d ? `<div class="chips">${[["all", "All categories"], ...cats].map(([k, v]) =>
       `<button class="chip" aria-pressed="${state.category === k}" data-cat="${k}">${esc(v)}</button>`).join("")}</div>` : "";
@@ -199,6 +254,7 @@ function renderList() {
     <div class="controls"><label class="search"><input id="q" type="search" placeholder="Search solutions, e.g. fraud, pricing, KYC, claims" value="${esc(state.query)}" aria-label="Search"></label></div>
     ${chips}
     <div class="grid">${items.length ? items.map(card).join("") : `<div class="empty">No solutions match your search.</div>`}</div>`;
+  drawFlows();
   const q = document.getElementById("q");
   q.addEventListener("input", () => { state.query = q.value; const pos = q.selectionStart; renderList(); const n = document.getElementById("q"); n.focus(); n.setSelectionRange(pos, pos); });
 }
@@ -229,6 +285,11 @@ function renderDetail(d, u) {
       <section class="panel"><h2>🤖 What the AI does</h2>
         ${md(u.description)}
         <p><strong>How it works:</strong></p>${md(u.how)}</section>
+      <section class="panel full"><h2>🔀 How it flows</h2>${flowBox(u.flow, "Flow diagram for " + u.title)}</section>
+      ${u.sample ? `<section class="panel full"><h2>💬 Sample response</h2>
+        <p class="note">Real output from <code>${esc(u.sample.model)}</code> running locally via Ollama. LLM wording changes from run to run;
+          the numbers from Python stay the same.</p>
+        <div class="sample">${sampleHtml(u.sample.text)}</div></section>` : ""}
       <section class="panel full terms"><h2>📖 Key terms</h2><dl>${terms}</dl>
         <p class="note" style="margin-top:10px"><a href="#/${d.folder}/about">Full ${esc(d.name)} primer & glossary →</a></p></section>
       <section class="panel full"><h2>▶ Run it locally</h2>
@@ -239,7 +300,8 @@ function renderDetail(d, u) {
           <span><button class="btn" data-copy="${esc(u.code)}">Copy</button> <a href="${folderUrl}" target="_blank" rel="noopener">View on GitHub ↗</a></span></div>
         <pre><code class="language-python">${esc(u.code)}</code></pre></section>
     </div></div>`;
-  if (window.hljs) hljs.highlightElement(app.querySelector("pre code"));
+  if (window.hljs) hljs.highlightElement(app.querySelector("pre code.language-python"));
+  drawFlows();
   window.scrollTo(0, 0);
 }
 

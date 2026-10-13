@@ -1,0 +1,26 @@
+============================================================
+  33 - Banking Customer Support Agent (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- You: What's my total balance? ---
+Bot: Your total balance across all accounts is $5027.5. Here's a breakdown:
+- Savings Account: $4215.4
+- Current Account: $812.1
+
+
+--- You: Show my last 3 transactions ---
+Bot: Here are your last three transactions:
+
+1. On 2026-10-09, you made a purchase of $64.2 from Amazon.
+2. On 2026-10-08, you received a deposit of $2800.0 from Salary ACME Ltd.
+3. On 2026-10-07, you had a direct debit of $120.0 for the Electric Co.
+
+
+--- You: I lost my debit card ending 4821, please block it ---
+Bot: Your card ending in 4821 has been blocked due to it being lost. A replacement card will be dispatched to you in 5 working days. Your new card reference is BLK-4821-2026. Please keep this reference for future inquiries.
+
+
+--- You: What time does the Leeds branch open on Saturday? ---
+Bot: The Leeds branch is open on Saturdays from 9:30 AM to 1:00 PM. For any further assistance, you can contact our 24/7 phone support at 0800 123 456.

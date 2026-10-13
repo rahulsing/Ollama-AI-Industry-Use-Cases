@@ -57,3 +57,10 @@ BUSINESS = {
         "Customers often don't understand why their quote is high. Clear explanations and 'what if' options (higher excess, lower mileage) help them choose and build trust.",
         ["Premium", "Underwriting", "Rating factor", "Rating engine", "Vehicle (insurance) group", "Voluntary excess", "Excess (deductible)"]),
 }
+
+# Flow diagram labels: (input data, what Python computes or decides, output). "" if Python does no maths.
+FLOWS = {
+    "01_claims_triage_fraud": ("New claims", "Red-flag rules → pay / adjuster / SIU", "Claim decisions + customer messages"),
+    "02_policy_coverage_qa": ("Policy wording + schedule", "COVERED / NOT COVERED decision", "Answer with clause citations"),
+    "03_motor_quote_agent": ("Driver & car details", "", "Premium + breakdown"),
+}

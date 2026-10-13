@@ -1,0 +1,31 @@
+==============================================================
+  08 - Loan Document Extractor (LangChain structured output)
+  model: qwen2.5:7b-instruct
+==============================================================
+
+
+--- Payslip ---
+{
+  "employee_name": "Rohan Mehta",
+  "employer": "E10442",
+  "month": "s August 2026",
+  "gross_salary": 105000.0,
+  "total_deductions": 20000.0,
+  "net_pay": 85000.0,
+  "date_of_joining": "14-Mar-2019"
+}
+
+
+--- Bank statement ---
+{
+  "account_holder": "ROHAN MEHTA",
+  "period": "01-Aug-2026 to 31-Aug-2026",
+  "opening_balance": 142300.55,
+  "closing_balance": 155150.55,
+  "salary_credits": 85000.0,
+  "existing_emi_debits": 32500.0
+}
+
+
+--- Cross-document checks ---
+{'name_match': True, 'salary_credit_matches_net_pay': True, 'existing_emi_to_net_pay_pct': 38.2}

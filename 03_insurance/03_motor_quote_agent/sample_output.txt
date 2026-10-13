@@ -1,0 +1,23 @@
+================================================================
+  Insurance 03 - Motor Insurance Quote Agent (LangChain agent)
+  model: qwen2.5:7b-instruct
+================================================================
+
+
+--- Customer ---
+I'm 23, licensed 2 years, driving a group 22 car in a high-risk area, 1 claim in 5 years, 9,000 miles a year. What's my quote, and how much would I save with a 500 voluntary excess?
+
+
+--- Quote ---
+Based on your details, your annual motor insurance premium would be £1,656.21. This breaks down as follows:
+
+- **Driver Age**: Your age of 23 is a significant factor, increasing the premium by 60%.
+- **Experience**: You have been licensed for 2 years, which slightly increases the premium by 15%.
+- **Vehicle Group**: The group 22 car increases the premium by 27%.
+- **Area Risk**: Driving in a high-risk area increases the premium by 35%.
+- **Claims History**: You have one claim in the last 5 years, which increases the premium by 25%.
+- **Mileage**: Your annual mileage of 9,000 miles does not affect the premium in this case.
+
+If you choose to increase your voluntary excess to £500, your annual premium would reduce to £1,490.59, saving you £165.62 annually.
+
+Would you like to proceed with this voluntary excess or consider other options?

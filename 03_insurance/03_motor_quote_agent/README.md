@@ -31,6 +31,60 @@ Prices a car insurance policy, explains what drives the premium and answers what
 ### How it works
 A rating-engine tool multiplies a base premium by rating factors (age, experience, car group, area, claims, mileage, excess); the agent explains the breakdown and re-prices what-ifs.
 
+```mermaid
+flowchart LR
+    QU["💬 Your question"] --> AG["🤖 LangChain agent<br/>decides which tool to call"]
+    AG <-->|"🔧 calls & results"| T["🐍 Python tools<br/>rate_quote()"]
+    IN["📄 Driver & car details"] --> T
+    AG <-.->|"💬 reasoning"| LLM(["🦙 Ollama"])
+    AG --> OUT["📝 Premium + breakdown"]
+    OUT --> HU["🧑‍⚖️ Human review"]
+    classDef data fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef rules fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ai fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef llm fill:#1f2937,stroke:#111827,color:#ffffff
+    classDef out fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef human fill:#f3f4f6,stroke:#6b7280,color:#111827
+    class IN,QU data
+    class T rules
+    class AG ai
+    class LLM llm
+    class OUT out
+    class HU human
+```
+
+<sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
+
+## 💬 Sample response
+
+Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
+Python stay the same.
+
+<details>
+<summary><b>Show the full output</b></summary>
+
+````text
+--- Customer ---
+I'm 23, licensed 2 years, driving a group 22 car in a high-risk area, 1 claim in 5 years, 9,000 miles a year. What's my quote, and how much would I save with a 500 voluntary excess?
+
+
+--- Quote ---
+Based on your details, your annual motor insurance premium would be £1,656.21. This breaks down as follows:
+
+- **Driver Age**: Your age of 23 is a significant factor, increasing the premium by 60%.
+- **Experience**: You have been licensed for 2 years, which slightly increases the premium by 15%.
+- **Vehicle Group**: The group 22 car increases the premium by 27%.
+- **Area Risk**: Driving in a high-risk area increases the premium by 35%.
+- **Claims History**: You have one claim in the last 5 years, which increases the premium by 25%.
+- **Mileage**: Your annual mileage of 9,000 miles does not affect the premium in this case.
+
+If you choose to increase your voluntary excess to £500, your annual premium would reduce to £1,490.59, saving you £165.62 annually.
+
+Would you like to proceed with this voluntary excess or consider other options?
+````
+
+</details>
+
 ## Run
 ```bash
 # from the repo root, with Ollama running

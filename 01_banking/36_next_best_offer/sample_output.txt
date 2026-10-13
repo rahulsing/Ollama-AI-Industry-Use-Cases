@@ -1,0 +1,35 @@
+============================================================
+  36 - Next Best Offer (CrewAI)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Propensity (top 3) ---
+{
+  "R-1": {
+    "credit_card": 0.6,
+    "mutual_fund_sip": 0.4,
+    "term_insurance": 0.4
+  },
+  "R-2": {
+    "home_loan": 0.8,
+    "mutual_fund_sip": 0.6,
+    "travel_card": 0.5
+  },
+  "R-3": {
+    "mutual_fund_sip": 0.6,
+    "credit_card": 0.1,
+    "travel_card": 0.1
+  }
+}
+
+
+--- Campaign ---
+**Customer R-1:**
+"Hey R-1, with your salary increase, a credit card could be perfect! Enjoy flexible spending and rewards. Download now in-app. Opt-out anytime."
+
+**Customer R-2:**
+"Hi R-2, we noticed your interest in home loans. Let’s discuss your options. Call us soon for a detailed conversation. Opt-out anytime."
+
+**Customer R-3:**
+"Hi R-3, your fixed deposit is maturing. Consider a mutual fund SIP for growth. Learn more in your inbox. Opt-out anytime."

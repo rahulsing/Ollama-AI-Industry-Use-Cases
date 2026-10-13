@@ -28,6 +28,51 @@ Conversational assistant that estimates how much a customer can borrow and the m
 ### How it works
 Agent uses `max_affordable_loan` and `monthly_emi` tools and answers in plain language with assumptions stated.
 
+```mermaid
+flowchart LR
+    QU["💬 Your question"] --> AG["🤖 LangChain agent<br/>decides which tool to call"]
+    AG <-->|"🔧 calls & results"| T["🐍 Python tools<br/>monthly_emi()<br/>max_affordable_loan()"]
+    IN["📄 Customer's income & debts"] --> T
+    AG <-.->|"💬 reasoning"| LLM(["🦙 Ollama"])
+    AG --> OUT["📝 How much you can borrow + EMI"]
+    OUT --> HU["🧑‍⚖️ Human review"]
+    classDef data fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef rules fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ai fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef llm fill:#1f2937,stroke:#111827,color:#ffffff
+    classDef out fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef human fill:#f3f4f6,stroke:#6b7280,color:#111827
+    class IN,QU data
+    class T rules
+    class AG ai
+    class LLM llm
+    class OUT out
+    class HU human
+```
+
+<sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
+
+## 💬 Sample response
+
+Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
+Python stay the same.
+
+<details>
+<summary><b>Show the full output</b></summary>
+
+````text
+--- Customer ---
+I earn 8,500 a month and pay 650 a month on a car loan. How much can I borrow, and what would the monthly payment be on a 25 year term at 6.2%?
+
+
+--- Assistant ---
+Based on your monthly income and current monthly debt, you can afford a maximum loan amount of approximately $418,836, keeping your total debt payments within the bank's 40% Debt-to-Income (DTI) limit. For a 25-year term at an annual interest rate of 6.2%, the monthly repayment for a loan amount of $145,558 would be approximately $956.
+
+This is an indicative estimate and not a loan offer. Please consult with a financial advisor or mortgage lender for a personalized assessment. A sensible down payment is typically around 20% of the property price, which would be about $83,767 in this case. This would help you to estimate an affordable property price and ensure you have enough equity in the property.
+````
+
+</details>
+
 ## Run
 ```bash
 # from the repo root, with Ollama running

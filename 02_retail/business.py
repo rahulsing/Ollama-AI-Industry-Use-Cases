@@ -54,3 +54,10 @@ BUSINESS = {
         "Every price change trades volume against margin, and customers notice price swings. Decisions must respect margin rules and be explainable.",
         ["Gross margin", "Price elasticity", "Competitive price index", "Markdown", "Category manager"]),
 }
+
+# Flow diagram labels: (input data, what Python computes or decides, output). "" if Python does no maths.
+FLOWS = {
+    "01_demand_forecasting_agent": ("Sales history + stock levels", "", "Reorder plan + stock-out risks"),
+    "02_product_review_analyzer": ("Customer reviews", "Count themes, defects & safety issues", "Quality report + escalations"),
+    "03_dynamic_pricing_advisor": ("Prices, competitors & stock", "Guard-railed prices: 30% margin floor, max 10% move", "Pricing memo"),
+}

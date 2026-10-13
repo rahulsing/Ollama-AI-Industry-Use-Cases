@@ -1,0 +1,74 @@
+============================================================
+  11 - Sanctions Screening Assistant (LangChain)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Fuzzy-match hits ---
+[
+  {
+    "party": {
+      "name": "Victor A. Petrov",
+      "dob": "1988-07-19",
+      "nationality": "CA",
+      "address": "Toronto, Canada",
+      "role": "Remitter"
+    },
+    "watchlist_entry": {
+      "name": "Viktor Aleksandrovich Petrov",
+      "dob": "1965-03-12",
+      "nationality": "RU",
+      "program": "SDN-UKRAINE"
+    },
+    "name_score": 0.94
+  },
+  {
+    "party": {
+      "name": "Hasan Al Rashid",
+      "dob": "1972-11-02",
+      "nationality": "SY",
+      "address": "Dubai, UAE",
+      "role": "Beneficiary"
+    },
+    "watchlist_entry": {
+      "name": "Hassan Al-Rashid",
+      "dob": "1972-11-02",
+      "nationality": "SY",
+      "program": "SDGT"
+    },
+    "name_score": 0.97
+  },
+  {
+    "party": {
+      "name": "Golden Crescent Shipping",
+      "dob": null,
+      "nationality": "AE",
+      "address": "Jebel Ali, UAE",
+      "role": "Beneficiary"
+    },
+    "watchlist_entry": {
+      "name": "Golden Crescent Shipping LLC",
+      "dob": null,
+      "nationality": "IR",
+      "program": "IRAN"
+    },
+    "name_score": 1.0
+  }
+]
+
+
+--- Adjudication ---
+1. **Victor A. Petrov**:
+   - **Decision**: FALSE POSITIVE
+   - **Reason**: The DOBs do not match (1988-07-19 vs 1965-03-12).
+   - **Action**: Release payment.
+
+2. **Hasan Al Rashid**:
+   - **Decision**: TRUE MATCH
+   - **Reason**: The DOB, nationality, and name match closely.
+   - **Action**: Hold payment and escalate.
+
+3. **Golden Crescent Shipping**:
+   - **Decision**: POSSIBLE MATCH (Escalate)
+   - **Reason**: The names are nearly identical, but the nationality differs (AE vs IR). This could indicate a front company.
+   - **Action**: Hold payment and escalate.

@@ -1,0 +1,33 @@
+============================================================
+  02 - Loan Underwriting Assistant (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Question ---
+Underwrite APP-1001 and APP-1002 and compare them.
+
+
+--- Answer ---
+Based on the provided data and policy checks, here is the summary for both applications:
+
+### APP-1001 Summary
+- **Debt-to-Income Ratio (DTI):** 18.9% (Pass)
+- **Loan-to-Value Ratio (LTV):** 80% (Pass)
+- **Credit Score:** 728 (Pass)
+- **Employment Years:** 5 (Pass)
+
+### APP-1002 Summary
+- **Debt-to-Income Ratio (DTI):** 43.3% (Fail)
+- **Loan-to-Value Ratio (LTV):** 95% (Fail)
+- **Credit Score:** 655 (Fail)
+- **Employment Years:** 1 (Fail)
+
+### Recommendation
+- **APP-1001:** Approve
+- **APP-1002:** Decline
+
+### Conditions
+- **APP-1002:** No specific conditions as it fails multiple policy rules.
+
+Would you like to proceed with the underwriting for APP-1001 or need further analysis?

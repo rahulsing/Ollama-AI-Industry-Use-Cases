@@ -28,6 +28,52 @@ Answers staff questions from internal credit, KYC and operations policies with c
 ### How it works
 Policy snippets are embedded with Ollama embeddings, retrieved by similarity and answered with source references.
 
+```mermaid
+flowchart LR
+    QU["❓ Your question"] --> R["🔎 Retriever<br/>finds the most relevant passages"]
+    IN["📚 Bank policy documents"] -->|"🧮 embeddings"| R
+    R -->|"📎 top passages"| G["🔗 LangChain<br/>answer only from passages"]
+    G <-.->|"💬"| LLM(["🦙 Ollama"])
+    G --> OUT["📝 Answer with source references"]
+    OUT --> HU["🧑‍⚖️ Human review"]
+    classDef data fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef rules fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ai fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef llm fill:#1f2937,stroke:#111827,color:#ffffff
+    classDef out fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef human fill:#f3f4f6,stroke:#6b7280,color:#111827
+    class IN,QU data
+    class R,G ai
+    class LLM llm
+    class OUT out
+    class HU human
+```
+
+<sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
+
+## 💬 Sample response
+
+Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
+Python stay the same.
+
+<details>
+<summary><b>Show the full output</b></summary>
+
+````text
+--- Q: Do I need senior approval to onboard a PEP, and how often must we review them? ---
+Yes, you need senior approval (Head of Compliance) to onboard a PEP. PEPs require Enhanced Due Diligence, source of wealth verification, and approval by senior management before onboarding [KYC Policy 3.4]. Their periodic KYC review should be conducted annually [KYC Policy 5.1].
+
+
+--- Q: A customer deposited 9,900 cash three days in a row. What should I do? ---
+Since the total amount deposited exceeds 10,000, even when split, you should report this as structuring. According to [Ops Manual 2.8], this must be escalated to the MLRO.
+
+
+--- Q: What is the maximum personal loan for someone earning 4,000 net per month? ---
+The maximum personal loan for someone earning 4,000 net per month is 80,000 (20x net monthly income). [Credit Policy 4.2]
+````
+
+</details>
+
 ## Run
 ```bash
 # from the repo root, with Ollama running

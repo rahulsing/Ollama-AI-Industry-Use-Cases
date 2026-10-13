@@ -1,0 +1,68 @@
+============================================================
+  37 - Customer Churn Retention Agent (CrewAI)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Churn risk ---
+[
+  {
+    "id": "C-11",
+    "churn_score": 92,
+    "risk": "HIGH"
+  },
+  {
+    "id": "C-12",
+    "churn_score": 0,
+    "risk": "LOW"
+  },
+  {
+    "id": "C-13",
+    "churn_score": 44,
+    "risk": "MEDIUM"
+  }
+]
+
+
+--- Retention plan ---
+### Retention Plan for Customer C-11
+
+**Action**: Personalized Rate Match Offer
+**Offer**: Waive the next 3 months of FX fees
+**Owner**: Account Manager (AM) Jane Doe
+**Channel**: Email and Phone Call
+**Script Opener**: "Jane Doe from our customer success team reached out to discuss ways to enhance your experience with us and ensure you continue to enjoy our services."
+**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of FX fee waiver
+
+---
+
+### Retention Plan for Customer C-11
+
+**Action**: Personalized Rate Match Offer
+**Offer**: Waive the next 3 months of FX fees
+**Owner**: Account Manager (AM) Jane Doe
+**Channel**: Email and Phone Call
+**Script Opener**: "Jane Doe from our customer success team reached out to discuss ways to enhance your experience with us and ensure you continue to enjoy our services."
+**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of FX fee waiver
+
+---
+
+### Retention Plan for Customer C-13
+
+**Action**: Personalized Rate Match Offer
+**Offer**: Match competitor's mortgage rate for 6 months
+**Owner**: Relationship Manager (RM) John Smith
+**Channel**: Email and Phone Call
+**Script Opener**: "John Smith from our customer success team reached out to discuss your recent interest in mortgage rates and ensure you continue to benefit from our services."
+**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of mortgage rate match
+
+---
+
+### Retention Plan for Customer C-13
+
+**Action**: Personalized Rate Match Offer
+**Offer**: Match competitor's mortgage rate for 6 months
+**Owner**: Relationship Manager (RM) John Smith
+**Channel**: Email and Phone Call
+**Script Opener**: "John Smith from our customer success team reached out to discuss your recent interest in mortgage rates and ensure you continue to benefit from our services."
+**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of mortgage rate match

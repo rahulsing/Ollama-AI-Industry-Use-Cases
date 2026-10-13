@@ -1,0 +1,69 @@
+====================================================================
+  34 - Complaint Classifier & Router (LangChain structured output)
+  model: qwen2.5:7b-instruct
+====================================================================
+
+
+--- I was charged a 35 overdraft fee twice for the same transaction and no... ---
+{
+  "product": "credit_card",
+  "category": "fees_charges",
+  "severity": "medium",
+  "vulnerable_customer": false,
+  "regulatory_reportable": false,
+  "sentiment": "angry",
+  "summary": "The customer is disputing a double charge of an overdraft fee and is requesting a refund."
+}
+-> Route: Retail Ops - Fees | SLA: 10 day(s)
+
+
+--- My father has dementia and someone at your bank sold him a 10-year ins... ---
+{
+  "product": "investment_insurance",
+  "category": "mis_selling",
+  "severity": "high",
+  "vulnerable_customer": true,
+  "regulatory_reportable": true,
+  "sentiment": "frustrated",
+  "summary": "A family member reports that a bank sold an unsuitable 10-year insurance-linked investment to a person with dementia, who does not understand it."
+}
+-> Route: Conduct & Compliance | SLA: 3 day(s) | FLAG: regulatory log
+
+
+--- The mobile app keeps logging me out when I try to pay bills. Very anno... ---
+{
+  "product": "mobile_app",
+  "category": "digital_banking",
+  "severity": "low",
+  "vulnerable_customer": false,
+  "regulatory_reportable": false,
+  "sentiment": "neutral",
+  "summary": "Customer is experiencing issues with the mobile app logging them out when trying to pay bills."
+}
+-> Route: Digital Support | SLA: 15 day(s)
+
+
+--- Money was taken from my account for a purchase I never made in another... ---
+{
+  "product": "credit_card",
+  "category": "fraud_dispute",
+  "severity": "high",
+  "vulnerable_customer": false,
+  "regulatory_reportable": true,
+  "sentiment": "angry",
+  "summary": "The customer is reporting an unauthorized transaction from their account, which occurred in another country, and their card is still in their possession. This is classified as a fraud_dispute with high severity."
+}
+-> Route: Fraud Operations | SLA: 3 day(s) | FLAG: regulatory log
+
+
+--- Your loan agent called me 6 times a day and threatened to tell my empl... ---
+{
+  "product": "loan",
+  "category": "collections_conduct",
+  "severity": "high",
+  "vulnerable_customer": true,
+  "regulatory_reportable": true,
+  "sentiment": "angry",
+  "summary": "The customer is experiencing harassment from debt collectors who are threatening to disclose the customer's missed EMI to their employer."
+}
+-> Route: Collections Oversight | SLA: 3 day(s) | FLAG: regulatory log

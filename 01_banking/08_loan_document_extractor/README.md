@@ -27,6 +27,67 @@ Extracts structured fields from payslips and bank statements for loan processing
 ### How it works
 `with_structured_output` maps unstructured text into a Pydantic schema; Python cross-checks salary vs. statement credits.
 
+```mermaid
+flowchart LR
+    IN["📄 Payslip + bank statement text"] --> EX["🧾 LangChain structured output<br/>text → Pydantic schema"]
+    EX -->|"validated fields"| PY["🐍 Python<br/>Salary vs. statement credit check"]
+    PY --> OUT["📝 Validated fields + mismatches"]
+    EX <-.->|"💬"| LLM(["🦙 Ollama"])
+    OUT --> HU["🧑‍⚖️ Human review"]
+    classDef data fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef rules fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ai fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef llm fill:#1f2937,stroke:#111827,color:#ffffff
+    classDef out fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef human fill:#f3f4f6,stroke:#6b7280,color:#111827
+    class IN data
+    class PY rules
+    class EX ai
+    class LLM llm
+    class OUT out
+    class HU human
+```
+
+<sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
+
+## 💬 Sample response
+
+Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
+Python stay the same.
+
+<details>
+<summary><b>Show the full output</b></summary>
+
+````text
+--- Payslip ---
+{
+  "employee_name": "Rohan Mehta",
+  "employer": "E10442",
+  "month": "s August 2026",
+  "gross_salary": 105000.0,
+  "total_deductions": 20000.0,
+  "net_pay": 85000.0,
+  "date_of_joining": "14-Mar-2019"
+}
+
+
+--- Bank statement ---
+{
+  "account_holder": "ROHAN MEHTA",
+  "period": "01-Aug-2026 to 31-Aug-2026",
+  "opening_balance": 142300.55,
+  "closing_balance": 155150.55,
+  "salary_credits": 85000.0,
+  "existing_emi_debits": 32500.0
+}
+
+
+--- Cross-document checks ---
+{'name_match': True, 'salary_credit_matches_net_pay': True, 'existing_emi_to_net_pay_pct': 38.2}
+````
+
+</details>
+
 ## Run
 ```bash
 # from the repo root, with Ollama running

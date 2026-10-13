@@ -1,0 +1,20 @@
+============================================================
+  38 - Dispute & Chargeback Assistant (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Customer ---
+I ordered a laptop from TechMart Online (TX-902) on 22 Sept, it was due 29 Sept and never arrived. The merchant ignores my emails.
+
+
+--- Assistant ---
+Based on the provided information and the transaction details, here is the classification for the dispute:
+
+- **Dispute Type:** Goods Not Received
+- **Reason Code:** 4855
+- **Evidence Required:** Expected delivery date, merchant contact attempts
+- **Temporary Credit:** No (typically not applicable for goods not received disputes)
+- **Summary for Back Office:** The customer ordered a laptop from TechMart Online on 22nd September, expecting delivery by 29th September. The laptop has not been received, and the merchant has not responded to the customer's emails. The customer is requesting a resolution. The merchant should be contacted first to verify the delivery status and any attempts made to contact the customer. The customer must provide the expected delivery date and evidence of their attempts to contact the merchant.
+
+If the merchant does not respond or resolve the issue, a chargeback may be initiated. Please contact the merchant first to attempt a resolution.

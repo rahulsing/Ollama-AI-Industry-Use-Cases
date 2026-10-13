@@ -10,8 +10,10 @@ Run:  python scripts/build_docs.py
 """
 
 import json
+import re
 
 from domains import ROOT, load_domains
+from flows import LEGEND, PATTERN_CHAINS, ROOT_FLOW, use_case_flow
 
 DEMO_GIF = ROOT / "docs" / "demo.gif"
 REPO_URL = "https://github.com/rahulsing/Ollama-AI-Industry-Use-Cases"
@@ -148,6 +150,37 @@ term used in these use cases, in plain English.
 # --------------------------------------------------------------------------- #
 # Use-case pages
 # --------------------------------------------------------------------------- #
+def sample(d, slug) -> dict | None:
+    """Real output captured by scripts/capture_samples.py, and the model that produced it."""
+    path = d.path / slug / "sample_output.txt"
+    if not path.exists():
+        return None
+    text = path.read_text(encoding="utf-8")
+    model = re.search(r"^\s*model: (\S+)", text, re.M)
+    body = re.sub(r"\A\s*=+\n.*?\n=+\n", "", text, flags=re.S).strip()  # drop the banner
+    return {"model": model.group(1) if model else "local model", "text": body}
+
+
+def sample_section(s) -> str:
+    if not s:
+        return ""
+    return f"""## 💬 Sample response
+
+Real output from `{s["model"]}` running locally on a laptop. LLM wording changes from run to run; the numbers from
+Python stay the same.
+
+<details>
+<summary><b>Show the full output</b></summary>
+
+````text
+{s["text"]}
+````
+
+</details>
+
+"""
+
+
 def use_case_readme(d, u) -> str:
     slug, title, cat, fw, pattern, desc, how = u
     today, who, why, terms = d.business[slug]
@@ -180,7 +213,13 @@ More terms: [{d.name} Primer & glossary](../PRIMER.md#glossary)
 ### How it works
 {how}
 
-## Run
+```mermaid
+{use_case_flow(d, u)}
+```
+
+<sub>{LEGEND}</sub>
+
+{sample_section(sample(d, slug))}## Run
 ```bash
 # from the repo root, with Ollama running
 python {d.folder}/{slug}/app.py
@@ -242,7 +281,8 @@ def root_readme(domains) -> str:
 ---
 
 > **🌐 Browse without installing anything:** the [Interactive Explorer]({SITE_URL}) lets you pick an industry,
-> search every solution, read the business problem in plain English, and view the implementation code.
+> search every solution, read the business problem in plain English, see how the AI flows, read a real sample
+> response, and view the implementation code.
 
 ## 💡 What is this?
 
@@ -300,30 +340,24 @@ Switch with `OLLAMA_MODEL=llama3.1:8b python ...` or in `.env`. Set `CREW_VERBOS
 
 ## ⚙️ How It Works
 
+Every use case follows the same idea: **Python does the maths and the rules, the AI explains and writes**, and
+everything runs on your own machine.
+
 ```mermaid
-flowchart LR
-    D[(Sample data<br/>in app.py)] --> P[Python rules & maths<br/>ratios · scores · thresholds]
-    P -->|facts| L{{{{Ollama LLM}}}}
-    subgraph CrewAI
-      A1[Analyst agent] --> A2[Reviewer / Decision agent]
-    end
-    subgraph LangChain
-      T[Tool-calling agent] --- TL[(Python tools)]
-      C[Chain / RAG / Structured output]
-    end
-    L --> CrewAI
-    L --> LangChain
-    CrewAI --> O[Memo · Report · Decision]
-    LangChain --> O
+{ROOT_FLOW}
 ```
 
-| Pattern | When to use | Examples |
-|---------|-------------|----------|
-| **Multi-agent (CrewAI)** | Analysis + review + write-up, like a committee | [Credit risk](01_banking/01_credit_risk_assessment/), [AML](01_banking/09_aml_transaction_monitoring/), [Claims fraud](03_insurance/01_claims_triage_fraud/) |
-| **Tool-calling agent (LangChain)** | Questions that need live calculations or system lookups | [Loan underwriting](01_banking/02_loan_underwriting_assistant/), [Replenishment](02_retail/01_demand_forecasting_agent/), [Motor quote](03_insurance/03_motor_quote_agent/) |
-| **Chain (LangChain)** | Python decides, the LLM explains | [Card fraud](01_banking/13_card_fraud_explainer/), [Liquidity](01_banking/20_liquidity_lcr_nsfr_monitor/) |
-| **Structured extraction** | Unstructured text to a validated schema | [Loan documents](01_banking/08_loan_document_extractor/), [Product reviews](02_retail/02_product_review_analyzer/) |
-| **RAG** | Q&A grounded in policies or documents | [Bank policy Q&A](01_banking/24_policy_qa_rag/), [Insurance coverage Q&A](03_insurance/02_policy_coverage_qa/) |
+<sub>{LEGEND}</sub>
+
+Each use case README has its own diagram showing the real agents and tools from its code.
+
+| Pattern | Flow | When to use | Examples |
+|---------|------|-------------|----------|
+| **Multi-agent (CrewAI)** | {PATTERN_CHAINS['Multi-agent']} | Analysis + review + write-up, like a committee | [Credit risk](01_banking/01_credit_risk_assessment/), [AML](01_banking/09_aml_transaction_monitoring/), [Claims fraud](03_insurance/01_claims_triage_fraud/) |
+| **Tool-calling agent (LangChain)** | {PATTERN_CHAINS['Tool-calling agent']} | Questions that need live calculations or system lookups | [Loan underwriting](01_banking/02_loan_underwriting_assistant/), [Replenishment](02_retail/01_demand_forecasting_agent/), [Motor quote](03_insurance/03_motor_quote_agent/) |
+| **Chain (LangChain)** | {PATTERN_CHAINS['Chain']} | Python decides, the LLM explains | [Card fraud](01_banking/13_card_fraud_explainer/), [Liquidity](01_banking/20_liquidity_lcr_nsfr_monitor/) |
+| **Structured extraction** | {PATTERN_CHAINS['Structured extraction']} | Unstructured text to a validated schema | [Loan documents](01_banking/08_loan_document_extractor/), [Product reviews](02_retail/02_product_review_analyzer/) |
+| **RAG** | {PATTERN_CHAINS['RAG']} | Q&A grounded in policies or documents | [Bank policy Q&A](01_banking/24_policy_qa_rag/), [Insurance coverage Q&A](03_insurance/02_policy_coverage_qa/) |
 
 ### Framework comparison
 
@@ -346,10 +380,11 @@ flowchart LR
 │   ├── business.py             # plain-English business context + glossary
 │   └── 01_credit_risk_assessment/
 │       ├── app.py              # self-contained runnable use case
+│       ├── sample_output.txt   # real output from a local run (scripts/capture_samples.py)
 │       └── README.md
 ├── 02_retail/  03_insurance/   # same layout
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
-├── scripts/build_docs.py       # regenerates every README and primer
+├── scripts/build_docs.py       # regenerates every README, primer, flow diagram and the explorer
 ├── ui.py                       # optional Streamlit front end
 ├── docs/                       # GitHub Pages: index.html (interactive explorer, generated) + demo.gif
 ├── requirements.txt
@@ -361,7 +396,8 @@ flowchart LR
 ## 🤝 Contributing
 
 **Add a use case:** copy a folder with the same pattern into the industry folder, keep it self-contained (one
-`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py`, then run
+`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py` (business context plus a `FLOWS` entry for the
+diagram), then run `python scripts/capture_samples.py --missing` (saves a real sample response) and
 `python scripts/build_docs.py`.
 
 **Add an industry:** create `04_<industry>/` with a `catalog.py` and `business.py` (copy `02_retail/` as a template)
@@ -395,14 +431,15 @@ Calculations are simplified illustrations of industry concepts and are **not** p
 # Interactive explorer (GitHub Pages: docs/index.html)
 # --------------------------------------------------------------------------- #
 def site(domains) -> str:
-    data = {"repo": REPO_URL, "industries": []}
+    data = {"repo": REPO_URL, "root_flow": ROOT_FLOW, "legend": LEGEND, "industries": []}
     for d in domains:
         cases = []
         for slug, title, cat, fw, pattern, desc, how in d.use_cases:
             today, who, why, terms = d.business[slug]
             cases.append({"slug": slug, "title": title, "category": cat, "framework": fw, "pattern": pattern,
                           "description": desc, "how": how, "today": today, "who": who, "why": why, "terms": terms,
-                          "code": (d.path / slug / "app.py").read_text(encoding="utf-8")})
+                          "code": (d.path / slug / "app.py").read_text(encoding="utf-8"),
+                          "flow": use_case_flow(d, (slug, title, cat, fw, pattern, desc, how)), "sample": sample(d, slug)})
         data["industries"].append({"folder": d.folder, "name": d.name, "icon": d.icon, "tagline": d.tagline,
                                    "description": d.description, "industry_101": d.industry_101,
                                    "categories": d.categories, "areas": d.areas, "glossary": d.glossary,
@@ -428,6 +465,7 @@ def main():
             assert u[0] in d.business, f"{d.folder}/business.py has no BUSINESS entry for {u[0]}"
             missing = [t for t in d.business[u[0]][3] if t not in d.glossary]
             assert not missing, f"{d.folder}: glossary missing {missing}"
+            assert u[0] in d.flows, f"{d.folder}/business.py has no FLOWS entry for {u[0]}"
             (folder / "README.md").write_text(use_case_readme(d, u), encoding="utf-8", newline="\n")
             pages += 1
     print(f"Wrote docs/index.html and {pages} pages for {len(domains)} industries: "

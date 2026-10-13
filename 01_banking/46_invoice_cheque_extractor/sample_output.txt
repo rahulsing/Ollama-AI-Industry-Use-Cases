@@ -1,0 +1,33 @@
+======================================================================
+  46 - Invoice & Cheque Data Extractor (LangChain structured output)
+  model: qwen2.5:7b-instruct
+======================================================================
+
+
+--- Cheque ---
+{
+  "bank": "STATE BANK OF INDIA",
+  "ifsc": "SBIN0001234",
+  "cheque_number": "004512",
+  "date": "12102026",
+  "payee": "RAVI KUMAR ENTERPRISES",
+  "amount_in_words": "Forty Five Thousand Six Hundred Only",
+  "amount_in_figures": 45600.0,
+  "account_number": "30012345678"
+}
+
+
+--- Invoice ---
+{
+  "invoice_number": "SRT/26-27/0193",
+  "date": "05/10/2026",
+  "seller_gstin": "27AAACS1234F1Z5",
+  "buyer_gstin": "27AABCR5678K1Z2",
+  "taxable_value": 39440.0,
+  "total_tax": 7099.2,
+  "invoice_total": 46539.2
+}
+
+
+--- Validation ---
+{'cheque_words_match_figures': True, 'ifsc_format_valid': True, 'gstin_format_valid': True, 'invoice_total_adds_up': True, 'cheque_vs_invoice_difference': 939.2}

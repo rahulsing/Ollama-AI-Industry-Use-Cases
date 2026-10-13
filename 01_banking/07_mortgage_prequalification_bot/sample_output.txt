@@ -1,0 +1,14 @@
+============================================================
+  07 - Mortgage Pre-Qualification Bot (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Customer ---
+I earn 8,500 a month and pay 650 a month on a car loan. How much can I borrow, and what would the monthly payment be on a 25 year term at 6.2%?
+
+
+--- Assistant ---
+Based on your monthly income and current monthly debt, you can afford a maximum loan amount of approximately $418,836, keeping your total debt payments within the bank's 40% Debt-to-Income (DTI) limit. For a 25-year term at an annual interest rate of 6.2%, the monthly repayment for a loan amount of $145,558 would be approximately $956.
+
+This is an indicative estimate and not a loan offer. Please consult with a financial advisor or mortgage lender for a personalized assessment. A sensible down payment is typically around 20% of the property price, which would be about $83,767 in this case. This would help you to estimate an affordable property price and ensure you have enough equity in the property.

@@ -1,0 +1,20 @@
+============================================================
+  39 - Multilingual Banking FAQ (LangChain RAG)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Q: ATM se ek din mein kitna paisa nikaal sakte hain? ---
+Daily ATM withdrawal limit is 1,000 for Classic debit cards and 2,500 for Platinum debit cards.
+
+
+--- Q: ¿Cuánto cuesta una transferencia internacional? ---
+Una transferencia internacional cuesta 15 por transferencia.
+
+
+--- Q: Comment réinitialiser mon code PIN de l'application ? ---
+Pour réinitialiser votre code PIN de l'application : ouvrez l'application, tappez 'Forgot PIN', vérifiez avec votre carte bancaire et un code OTP.
+
+
+--- Q: मेरा कार्ड खो गया है, क्या करूं? ---
+हालाँकि संदेश में जवाब नहीं मिला, आपका कार्ड खोने के लिए उपाय अपने अप्प में कार्ड > ब्लॉक वर्ग में 24/7 ब्लॉक करें या 0800 123 456 से फोन करें.

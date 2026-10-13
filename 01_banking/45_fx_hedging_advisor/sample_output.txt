@@ -1,0 +1,40 @@
+============================================================
+  45 - FX Hedging Advisor (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- Advice ---
+Based on the provided exposures and forward rates, here is the analysis and hedging recommendations:
+
+### Net Exposure
+- **USD 3m**: Long 1,200,000 USD
+- **EUR 6m**: Short 1,200,000 EUR
+
+### Forward Rates and Risk Analysis
+- **USD 3m**:
+  - Forward Rate: 84.67 INR/USD
+  - 1-sigma Spot Range: 82.31 - 86.09 INR/USD
+  - Risk: If the spot rate at maturity is at the 1-sigma level, the worst-case scenario would be a spot rate of 82.31 INR/USD. This would result in a loss of approximately 2.6% (1200000 * (84.67 - 82.31) / 84.67) on the exposure.
+
+- **EUR 6m**:
+  - Forward Rate: 93.31 INR/EUR
+  - 1-sigma Spot Range: 87.29 - 95.71 INR/EUR
+  - Risk: If the spot rate at maturity is at the 1-sigma level, the worst-case scenario would be a spot rate of 95.71 INR/EUR. This would result in a loss of approximately 2.6% (1200000 * (95.71 - 93.31) / 93.31) on the exposure.
+
+### Hedging Recommendations
+1. **USD 3m Exposure**:
+   - **Hedge Ratio**: 100% (since the exposure is net long)
+   - **Instrument**: Forward
+   - **Reasoning**: A forward contract locks in the exchange rate at 84.67 INR/USD, providing certainty and eliminating the risk of adverse movements in the spot rate.
+
+2. **EUR 6m Exposure**:
+   - **Hedge Ratio**: 100% (since the exposure is net short)
+   - **Instrument**: Forward
+   - **Reasoning**: A forward contract locks in the exchange rate at 93.31 INR/EUR, providing certainty and eliminating the risk of adverse movements in the spot rate.
+
+### Natural Hedges
+- **USD 3m**: If the client has a natural exposure to USD, such as a receivable or a liability denominated in USD, this exposure can be naturally hedged against the USD 3m exposure.
+- **EUR 6m**: If the client has a natural exposure to EUR, such as a receivable or a liability denominated in EUR, this exposure can be naturally hedged against the EUR 6m exposure.
+
+By implementing these forward contracts, the client can manage the risk associated with the foreign currency exposures and ensure that the financial performance is not adversely affected by exchange rate fluctuations.

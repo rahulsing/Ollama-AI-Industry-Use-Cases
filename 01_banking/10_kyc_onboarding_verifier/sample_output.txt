@@ -1,0 +1,22 @@
+============================================================
+  10 - KYC Onboarding Verifier (LangChain agent)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- KYC result ---
+Based on the provided information and the results from the tools, here is the checklist:
+
+1. **ID Format**: PASS
+2. **ID Expiry**: FAIL (Expired 43 days ago)
+3. **Name Match**: PASS (Allowing middle-name/initial differences)
+4. **DOB Match**: PASS
+5. **Address Match**: PASS (Allowing spelling and abbreviation variants like Bangalore/Bengaluru)
+6. **Address Proof Recency**: REVIEW (Issued 124 days ago - TOO OLD (limit 90))
+
+Given the address proof is too old, we need to request a more recent document.
+
+### Final Status: PENDING (list documents needed)
+- **Address Proof**: Provide a recent utility bill or any other valid address proof issued within the last 90 days.
+
+Would you like to proceed with this or need further assistance?

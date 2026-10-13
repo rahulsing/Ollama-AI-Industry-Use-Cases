@@ -2,7 +2,7 @@
 
 Each industry folder contains:
   catalog.py   DOMAIN, CATEGORIES, USE_CASES
-  business.py  INDUSTRY_101, AREAS, GLOSSARY, BUSINESS
+  business.py  INDUSTRY_101, AREAS, GLOSSARY, BUSINESS, FLOWS
   NN_slug/app.py for every use case
 """
 
@@ -32,6 +32,6 @@ def load_domains() -> list[SimpleNamespace]:
             folder=folder.name, path=folder, **catalog.DOMAIN,
             categories=catalog.CATEGORIES, use_cases=catalog.USE_CASES,
             industry_101=business.INDUSTRY_101, areas=business.AREAS,
-            glossary=business.GLOSSARY, business=business.BUSINESS,
+            glossary=business.GLOSSARY, business=business.BUSINESS, flows=business.FLOWS,
         ))
     return domains

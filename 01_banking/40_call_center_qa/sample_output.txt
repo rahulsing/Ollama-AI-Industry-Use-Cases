@@ -1,0 +1,32 @@
+============================================================
+  40 - Call Center QA Analyzer (CrewAI)
+  model: qwen2.5:7b-instruct
+============================================================
+
+
+--- QA report ---
+### Coaching Feedback for the Agent
+
+**Strengths:**
+- **Greeting & Identification:** The agent greeted the customer professionally and identified themselves correctly.
+- **Ownership & Resolution:** The agent handled the situation with a sense of responsibility and provided a clear timeline for the new card.
+- **Closing:** The agent ended the call with a summary and a reference number, ensuring the customer understood the next steps.
+
+**Top 3 Improvements with Better Phrasing Examples:**
+
+1. **Secure Verification:**
+   - **Current:** "Agent: Okay. Can you give me your full card number and the CVV so I can check?"
+   - **Improved:** "Agent: I'm sorry, but I need to verify your account. Could you please provide your last four digits of your card and your date of birth? I will use this information to secure your account."
+
+2. **Listening & Empathy:**
+   - **Current:** "Agent: Yes I see it. It's probably a subscription you forgot. Not much I can do really."
+   - **Improved:** "Agent: I understand how concerning this must be for you. Let me check your account again. Could you please provide your date of birth and postcode? I will verify this information to ensure everything is correct."
+
+3. **Correct Handling of Suspected Fraud:**
+   - **Current:** "Agent: Okay, blocked. New card in 5 days. Bye."
+   - **Improved:** "Agent: I've blocked your account to prevent any unauthorized transactions. I will also raise a fraud claim on your behalf. A new card will be issued within 5 business days. I will send you a reference number for your records. Is there anything else I can assist you with before we end the call?"
+
+**Compliance Escalation Needed:**
+- The agent must be trained on secure verification procedures to avoid asking for sensitive information like full card numbers, CVV, PINs, or OTPs. This is a critical fail and must be addressed immediately to ensure customer data security.
+
+By focusing on these areas, the agent can significantly improve their performance and ensure compliance with security protocols.
