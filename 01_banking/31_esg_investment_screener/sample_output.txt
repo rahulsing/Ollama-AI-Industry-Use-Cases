@@ -1,6 +1,7 @@
 ============================================================
   31 - ESG Investment Screener (CrewAI)
   model: qwen2.5:7b-instruct
+  runtime: 53s
 ============================================================
 
 
@@ -54,51 +55,152 @@
 ]
 
 
+--- Agent: ESG Analyst ---
+### ESG Analysis of Selected Funds
+
+#### Fund Screening Criteria
+- **Minimum ESG Score:** 70
+- **Maximum Carbon Intensity:** 100
+- **Exclusions:** Weapons, Tobacco
+- **Maximum Fossil Fuel Percentage:** 2%
+- **Client Goal:** Long-term growth with balanced risk; values climate action
+
+#### Screening Outcomes
+
+1. **Global Clean Energy Fund**
+   - **ESG Score:** 82 (Pass)
+   - **Carbon Intensity:** 45 (Pass)
+   - **Fossil Fuel Percentage:** 0% (Pass)
+   - **Weapons Percentage:** 0% (Pass)
+   - **Tobacco Percentage:** 0% (Pass)
+   - ** TER Percentage:** 0.85 (Pass)
+   - **5-Year Return:** 9.1%
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity, aligning with the client's goal of climate action.
+
+2. **World Index Tracker**
+   - **ESG Score:** 58 (Fail)
+   - **Carbon Intensity:** 140 (Fail)
+   - **Fossil Fuel Percentage:** 6% (Fail)
+   - **Weapons Percentage:** 1% (Fail)
+   - **Tobacco Percentage:** 1% (Fail)
+   - **TER Percentage:** 0.12 (Pass)
+   - **5-Year Return:** 10.4%
+   - **Fail Reason:** ESG score below the minimum threshold, high carbon intensity, and exposure to weapons and tobacco.
+
+3. **ESG Leaders Equity**
+   - **ESG Score:** 76 (Pass)
+   - **Carbon Intensity:** 70 (Pass)
+   - **Fossil Fuel Percentage:** 1% (Pass)
+   - **Weapons Percentage:** 0% (Pass)
+   - **Tobacco Percentage:** 0% (Pass)
+   - **TER Percentage:** 0.3 (Pass)
+   - **5-Year Return:** 9.8%
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity, with minimal exposure to weapons and tobacco.
+
+4. **Emerging Markets Value**
+   - **ESG Score:** 41 (Fail)
+   - **Carbon Intensity:** 310 (Fail)
+   - **Fossil Fuel Percentage:** 14% (Fail)
+   - **Weapons Percentage:** 0% (Pass)
+   - **Tobacco Percentage:** 3% (Fail)
+   - **TER Percentage:** 0.55 (Pass)
+   - **5-Year Return:** 7.2%
+   - **Fail Reason:** ESG score below the minimum threshold, high carbon intensity, and exposure to tobacco.
+
+5. **Green Bond Fund**
+   - **ESG Score:** 79 (Pass)
+   - **Carbon Intensity:** 30 (Pass)
+   - **Fossil Fuel Percentage:** 0% (Pass)
+   - **Weapons Percentage:** 0% (Pass)
+   - **Tobacco Percentage:** 0% (Pass)
+   - **TER Percentage:** 0.25 (Pass)
+   - **5-Year Return:** 3.4%
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity, with no exposure to weapons or tobacco.
+
+6. **Aerospace & Defence Opportunities**
+   - **ESG Score:** 49 (Fail)
+   - **Carbon Intensity:** 120 (Fail)
+   - **Fossil Fuel Percentage:** 0% (Pass)
+   - **Weapons Percentage:** 35% (Fail)
+   - **Tobacco Percentage:** 0% (Pass)
+   - **TER Percentage:** 0.65 (Pass)
+   - **5-Year Return:** 12.0%
+   - **Fail Reason:** ESG score below the minimum threshold, high carbon intensity, and significant exposure to weapons.
+
+### Trade-Offs and Analysis
+
+1. **Global Clean Energy Fund**
+   - **Pass:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 9.1% return with a TER of 0.85. This fund aligns well with the client's goal of long-term growth and balanced risk, while also focusing on climate action.
+
+2. **ESG Leaders Equity**
+   - **Pass:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 9.8% return with a TER of 0.3. This fund offers a slightly lower return compared to the Global Clean Energy Fund but still meets the client's criteria and provides a balanced risk profile.
+
+3. **Green Bond Fund**
+   - **Pass:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 3.4% return with a TER of 0.25. This fund has the lowest return among the passing funds but offers the highest ESG score and lowest carbon intensity, making it a strong choice for clients prioritizing climate action.
+
+4. **World Index Tracker**
+   - **Fail:** Does not meet the minimum ESG score, carbon intensity, and exposure to weapons and tobacco.
+   - **Return/Cost Trade-Off:** 10.4% return with a TER of 0.12. While this fund offers a high return, it fails to meet the client's ESG criteria, making it less suitable for clients who prioritize sustainability.
+
+5. **Emerging Markets Value**
+   - **Fail:** Does not meet the minimum ESG score, carbon intensity, and exposure to tobacco.
+   - **Return/Cost Trade-Off:** 7.2% return with a TER of 0.55. This fund offers a moderate return but fails to meet the client's ESG criteria, making it less suitable for clients who prioritize sustainability.
+
+6. **Aerospace & Defence Opportunities**
+   - **Fail:** Does not meet the minimum ESG score, carbon intensity, and significant exposure to weapons.
+   - **Return/Cost Trade-Off:** 12.0% return with a TER of 0.65. While this fund offers a high return, it fails to meet the client's ESG criteria, making it less suitable for clients who prioritize sustainability.
+
+### Conclusion
+The funds that pass the screening criteria (Global Clean Energy Fund, ESG Leaders Equity, and Green Bond Fund) offer a balanced approach to long-term growth while prioritizing climate action and sustainability. The Global Clean Energy Fund and ESG Leaders Equity provide a good balance between returns and ESG scores, while the Green Bond Fund offers the highest ESG score and lowest carbon intensity. The client should consider their risk tolerance and return expectations when choosing between these funds.
+
+
 --- Recommendation ---
-### Shortlist and Allocation
+### Recommended Shortlist and Allocation
 
-Based on the screening results and the client's values, I recommend the following shortlist and allocation among the passing funds:
+#### Shortlist
+1. **Global Clean Energy Fund**
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 9.1% return with a TER of 0.85.
+   - **Rationale:** This fund aligns well with the client's goal of long-term growth and balanced risk, while also focusing on climate action.
 
-1. **Global Clean Energy Fund** - 30%
-2. **ESG Leaders Equity** - 40%
-3. **Green Bond Fund** - 30%
+2. **ESG Leaders Equity**
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 9.8% return with a TER of 0.3.
+   - **Rationale:** This fund offers a slightly lower return compared to the Global Clean Energy Fund but still meets the client's criteria and provides a balanced risk profile.
 
-### Rationale and Trade-Offs
+3. **Green Bond Fund**
+   - **Pass Reason:** Meets all criteria, including a high ESG score and low carbon intensity.
+   - **Return/Cost Trade-Off:** 3.4% return with a TER of 0.25.
+   - **Rationale:** This fund has the lowest return among the passing funds but offers the highest ESG score and lowest carbon intensity, making it a strong choice for clients prioritizing climate action.
 
-1. **Global Clean Energy Fund (30%)**
-   - **ESG Score**: 82 (meets the minimum threshold of 70)
-   - **Carbon Intensity**: 45
-   - **Fossil Fuel Pct**: 0%
-   - **Weapons Pct**: 0%
-   - **Tobacco Pct**: 0%
-   - ** TER Pct**: 0.85%
-   - **5-Year Return**: 9.1%
-   - **Explanation**: This fund meets all the criteria, including an ESG score of 82, which is above the minimum threshold. It also has a low carbon intensity and no exposure to weapons or tobacco, aligning well with the client's values. The TER of 0.85% is relatively high, which could be a trade-off for the strong ESG performance and low carbon footprint. However, the 30% allocation ensures that the client still benefits from the fund's strong ESG credentials.
+#### Allocation
+- **Global Clean Energy Fund:** 40%
+- **ESG Leaders Equity:** 30%
+- **Green Bond Fund:** 30%
 
-2. **ESG Leaders Equity (40%)**
-   - **ESG Score**: 76 (meets the minimum threshold of 70)
-   - **Carbon Intensity**: 70
-   - **Fossil Fuel Pct**: 1%
-   - **Weapons Pct**: 0%
-   - **Tobacco Pct**: 0%
-   - ** TER Pct**: 0.3%
-   - **5-Year Return**: 9.8%
-   - **Explanation**: This fund meets the criteria with an ESG score of 76, which is above the minimum threshold. It has a moderate carbon intensity and no exposure to weapons or tobacco, aligning well with the client's values. The TER of 0.3% is relatively low, making it a balanced choice between ESG performance and cost. The 40% allocation ensures that the client benefits from the strong ESG performance and low TER, while still maintaining a significant portion of the portfolio.
-
-3. **Green Bond Fund (30%)**
-   - **ESG Score**: 79 (meets the minimum threshold of 70)
-   - **Carbon Intensity**: 30
-   - **Fossil Fuel Pct**: 0%
-   - **Weapons Pct**: 0%
-   - **Tobacco Pct**: 0%
-   - ** TER Pct**: 0.25%
-   - **5-Year Return**: 3.4%
-   - **Explanation**: This fund meets the criteria with an ESG score of 79, which is above the minimum threshold. It has a very low carbon intensity and no exposure to weapons or tobacco, aligning well with the client's values. The TER of 0.25% is the lowest among the funds, making it a cost-effective choice. However, the lower return of 3.4% might be a trade-off for the strong ESG performance and low carbon footprint. The 30% allocation ensures that the client still benefits from the fund's strong ESG credentials and low TER.
+### Diversification Gaps
+- **Geographic Diversification:** The shortlist is focused on global funds, which already provides a broad geographic exposure.
+- **Asset Class Diversification:** The shortlist includes equity funds, which can be complemented by adding a bond or fixed income component to the portfolio.
+- **Industry Diversification:** The funds cover a range of industries, including clean energy, equities, and green bonds, which provides a diverse set of investments.
 
 ### Trade-Offs to Discuss with the Client
+1. **Return vs. ESG Score:**
+   - **Global Clean Energy Fund:** High ESG score and low carbon intensity, but slightly lower return.
+   - **ESG Leaders Equity:** Balanced return and ESG score, suitable for clients who want a good balance.
+   - **Green Bond Fund:** Highest ESG score and lowest carbon intensity, but lowest return.
 
-- **Global Clean Energy Fund**: The client will benefit from a fund with a strong ESG score and low carbon intensity, but the TER of 0.85% is relatively high. This could be a trade-off for the strong ESG performance and low carbon footprint.
-- **ESG Leaders Equity**: The client will benefit from a balanced approach with a high ESG score, low carbon intensity, and no exposure to weapons or tobacco. The TER of 0.3% is relatively low, making it a cost-effective choice. However, the 5-year return of 9.8% is slightly lower than the other funds.
-- **Green Bond Fund**: The client will benefit from a cost-effective choice with the lowest TER and the highest ESG score. However, the 5-year return of 3.4% is the lowest among the funds, which could be a trade-off for the strong ESG performance and low carbon footprint.
+2. **Risk Tolerance:**
+   - **Global Clean Energy Fund:** Lower risk due to diversified exposure and lower carbon intensity.
+   - **ESG Leaders Equity:** Moderate risk with a balanced approach.
+   - **Green Bond Fund:** Lower risk due to fixed income nature and high ESG score.
 
-By diversifying the portfolio across these three funds, the client can achieve a balance between ESG performance, cost, and expected return.
+3. **Long-Term Growth vs. Immediate Returns:**
+   - **Global Clean Energy Fund:** Focuses on long-term growth with a 9.1% return.
+   - **ESG Leaders Equity:** Offers a 9.8% return with a balanced risk profile.
+   - **Green Bond Fund:** Provides a 3.4% return with a strong ESG focus.
+
+### Conclusion
+The recommended shortlist of Global Clean Energy Fund, ESG Leaders Equity, and Green Bond Fund offers a balanced approach to long-term growth while prioritizing climate action and sustainability. The allocation of 40% in Global Clean Energy Fund, 30% in ESG Leaders Equity, and 30% in Green Bond Fund provides a diversified portfolio that meets the client's values and financial goals. The client should consider their risk tolerance and return expectations when choosing between these funds.

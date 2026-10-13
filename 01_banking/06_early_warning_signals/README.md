@@ -51,16 +51,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 11 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Run the early warning scan on our corporate borrowers. Who needs to go on the watch-list?
 
-````text
---- EWS scan ---
+<details><summary>🐍 Python · EWS scan</summary>
+
+```json
 [
   {
     "name": "Apex Textiles",
@@ -91,9 +91,12 @@ Python stay the same.
     ]
   }
 ]
+```
 
+</details>
 
---- Watch-list notes ---
+**🦙 Ollama:**
+
 ### Watch-List Notes
 
 #### RED Borrower: Apex Textiles
@@ -101,16 +104,14 @@ Python stay the same.
 Apex Textiles is currently in a RED status due to multiple critical issues, including persistent overdraft limit breaches, repeated cheque returns, an external rating downgrade, delay in submitting financials, a sharp fall in GST turnover, and a high promoter share pledge.
 
 **Likely Cause:**
-The company is likely facing operational and financial difficulties, possibly due to poor cash flow management, operational inefficiencies, or external market pressures.
+The company is facing financial distress, operational issues, and potential liquidity problems. The repeated breaches of overdraft limits and cheque returns suggest cash flow issues. The external rating downgrade and delay in submitting financials indicate possible internal management challenges. The sharp fall in GST turnover and high promoter share pledge further highlight the company's financial instability.
 
 **Recommended Actions:**
-1. **Client Call:** Schedule a meeting with the management to discuss the current financial situation and understand the root causes of the issues.
-2. **Stock Audit:** Conduct a stock audit to verify the company's inventory levels and ensure that the financial statements are accurate.
-3. **Tighten Limits:** Review and potentially tighten the credit limits to mitigate risk.
-4. **SMA Classification:** Consider reclassifying the borrower to a higher risk category in the Systematic Monitoring and Analysis (SMA) framework.
-
-**Review Date:**
-Review the situation in 30 days.
+1. **Client Call:** Schedule a meeting with the management to discuss the current financial situation and explore potential solutions.
+2. **Stock Audit:** Conduct a stock audit to verify the company's inventory levels and ensure accurate financial reporting.
+3. **Tighten Limits:** Review and possibly tighten the credit limits to mitigate risk.
+4. **SMA Classification:** Re-classify the borrower to a higher risk category for closer monitoring.
+5. **Review Date:** Review the situation in 30 days.
 
 ---
 
@@ -118,11 +119,10 @@ Review the situation in 30 days.
 **Situation:**
 Nova Logistics remains in a GREEN status with no triggering issues.
 
-**Recommended Actions:**
-No action required.
+**No Action:**
+No specific issues have been identified that would warrant any action at this time.
 
-**Review Date:**
-No review required at this time.
+**Review Date:** No review required at this time.
 
 ---
 
@@ -131,19 +131,16 @@ No review required at this time.
 Sunrise Builders is in an AMBER status due to an external rating downgrade and a delay in submitting financials.
 
 **Likely Cause:**
-The company may be experiencing some financial strain or operational challenges that are reflected in the rating downgrade and delayed financial submissions.
+The company is experiencing some financial and operational challenges, as indicated by the external rating downgrade and delay in submitting financials. These issues suggest potential management or operational inefficiencies.
 
 **Recommended Actions:**
-1. **Client Call:** Arrange a call with the management to discuss the reasons behind the rating downgrade and the delay in submitting financials.
-2. **Review Financials:** Ensure that the financials are submitted promptly and thoroughly reviewed to understand the financial health of the company.
-
-**Review Date:**
-Review the situation in 30 days.
+1. **Client Call:** Schedule a meeting with the management to discuss the current financial situation and explore potential solutions.
+2. **Review Financials:** Ensure that the financials are submitted promptly and thoroughly reviewed.
+3. **SMA Classification:** Monitor the situation closely and consider re-classification if the issues persist.
+4. **Review Date:** Review the situation in 60 days.
 
 ---
-````
 
-</details>
 
 ## Run
 ```bash

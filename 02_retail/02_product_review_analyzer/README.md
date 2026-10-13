@@ -50,48 +50,80 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** What are customers saying about the AeroBlend 600W blender? Are there any safety issues?
 
-````text
---- 5★ Makes smoothies in 30 seconds and is easy to clean. Love it! ---
+<details><summary>🧾 Extracted · 5★ Makes smoothies in 30 seconds and is easy to clean. Love it!</summary>
+
+```json
 {'sentiment': 'positive', 'themes': ['performance', 'cleaning', 'size'], 'product_defect': False, 'safety_concern': False}
+```
 
+</details>
 
---- 2★ Lid started leaking after two weeks. Juice everywhere on my  ---
+<details><summary>🧾 Extracted · 2★ Lid started leaking after two weeks. Juice everywhere on my</summary>
+
+```json
 {'sentiment': 'negative', 'themes': ['leaking', 'size'], 'product_defect': True, 'safety_concern': False}
+```
 
+</details>
 
---- 4★ Powerful for the size, but quite loud early in the morning. ---
+<details><summary>🧾 Extracted · 4★ Powerful for the size, but quite loud early in the morning.</summary>
+
+```json
 {'sentiment': 'positive', 'themes': ['performance', 'noise'], 'product_defect': True, 'safety_concern': False}
+```
 
+</details>
 
---- 1★ Motor burned out after a month. Smelled of burning plastic.  ---
+<details><summary>🧾 Extracted · 1★ Motor burned out after a month. Smelled of burning plastic.</summary>
+
+```json
 {'sentiment': 'negative', 'themes': ['performance', 'size', 'durability'], 'product_defect': True, 'safety_concern': True}
+```
 
+</details>
 
---- 3★ Does the job but the cup is smaller than the photos suggest. ---
+<details><summary>🧾 Extracted · 3★ Does the job but the cup is smaller than the photos suggest.</summary>
+
+```json
 {'sentiment': 'neutral', 'themes': ['size', 'size'], 'product_defect': True, 'safety_concern': False}
+```
 
+</details>
 
---- 2★ Leaks from the bottom seal every time I blend ice. ---
+<details><summary>🧾 Extracted · 2★ Leaks from the bottom seal every time I blend ice.</summary>
+
+```json
 {'sentiment': 'negative', 'themes': ['leaking', 'performance'], 'product_defect': True, 'safety_concern': False}
+```
 
+</details>
 
---- 5★ Great value, delivery was fast and it crushes ice well. ---
+<details><summary>🧾 Extracted · 5★ Great value, delivery was fast and it crushes ice well.</summary>
+
+```json
 {'sentiment': 'positive', 'themes': ['value', 'delivery', 'performance'], 'product_defect': False, 'safety_concern': False}
+```
 
+</details>
 
---- 1★ Blade assembly cracked; I'm worried about plastic bits in my ---
+<details><summary>🧾 Extracted · 1★ Blade assembly cracked; I'm worried about plastic bits in my</summary>
+
+```json
 {'sentiment': 'negative', 'themes': ['durability', 'size', 'size'], 'product_defect': True, 'safety_concern': True}
+```
 
+</details>
 
---- Summary ---
+<details><summary>🐍 Python · Summary</summary>
+
+```json
 {
   "product": "AeroBlend 600W Personal Blender",
   "reviews": 8,
@@ -117,9 +149,12 @@ Python stay the same.
     "Blade assembly cracked; I'm worried about plastic bits in my drink."
   ]
 }
+```
 
+</details>
 
---- Quality report ---
+**🦙 Ollama:**
+
 **AeroBlend 600W Personal Blender Quality Analysis Report**
 
 **Overall Sentiment:**
@@ -149,9 +184,7 @@ Python stay the same.
 **Next Steps:**
 - Review the safety issues with the quality assurance team to determine if a product recall is necessary.
 - Implement the above actions to mitigate customer dissatisfaction and improve product safety and quality.
-````
 
-</details>
 
 ## Run
 ```bash

@@ -49,16 +49,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 10 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Here's my spending for last month on a 5,200 take-home pay. How am I doing, and where can I save?
 
-````text
---- Spending analysis ---
+<details><summary>🐍 Python · Spending analysis</summary>
+
+```json
 {
   "income": 5200,
   "spent": 4048,
@@ -97,33 +97,34 @@ Python stay the same.
   "subscriptions_total": 90.0,
   "takeaway_total": 205.0
 }
-
-
---- Coaching ---
-**2-line Summary vs 50/30/20 Rule:**
-Your current spending is 54% on needs, 20% on wants, and 4% on savings, which deviates from the 50/30/20 rule. To better align, you can adjust your budget to save more and reduce spending on non-essential items.
-
-**4 Specific Saving Tips with Estimated Monthly Savings:**
-1. **Cut Back on Takeout Meals:** Reduce takeaway orders by $100/month.
-2. **Cancel Unnecessary Subscriptions:** Save $30/month by unsubscribing from unused services.
-3. **Reduce Shopping Spree:** Cut down on shopping by $50/month.
-4. **Automate Savings:** Set up an automatic transfer of $100/month into a savings account.
-
-**Suggested Monthly Budget Table:**
-| Category       | Current Spending | Target Spending | Monthly Savings |
-|----------------|-----------------|----------------|----------------|
-| Needs          | $2,724          | $2,600         | $124           |
-| Wants          | $1,024          | $1,560         | $536           |
-| Savings        | $208            | $1,040         | $832           |
-| Subscriptions  | $90             | $0             | $90            |
-| Takeaway       | $205            | $0             | $205           |
-| **Total**      | **$4,048**      | **$4,200**     | **$1,155**     |
-
-**Encouraging Closing Line:**
-Keep moving forward with small, consistent changes, and you'll see significant progress in your financial health!
-````
+```
 
 </details>
+
+**🦙 Ollama:**
+
+### 2-line Summary vs 50/30/20 Rule
+Your current spending is more focused on wants and less on savings compared to the 50/30/20 rule, which suggests allocating 50% to needs, 30% to wants, and 20% to savings. Adjusting your budget can help you save more and reduce unnecessary expenses.
+
+### 4 Specific Saving Tips with Estimated Monthly Savings
+1. **Cut Down on Takeout Meals**: Reduce takeaway orders by $100/month.
+2. **Cancel Unnecessary Subscriptions**: Save $15/month by unsubscribing from unused services.
+3. **Reduce Shopping Spree**: Cut back on non-essential shopping by $50/month.
+4. **Automate Savings**: Set up an automatic transfer of $100/month into a savings account.
+
+### Suggested Monthly Budget Table
+| Category       | Current Spending | Target Spending | Monthly Savings |
+|----------------|------------------|----------------|----------------|
+| Needs          | $2,720           | $2,600         | $120           |
+| Wants          | $820             | $1,560         | -$740          |
+| Savings        | $208             | $1,040         | $832           |
+| Subscriptions  | $90              | $0             | $90            |
+| Takeaway       | $205             | $0             | $205           |
+| **Total**      | **$4,048**       | **$4,208**     | **$160**       |
+
+### Encouraging Closing Line
+By making small adjustments, you can significantly boost your savings and achieve your financial goals. Keep going!
+
 
 ## Run
 ```bash

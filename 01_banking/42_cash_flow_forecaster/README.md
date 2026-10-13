@@ -50,42 +50,49 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 13 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Give me the 13-week cash outlook and any funding needs.
 
-````text
---- Treasury view ---
-Based on the 13-week cash forecast, here is a summary of the trends and funding needs:
+<details><summary>🔧 Tool calls</summary>
 
-### Inflows vs Outflows Trend
-- **Weeks 1-5**: The company experiences consistent outflows of $130,000 per week, leading to a closing cash balance of $680,000 by the end of Week 5.
-- **Week 6**: A significant outflow of $580,000 (likely due to payroll bonuses) causes the cash balance to turn negative at $-30,000.
-- **Weeks 7-9**: The company continues to experience outflows, with the cash balance reaching a low of $-800,000 by Week 9 due to a large tax payment.
-- **Week 10-11**: The cash balance remains negative, but a large customer receipt in Week 11 brings it back to $-760,000.
-- **Weeks 12-13**: The company experiences consistent outflows, leading to a closing cash balance of $-1,020,000 by the end of Week 13.
-
-### Week Cash Turns Negative
-- The company's cash balance turns negative in **Week 6** with a closing balance of $-30,000.
-
-### Funding Gap vs Overdraft
-- The lowest projected cash point is in **Week 13** at $-1,020,000.
-- The overdraft limit is $500,000, which is insufficient to cover the projected shortfall of $520,000.
-
-### Recommendations
-1. **Working Capital Line**: Given the significant funding gap, it would be prudent to increase the working capital line to at least $1,520,000 to cover the projected shortfall.
-2. **Invoice Discounting**: Utilize invoice discounting to free up cash from receivables, potentially reducing the need for additional funding.
-3. **Payables Timing**: Negotiate with suppliers to extend payment terms, thereby delaying cash outflows.
-4. **Sweeping Surplus**: Implement a cash management strategy to sweep surplus funds from non-core accounts into the primary account to maintain liquidity.
-
-These actions will help mitigate the risk of cash shortages and ensure the company can meet its financial obligations.
-````
+```text
+forecast_cash(weeks=13) -> [{"week": 1, "net_flow": -130, "closing_cash": 1070, "event": ""}, {"week": 2, "net_flow": -130, "closing_cash": 940, "event": ""}, {"week": 3, "net_flow": -130, "closing_cash": 810, "event": ""}, {"week": 4, "net_flow": -130, "closing_cash": 680, "event": ""}, {"week": 5, "net_flow": -580, "closing_cash": 100, "event": "Payroll bonus"}, {"week": 6, "net_flow": -130, "closing_cash": -30, "event": 
+funding_gap() -> {"lowest_week": 13, "lowest_cash_k": -1020, "overdraft_limit_k": 500.0, "headroom_k": -520, "breach": true}
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Based on the 13-week cash forecast, here is the summary of the trends and funding needs:
+
+### Inflows vs Outflows Trend
+- **Weeks 1-5**: The company experiences consistent outflows of $130,000 per week, with closing cash levels decreasing from $1,070,000 to $100,000.
+- **Week 6**: The company faces a significant outflow of $580,000 due to payroll bonuses, resulting in negative cash of $30,000.
+- **Weeks 7-9**: Cash levels continue to decline, reaching a low of $-800,000 in Week 9 due to a large tax payment.
+- **Week 10-11**: Cash levels remain negative, but there is a slight improvement in Week 11 with a large customer receipt.
+- **Weeks 12-13**: Cash levels continue to decline, with the lowest point in Week 13 at $-1,020,000.
+
+### Week Cash Turns Negative
+- The company's cash balance turns negative in Week 6, with a closing cash balance of $-30,000.
+
+### Funding Gap vs Overdraft
+- The lowest projected cash point is in Week 13 at $-1,020,000.
+- The overdraft limit is $500,000, which is insufficient to cover the funding gap of $520,000.
+- There is a funding gap breach in Week 13.
+
+### Recommendations
+1. **Working Capital Line**: Consider increasing the working capital line to $1,520,000 to cover the funding gap.
+2. **Invoice Discounting**: Utilize invoice discounting to free up cash from receivables, potentially reducing the need for additional funding.
+3. **Payables Timing**: Negotiate with suppliers to extend payment terms, allowing for better cash flow management.
+4. **Sweeping Surplus**: Implement a cash sweep mechanism to transfer surplus funds from non-core accounts to the primary account to maintain positive cash levels.
+
+These actions can help mitigate the risk of cash shortages and ensure the company remains financially stable throughout the forecast period.
+
 
 ## Run
 ```bash

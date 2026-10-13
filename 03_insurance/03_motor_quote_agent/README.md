@@ -55,20 +55,15 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** I'm 23, licensed 2 years, driving a group 22 car in a high-risk area, 1 claim in 5 years, 9,000 miles a year. What's my quote, and how much would I save with a 500 voluntary excess?
 
-````text
---- Customer ---
-I'm 23, licensed 2 years, driving a group 22 car in a high-risk area, 1 claim in 5 years, 9,000 miles a year. What's my quote, and how much would I save with a 500 voluntary excess?
+**🦙 Ollama:**
 
-
---- Quote ---
 Based on your details, your annual motor insurance premium would be £1,656.21. This breaks down as follows:
 
 - **Driver Age**: Your age of 23 is a significant factor, increasing the premium by 60%.
@@ -81,9 +76,7 @@ Based on your details, your annual motor insurance premium would be £1,656.21. 
 If you choose to increase your voluntary excess to £500, your annual premium would reduce to £1,490.59, saving you £165.62 annually.
 
 Would you like to proceed with this voluntary excess or consider other options?
-````
 
-</details>
 
 ## Run
 ```bash

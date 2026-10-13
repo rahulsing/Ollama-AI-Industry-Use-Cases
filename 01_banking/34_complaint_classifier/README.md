@@ -50,16 +50,17 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 13 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Classify today's customer complaints and route each one to the right team with a deadline.
 
-````text
---- I was charged a 35 overdraft fee twice for the same transaction and no... ---
+**🦙 Ollama:**
+
+#### I was charged a 35 overdraft fee twice for the same transaction and no...
+```
 {
   "product": "credit_card",
   "category": "fees_charges",
@@ -70,9 +71,10 @@ Python stay the same.
   "summary": "The customer is disputing a double charge of an overdraft fee and is requesting a refund."
 }
 -> Route: Retail Ops - Fees | SLA: 10 day(s)
+```
 
-
---- My father has dementia and someone at your bank sold him a 10-year ins... ---
+#### My father has dementia and someone at your bank sold him a 10-year ins...
+```
 {
   "product": "investment_insurance",
   "category": "mis_selling",
@@ -83,9 +85,10 @@ Python stay the same.
   "summary": "A family member reports that a bank sold an unsuitable 10-year insurance-linked investment to a person with dementia, who does not understand it."
 }
 -> Route: Conduct & Compliance | SLA: 3 day(s) | FLAG: regulatory log
+```
 
-
---- The mobile app keeps logging me out when I try to pay bills. Very anno... ---
+#### The mobile app keeps logging me out when I try to pay bills. Very anno...
+```
 {
   "product": "mobile_app",
   "category": "digital_banking",
@@ -96,9 +99,10 @@ Python stay the same.
   "summary": "Customer is experiencing issues with the mobile app logging them out when trying to pay bills."
 }
 -> Route: Digital Support | SLA: 15 day(s)
+```
 
-
---- Money was taken from my account for a purchase I never made in another... ---
+#### Money was taken from my account for a purchase I never made in another...
+```
 {
   "product": "credit_card",
   "category": "fraud_dispute",
@@ -109,9 +113,10 @@ Python stay the same.
   "summary": "The customer is reporting an unauthorized transaction from their account, which occurred in another country, and their card is still in their possession. This is classified as a fraud_dispute with high severity."
 }
 -> Route: Fraud Operations | SLA: 3 day(s) | FLAG: regulatory log
+```
 
-
---- Your loan agent called me 6 times a day and threatened to tell my empl... ---
+#### Your loan agent called me 6 times a day and threatened to tell my empl...
+```
 {
   "product": "loan",
   "category": "collections_conduct",
@@ -122,9 +127,8 @@ Python stay the same.
   "summary": "The customer is experiencing harassment from debt collectors who are threatening to disclose the customer's missed EMI to their employer."
 }
 -> Route: Collections Oversight | SLA: 3 day(s) | FLAG: regulatory log
-````
+```
 
-</details>
 
 ## Run
 ```bash

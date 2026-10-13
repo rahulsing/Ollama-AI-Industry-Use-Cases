@@ -50,52 +50,59 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 17 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Analyse our FX exposures and recommend a hedging plan.
 
-````text
---- Advice ---
-Based on the provided exposures and forward rates, here is the analysis and hedging recommendations:
+<details><summary>🔧 Tool calls</summary>
 
-### Net Exposure
-- **USD 3m**: Long 1,200,000 USD
-- **EUR 6m**: Short 1,200,000 EUR
-
-### Forward Rates and Risk Analysis
-- **USD 3m**:
-  - Forward Rate: 84.67 INR/USD
-  - 1-sigma Spot Range: 82.31 - 86.09 INR/USD
-  - Risk: If the spot rate at maturity is at the 1-sigma level, the worst-case scenario would be a spot rate of 82.31 INR/USD. This would result in a loss of approximately 2.6% (1200000 * (84.67 - 82.31) / 84.67) on the exposure.
-
-- **EUR 6m**:
-  - Forward Rate: 93.31 INR/EUR
-  - 1-sigma Spot Range: 87.29 - 95.71 INR/EUR
-  - Risk: If the spot rate at maturity is at the 1-sigma level, the worst-case scenario would be a spot rate of 95.71 INR/EUR. This would result in a loss of approximately 2.6% (1200000 * (95.71 - 93.31) / 93.31) on the exposure.
-
-### Hedging Recommendations
-1. **USD 3m Exposure**:
-   - **Hedge Ratio**: 100% (since the exposure is net long)
-   - **Instrument**: Forward
-   - **Reasoning**: A forward contract locks in the exchange rate at 84.67 INR/USD, providing certainty and eliminating the risk of adverse movements in the spot rate.
-
-2. **EUR 6m Exposure**:
-   - **Hedge Ratio**: 100% (since the exposure is net short)
-   - **Instrument**: Forward
-   - **Reasoning**: A forward contract locks in the exchange rate at 93.31 INR/EUR, providing certainty and eliminating the risk of adverse movements in the spot rate.
-
-### Natural Hedges
-- **USD 3m**: If the client has a natural exposure to USD, such as a receivable or a liability denominated in USD, this exposure can be naturally hedged against the USD 3m exposure.
-- **EUR 6m**: If the client has a natural exposure to EUR, such as a receivable or a liability denominated in EUR, this exposure can be naturally hedged against the EUR 6m exposure.
-
-By implementing these forward contracts, the client can manage the risk associated with the foreign currency exposures and ensure that the financial performance is not adversely affected by exchange rate fluctuations.
-````
+```text
+net_exposure() -> {"USD_3m": 1200000, "EUR_6m": -1200000}
+forward_rate(currency='USD', months=3) -> USD 3m forward: 84.67 (spot 84.2); 1-sigma spot range at maturity 82.31 - 86.09
+forward_rate(currency='EUR', months=6) -> EUR 6m forward: 93.31 (spot 91.5); 1-sigma spot range at maturity 87.29 - 95.71
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Based on the provided exposures and forward rates, let's analyze the risk and recommend a hedging strategy.
+
+### USD Exposure
+- **Net Exposure**: +1,200,000 USD for 3 months.
+- **Forward Rate**: 84.67 INR/USD (spot rate: 84.2 INR/USD).
+- **1-sigma Spot Range at Maturity**: 82.31 - 86.09 INR/USD.
+
+#### Risk Analysis
+If the USD/INR spot rate moves unfavorably outside the 1-sigma range, the value of your exposure could decrease significantly. For example, if the spot rate at maturity is 82.31 INR/USD, your exposure would be worth approximately 1,200,000 * 82.31 = 98,772,000 INR, which is a loss of 1200000 * (84.2 - 82.31) = 2,280,000 INR compared to the forward rate.
+
+#### Hedge Recommendation
+- **Hedge Ratio**: 100% of the exposure.
+- **Instrument**: Forward contract.
+- **Reasoning**: A forward contract locks in the exchange rate, providing certainty and eliminating the risk of adverse movements in the spot rate.
+
+### EUR Exposure
+- **Net Exposure**: -1,200,000 EUR for 6 months.
+- **Forward Rate**: 93.31 INR/EUR (spot rate: 91.5 INR/EUR).
+- **1-sigma Spot Range at Maturity**: 87.29 - 95.71 INR/EUR.
+
+#### Risk Analysis
+If the EUR/INR spot rate moves unfavorably outside the 1-sigma range, the value of your exposure could increase significantly. For example, if the spot rate at maturity is 95.71 INR/EUR, your exposure would be worth approximately 1,200,000 * 95.71 = 114,852,000 INR, which is a gain of 1200000 * (95.71 - 93.31) = 2,880,000 INR compared to the forward rate.
+
+#### Hedge Recommendation
+- **Hedge Ratio**: 100% of the exposure.
+- **Instrument**: Forward contract.
+- **Reasoning**: A forward contract locks in the exchange rate, providing certainty and eliminating the risk of adverse movements in the spot rate.
+
+### Summary
+- **USD Exposure**: Hedge 1,200,000 USD for 3 months using a forward contract at 84.67 INR/USD.
+- **EUR Exposure**: Hedge -1,200,000 EUR for 6 months using a forward contract at 93.31 INR/EUR.
+
+These hedges will protect your company from exchange rate fluctuations and ensure that you can manage your financial risks effectively.
+
 
 ## Run
 ```bash

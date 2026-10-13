@@ -50,34 +50,41 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 8 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Verify the current onboarding application.
 
-````text
---- KYC result ---
-Based on the provided information and the results from the tools, here is the checklist:
+<details><summary>🔧 Tool calls</summary>
 
-1. **ID Format**: PASS
-2. **ID Expiry**: FAIL (Expired 43 days ago)
-3. **Name Match**: PASS (Allowing middle-name/initial differences)
-4. **DOB Match**: PASS
-5. **Address Match**: PASS (Allowing spelling and abbreviation variants like Bangalore/Bengaluru)
-6. **Address Proof Recency**: REVIEW (Issued 124 days ago - TOO OLD (limit 90))
-
-Given the address proof is too old, we need to request a more recent document.
-
-### Final Status: PENDING (list documents needed)
-- **Address Proof**: Provide a recent utility bill or any other valid address proof issued within the last 90 days.
-
-Would you like to proceed with this or need further assistance?
-````
+```text
+get_application() -> {"form": {"full_name": "Ananya R. Iyer", "dob": "1991-04-22", "address": "14 Lake View Rd, Bengaluru 560001", "pan": "AKPPI4521L", "occupation": "Architect", "source_of_funds": "Salary"}, "id_document": {"type": "Passport", "number": "Z4829175", "name": "ANANYA RAMESH IYER", "dob": "1991-04-22", "expiry": "2026-08-30"}, "address_proof": {"type": "Utility bill", "address": "14 Lakeview Road, Bangal
+validate_id_format(id_type='Passport', number='Z4829175') -> Passport Z4829175: VALID format
+check_document_expiry(expiry='2026-08-30') -> Expired 43 days ago
+address_proof_recency(issue_date='2026-06-10', max_age_days=90) -> Issued 124 days ago - TOO OLD (limit 90)
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Based on the provided information and the results from the tools, here is the checklist:
+
+- **ID Format**: PASS
+- **ID Expiry**: FAIL (Expired 43 days ago)
+- **Name Match**: PASS (Allowing middle-name/initial differences)
+- **DOB Match**: PASS
+- **Address Match**: PASS (Allowing spelling and abbreviation variants like Bangalore/Bengaluru)
+- **Address-Proof Recency**: REVIEW (Issued 124 days ago - TOO OLD (limit 90))
+
+Given the issues with the ID expiry and the address proof recency, the final status is:
+
+- **Final Status**: PENDING (list documents needed: Valid passport and recent address proof)
+
+Please provide a valid passport and a recent address proof issued within the last 90 days.
+
 
 ## Run
 ```bash

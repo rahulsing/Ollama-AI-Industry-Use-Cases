@@ -1,6 +1,7 @@
 ============================================================
   37 - Customer Churn Retention Agent (CrewAI)
   model: qwen2.5:7b-instruct
+  runtime: 27s
 ============================================================
 
 
@@ -24,45 +25,88 @@
 ]
 
 
+--- Agent: Retention Analyst ---
+### Per-Customer Diagnosis for MEDIUM/HIGH Risk Customers
+
+#### Customer C-11 (High Risk)
+- **Tenure Years:** 8 years
+- **Balance Trend (3M %):** -62%
+- **Salary/Credit Stopped:** Yes
+- **Logins Trend (3M %):** -70%
+- **Complaints (90d):** 2
+- **Products:** 3
+- **Value Segment:** Affluent
+- **Note:** Complained about FX fees twice
+
+**Likely Churn Drivers:**
+1. **High Churn Score (92):** This indicates a very high likelihood of churn.
+2. **Long Tenure with Declining Balance:** A long tenure with a significant decline in balance suggests dissatisfaction or financial changes impacting the customer.
+3. **Stopped Salary/Credit:** This could indicate a financial hardship or change in the customer's financial situation.
+4. **High Frequency of Complaints (2 complaints in 90 days):** The customer has expressed dissatisfaction multiple times, which is a strong indicator of potential churn.
+5. **Low Engagement (Logins Trend -70%):** Reduced login activity could suggest disengagement or dissatisfaction with the service.
+
+#### Customer C-13 (Medium Risk)
+- **Tenure Years:** 4 years
+- **Balance Trend (3M %):** -35%
+- **Salary/Credit Stopped:** No
+- **Logins Trend (3M %):** -40%
+- **Complaints (90d):** 1
+- **Products:** 1
+- **Value Segment:** Mass Affluent
+- **Note:** Asked about mortgage rates, then went quiet
+
+**Likely Churn Drivers:**
+1. **Medium Churn Score (44):** This indicates a moderate likelihood of churn.
+2. **Long Tenure with Declining Balance:** A 4-year tenure with a 35% decline in balance suggests dissatisfaction or financial changes impacting the customer.
+3. **Low Engagement (Logins Trend -40%):** Reduced login activity could suggest disengagement or dissatisfaction with the service.
+4. **Single Complaint (1 complaint in 90 days):** The customer has expressed dissatisfaction once, which is a warning sign.
+5. **Low Product Ownership (1 product):** Limited product ownership could indicate a lack of value or satisfaction with the current offerings.
+6. **Silent Period:** The customer asked about mortgage rates and then went quiet, which could suggest they are exploring alternatives or are dissatisfied with the current service.
+
+### Summary
+- **Customer C-11:** High risk due to long tenure, significant balance decline, stopped salary/credit, high frequency of complaints, and low engagement.
+- **Customer C-13:** Medium risk due to long tenure, significant balance decline, low engagement, single complaint, and low product ownership.
+
+
 --- Retention plan ---
 ### Retention Plan for Customer C-11
 
-**Action**: Personalized Rate Match Offer
-**Offer**: Waive the next 3 months of FX fees
-**Owner**: Account Manager (AM) Jane Doe
-**Channel**: Email and Phone Call
-**Script Opener**: "Jane Doe from our customer success team reached out to discuss ways to enhance your experience with us and ensure you continue to enjoy our services."
-**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of FX fee waiver
+**Action:** Personalized Rate Match Offer
+**Offer:** Match the customer's current rate with a competitor's rate, up to a 1% reduction.
+**Owner:** Account Manager (AM) - Jane Doe
+**Channel:** Email
+**Script Opener:** "Dear [Customer Name], I noticed you've been experiencing some financial changes, and I wanted to ensure you're getting the best possible rate with us."
+**Success Metric:** Customer retention rate post-offer acceptance.
 
 ---
 
 ### Retention Plan for Customer C-11
 
-**Action**: Personalized Rate Match Offer
-**Offer**: Waive the next 3 months of FX fees
-**Owner**: Account Manager (AM) Jane Doe
-**Channel**: Email and Phone Call
-**Script Opener**: "Jane Doe from our customer success team reached out to discuss ways to enhance your experience with us and ensure you continue to enjoy our services."
-**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of FX fee waiver
+**Action:** Personalized Rate Match Offer
+**Offer:** Match the customer's current rate with a competitor's rate, up to a 1% reduction.
+**Owner:** Account Manager (AM) - Jane Doe
+**Channel:** Email
+**Script Opener:** "Dear [Customer Name], I noticed you've been experiencing some financial changes, and I wanted to ensure you're getting the best possible rate with us."
+**Success Metric:** Customer retention rate post-offer acceptance.
 
 ---
 
 ### Retention Plan for Customer C-13
 
-**Action**: Personalized Rate Match Offer
-**Offer**: Match competitor's mortgage rate for 6 months
-**Owner**: Relationship Manager (RM) John Smith
-**Channel**: Email and Phone Call
-**Script Opener**: "John Smith from our customer success team reached out to discuss your recent interest in mortgage rates and ensure you continue to benefit from our services."
-**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of mortgage rate match
+**Action:** Personalized Product Upsell
+**Offer:** Offer a free consultation for a mortgage product to explore potential savings and benefits.
+**Owner:** Relationship Manager (RM) - John Smith
+**Channel:** Phone Call
+**Script Opener:** "Hello [Customer Name], I noticed you've been exploring mortgage rates recently. I wanted to offer you a free consultation to see how we can help you save and improve your financial situation."
+**Success Metric:** Number of upsold products post-consultation.
 
 ---
 
 ### Retention Plan for Customer C-13
 
-**Action**: Personalized Rate Match Offer
-**Offer**: Match competitor's mortgage rate for 6 months
-**Owner**: Relationship Manager (RM) John Smith
-**Channel**: Email and Phone Call
-**Script Opener**: "John Smith from our customer success team reached out to discuss your recent interest in mortgage rates and ensure you continue to benefit from our services."
-**Success Metric**: Customer satisfaction score (CSAT) post-communication and renewal of mortgage rate match
+**Action:** Personalized Product Upsell
+**Offer:** Offer a free consultation for a mortgage product to explore potential savings and benefits.
+**Owner:** Relationship Manager (RM) - John Smith
+**Channel:** Phone Call
+**Script Opener:** "Hello [Customer Name], I noticed you've been exploring mortgage rates recently. I wanted to offer you a free consultation to see how we can help you save and improve your financial situation."
+**Success Metric:** Number of upsold products post-consultation.

@@ -50,16 +50,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 6 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Screen today's payment parties against the sanctions watchlist. Are any hits real matches?
 
-````text
---- Fuzzy-match hits ---
+<details><summary>🐍 Python · Fuzzy-match hits</summary>
+
+```json
 [
   {
     "party": {
@@ -110,26 +110,27 @@ Python stay the same.
     "name_score": 1.0
   }
 ]
+```
 
+</details>
 
---- Adjudication ---
+**🦙 Ollama:**
+
 1. **Victor A. Petrov**:
-   - **Decision**: FALSE POSITIVE
-   - **Reason**: The DOBs do not match (1988-07-19 vs 1965-03-12).
+   - **Match Type**: FALSE POSITIVE
+   - **Reason**: The DOB (1988-07-19 vs 1965-03-12) is clearly different.
    - **Action**: Release payment.
 
 2. **Hasan Al Rashid**:
-   - **Decision**: TRUE MATCH
-   - **Reason**: The DOB, nationality, and name match closely.
-   - **Action**: Hold payment and escalate.
+   - **Match Type**: TRUE MATCH
+   - **Reason**: The DOB (1972-11-02) and nationality (SY) match exactly.
+   - **Action**: Hold payment for further review.
 
 3. **Golden Crescent Shipping**:
-   - **Decision**: POSSIBLE MATCH (Escalate)
-   - **Reason**: The names are nearly identical, but the nationality differs (AE vs IR). This could indicate a front company.
-   - **Action**: Hold payment and escalate.
-````
+   - **Match Type**: POSSIBLE MATCH (Escalate)
+   - **Reason**: The name is nearly identical, but the nationality differs (AE vs IR). This could indicate a front company.
+   - **Action**: Hold payment for further review.
 
-</details>
 
 ## Run
 ```bash

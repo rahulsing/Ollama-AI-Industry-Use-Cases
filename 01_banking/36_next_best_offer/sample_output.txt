@@ -1,6 +1,7 @@
 ============================================================
   36 - Next Best Offer (CrewAI)
   model: qwen2.5:7b-instruct
+  runtime: 15s
 ============================================================
 
 
@@ -24,12 +25,34 @@
 }
 
 
+--- Agent: Marketing Analyst ---
+Per customer: offer, why, channel, timing.
+
+1. **Customer R-1:**
+   - **Offer:** Credit Card
+   - **Why:** The propensity score for a credit card is 0.6, which is the highest among the suggested offers. Given that R-1 has a savings product and their salary has increased by 20%, they are likely to benefit from a credit card for managing their finances and potentially increasing their spending.
+   - **Channel:** App Push
+   - **Timing:** Immediate, as the salary increase event is recent and they are likely to be receptive to new offers.
+
+2. **Customer R-2:**
+   - **Offer:** Home Loan
+   - **Why:** The propensity score for a home loan is 0.8, which is the highest among the suggested offers. R-2 has searched for home loans twice, indicating a high interest in this product. They also have a credit card and a savings account, suggesting they are already engaged with the bank.
+   - **Channel:** RM Call
+   - **Timing:** Within the next 2 weeks, to capitalize on their recent interest and ensure a personal touch.
+
+3. **Customer R-3:**
+   - **Offer:** Mutual Fund SIP
+   - **Why:** The propensity score for a mutual fund SIP is 0.6, which is the highest among the suggested offers. R-3 has a fixed deposit maturing soon, making them a good candidate for transitioning into a more dynamic investment option like a SIP.
+   - **Channel:** Email
+   - **Timing:** Within the next 7 days, to coincide with the maturity of their fixed deposit, making the transition seamless and timely.
+
+
 --- Campaign ---
 **Customer R-1:**
-"Hey R-1, with your salary increase, a credit card could be perfect! Enjoy flexible spending and rewards. Download now in-app. Opt-out anytime."
+Boost your finances with our Credit Card! Your recent salary increase makes this perfect for you. Download now in-app. Opt-out anytime.
 
 **Customer R-2:**
-"Hi R-2, we noticed your interest in home loans. Let’s discuss your options. Call us soon for a detailed conversation. Opt-out anytime."
+Home Loan offer for you! We noticed your recent searches. Let’s chat about your options. Call us soon.
 
 **Customer R-3:**
-"Hi R-3, your fixed deposit is maturing. Consider a mutual fund SIP for growth. Learn more in your inbox. Opt-out anytime."
+Your fixed deposit matures soon. Consider a Mutual Fund SIP for growth. Check your email for details. Opt-out anytime.

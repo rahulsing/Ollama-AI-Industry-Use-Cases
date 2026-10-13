@@ -59,16 +59,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 39 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Analyse Northwind Consumer Goods' last two years of financial statements and write a research report.
 
-````text
---- Ratios ---
+<details><summary>🐍 Python · Ratios</summary>
+
+```json
 {
   "2024": {
     "gross_margin_pct": 38.0,
@@ -104,13 +104,52 @@ Python stay the same.
     "receivables": 24.6
   }
 }
+```
 
+</details>
 
---- Report ---
+<details><summary>🧑‍💼 Financial Analyst (agent)</summary>
+
+### Analytical Notes
+
+#### Profitability
+- **Revenue Growth**: Northwind Consumer Goods plc experienced a 6.8% increase in revenue from 2024 to 2025, which is a positive sign. However, the net income declined by 14.5%, indicating that the company's profitability has weakened.
+- **Gross Margin**: The gross margin decreased from 38.0% in 2024 to 35.7% in 2025, suggesting that the cost of goods sold (COGS) has increased relative to revenue. This could be due to higher input costs or inefficiencies in production.
+- **EBIT Margin**: The EBIT margin decreased from 11.0% to 9.5%, indicating a decline in operating efficiency.
+- **Net Margin**: The net margin decreased from 6.8% to 5.5%, further confirming the decline in overall profitability.
+- **Return on Equity (ROE)**: The ROE decreased from 13.5% to 11.0%, suggesting that the company's ability to generate returns on shareholders' equity has diminished.
+
+#### Efficiency
+- **Operating Efficiency**: The operating cash flow to net income ratio decreased from 158% in 2024 to 121% in 2025, indicating that the company is generating less cash from its operations relative to its net income. This could be due to higher working capital requirements or lower operating efficiency.
+- **Receivables Turnover**: The days sales outstanding (DSO) increased from 52 days to 61 days, suggesting that the company is taking longer to collect receivables. This could indicate a potential issue with credit terms or customer payment behavior.
+- **Inventory Turnover**: The days inventory outstanding (DIO) increased from 100 days to 111 days, indicating that the company is holding onto its inventory for a longer period. This could be due to overstocking or inefficiencies in inventory management.
+
+#### Liquidity
+- **Current Ratio**: The current ratio decreased from 1.42 to 1.34, indicating a slight decline in short-term liquidity. This is concerning as it suggests that the company may have difficulty meeting its short-term obligations.
+- **Debt to Equity Ratio**: The debt to equity ratio increased from 0.65 to 0.77, indicating a higher reliance on debt financing. While this is not necessarily a concern, it is important to monitor as it could impact the company's financial flexibility and risk profile.
+
+#### Leverage
+- **Interest Coverage Ratio**: The interest coverage ratio decreased from 6.2 to 4.5, indicating that the company's ability to service its debt has weakened. This is a significant concern as it suggests that the company may struggle to meet its interest obligations in the future.
+
+#### Cash Flow Quality
+- **Free Cash Flow**: The free cash flow decreased from 260 to 40, indicating a decline in the company's ability to generate cash from its operations after accounting for capital expenditures. This is a concerning trend as it suggests that the company may be investing heavily in its operations or facing cash flow constraints.
+
+### Concerns
+1. **Declining Profitability**: The significant decline in net income and profitability ratios (gross margin, EBIT margin, net margin) is a major concern.
+2. **Reduced Operating Efficiency**: The decrease in operating cash flow to net income ratio and the increase in DSO and DIO suggest that the company is facing challenges in managing its working capital.
+3. **Liquidity Concerns**: The decrease in the current ratio and the increase in the debt to equity ratio indicate that the company may have liquidity issues.
+4. **Debt Service Risk**: The decrease in the interest coverage ratio suggests that the company may struggle to meet its debt obligations, which could lead to financial distress.
+
+In conclusion, Northwind Consumer Goods plc is facing significant challenges in maintaining its profitability and operational efficiency. These issues, coupled with liquidity and debt service concerns, warrant close monitoring and potential corrective actions to address the underlying issues.
+
+</details>
+
+**🦙 Ollama:**
+
 ### Summary
-- **Revenue Growth**: Northwind Consumer Goods plc experienced a 6.8% increase in revenue from 2024 to 2025, but net income declined by 14.5%, indicating a decline in overall profitability.
-- **Profitability**: Gross margin and EBIT margin decreased, while net margin and ROE declined, suggesting increased costs and operational inefficiencies.
-- **Cash Flow**: Free cash flow significantly decreased, and operating cash flow to net income ratio declined, indicating reduced cash generation from operations.
+- **Revenue Growth**: Northwind Consumer Goods plc experienced a 6.8% increase in revenue from 2024 to 2025, but net income declined by 14.5%, indicating a weakening in overall profitability.
+- **Profitability**: Gross margin and EBIT margin decreased, while net margin and ROE also declined, suggesting operational inefficiencies and cost pressures.
+- **Cash Flow**: Free cash flow decreased significantly, and operating cash flow to net income ratio declined, indicating reduced cash generation from operations.
 
 ### Performance
 - **Revenue Growth**: 6.8% increase from 2024 to 2025.
@@ -118,39 +157,34 @@ Python stay the same.
 - **EBIT Margin**: 11.0% in 2024 to 9.5% in 2025.
 - **Net Margin**: 6.8% in 2024 to 5.5% in 2025.
 - **ROE**: 13.5% in 2024 to 11.0% in 2025.
-- **Operating Cash Flow to Net Income**: 158% in 2024 to 121% in 2025.
-- **Free Cash Flow**: 260 in 2024 to 40 in 2025.
 
 ### Balance Sheet & Liquidity
 - **Current Ratio**: 1.42 in 2024 to 1.34 in 2025.
 - **Debt to Equity**: 0.65 in 2024 to 0.77 in 2025.
-- **Days Sales Outstanding (DSO)**: 52 days in 2024 to 61 days in 2025.
-- **Days Inventory Outstanding (DIO)**: 100 days in 2024 to 111 days in 2025.
+- **DSO Days**: 52 in 2024 to 61 in 2025.
+- **DIO Days**: 100 in 2024 to 111 in 2025.
 
 ### Cash Flow
-- **Free Cash Flow**: Decreased from 260 to 40.
-- **Operating Cash Flow to Net Income**: Decreased from 158% to 121%.
+- **Free Cash Flow**: 260 in 2024 to 40 in 2025.
+- **Operating Cash Flow to Net Income**: 158% in 2024 to 121% in 2025.
 
 ### Key Risks / Red Flags
-- **Profitability Decline**: Significant decrease in net income and profitability ratios.
-- **Operating Efficiency**: Decrease in operating cash flow to net income ratio and increase in DSO and DIO.
-- **Liquidity Concerns**: Decrease in current ratio and increase in debt to equity ratio.
-- **Cash Flow Quality**: Significant decrease in free cash flow.
+1. **Declining Profitability**: Gross margin, EBIT margin, and net margin all decreased, indicating operational inefficiencies.
+2. **Reduced Operating Efficiency**: Operating cash flow to net income ratio declined, and DSO and DIO increased, suggesting challenges in managing working capital.
+3. **Liquidity Concerns**: Current ratio decreased, and debt to equity ratio increased, indicating potential liquidity issues.
+4. **Debt Service Risk**: Interest coverage ratio decreased, indicating reduced ability to service debt.
 
 ### Questions for Management
-- What are the primary drivers of the decline in gross margin and EBIT margin?
-- How are the increased DSO and DIO impacting the company's cash flow and working capital management?
-- What measures are being taken to improve inventory turnover and reduce inventory holding costs?
-- Are there any changes in the company's debt structure or financing strategies that could explain the increase in debt to equity ratio?
-- What steps are being taken to address the decline in free cash flow and improve cash flow generation?
+1. What steps are being taken to address the declining gross margin and EBIT margin?
+2. How are the company's efforts to improve working capital management and reduce DSO and DIO?
+3. What strategies are in place to enhance liquidity and reduce reliance on debt financing?
+4. How is the company planning to improve its interest coverage ratio and ensure debt sustainability?
 
 ### Overall View
 **Neutral**
 
-The company has shown some positive revenue growth, but the decline in profitability, operating efficiency, and cash flow quality are significant concerns. The management needs to address these issues to maintain financial stability and improve overall performance. While the current situation is not dire, proactive measures are necessary to mitigate risks and ensure sustainable growth.
-````
+Northwind Consumer Goods plc is facing significant challenges in maintaining profitability and operational efficiency. While the company has shown some revenue growth, the decline in profitability and cash flow metrics is concerning. The company needs to address these issues proactively to avoid further deterioration in financial health. Close monitoring and potential corrective actions are warranted to ensure the company can navigate these challenges successfully.
 
-</details>
 
 ## Run
 ```bash

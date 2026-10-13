@@ -51,16 +51,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 10 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Rate the AML risk of these customers and justify each rating for the file.
 
-````text
---- Ratings ---
+<details><summary>🐍 Python · Ratings</summary>
+
+```json
 [
   {
     "id": "K-01",
@@ -102,23 +102,24 @@ Python stay the same.
     "next_review": "12 months"
   }
 ]
+```
 
+</details>
 
---- Justifications ---
+**🦙 Ollama:**
+
 ### Customer K-01
 **Risk-Rating Justification: LOW**
-The customer is a salaried individual operating domestically, using a savings account through a branch channel. There are no indicators of politically exposed persons (PEPs). The low risk is driven by the domestic geography, salaried occupation, and the use of a branch channel, which are all associated with lower risk profiles. No additional due-diligence measures are required beyond standard due diligence (SDD).
+The customer is a salaried individual operating domestically, using a savings account through a branch channel. There are no indicators of political exposure. The low risk is driven by the domestic geography, salaried occupation, and the use of a branch channel, which provides a level of direct interaction and oversight. Due-diligence measures include standard due diligence (SDD) and a review by a senior officer if the customer is a foreign Politically Exposed Person (PEP).
 
 ### Customer K-02
 **Risk-Rating Justification: MEDIUM**
-The customer is a jeweller operating in a medium-risk geography, using a current account through a digital channel. While there are no PEP indicators, the occupation of a jeweller and the use of a digital channel introduce some risk due to the potential for money laundering in the jewelry trade. Due-diligence measures include standard due diligence (SDD), enhanced due diligence (EDD) for the occupation, and regular monitoring. Source of wealth should be verified, and senior approval is required for any PEPs.
+The customer is a jeweller operating in a medium-risk geography, using a current account through a digital channel. The occupation of a jeweller, while not inherently high-risk, can involve transactions that may be subject to scrutiny due to the nature of the business. The medium risk is further driven by the use of a digital channel, which may limit the level of direct interaction. Due-diligence measures include standard due diligence (SDD), enhanced due diligence (EDD) for the source of wealth, and a review by a senior officer.
 
 ### Customer K-03
 **Risk-Rating Justification: HIGH**
-The customer is a real estate professional operating in a high-risk geography, engaging in private banking through a non-face-to-face channel. The customer is a foreign PEP, which significantly increases the risk profile. The high risk is driven by the high-risk geography, the high-risk occupation, the use of private banking, and the non-face-to-face channel. Due-diligence measures include comprehensive enhanced due diligence (EDD), verification of the source of wealth, and senior approval for the PEP status. Regular monitoring and additional scrutiny are necessary.
-````
+The customer is a real estate professional operating in a high-risk geography, engaging in private banking through a non-face-to-face channel. The occupation of a real estate professional, combined with the high-risk geography, increases the likelihood of involvement in money laundering or other financial crimes. The non-face-to-face channel further complicates the ability to verify the customer's identity and transactional patterns. The high risk is also driven by the customer being a foreign Politically Exposed Person (PEP). Due-diligence measures include enhanced due diligence (EDD), a thorough review of the source of wealth, and a senior officer's approval for the PEP status. Regular reviews are required to ensure ongoing compliance and risk assessment.
 
-</details>
 
 ## Run
 ```bash

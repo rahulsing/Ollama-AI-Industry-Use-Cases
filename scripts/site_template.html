@@ -96,10 +96,46 @@
   .flow { overflow-x: auto; text-align: center; padding: 6px 0; }
   .flow svg { max-width: 100%; height: auto; }
   .legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
-  .sample { max-height: 640px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; padding: 4px 16px 12px; background: var(--surface-2); }
-  .sample h3 { font-size: 13px; margin: 14px 0 6px; color: var(--accent); text-transform: uppercase; letter-spacing: .03em; }
-  .sample pre { max-height: none; }
-  .sample pre code, .sample pre code.hljs { background: var(--surface); }
+  .demo { padding: 0; overflow: hidden; }
+  .demo-head { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--surface-2); flex-wrap: wrap; }
+  .demo-head h2 { margin: 0; font-size: 17px; }
+  .demo-head .model { margin-left: auto; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+  .chat { padding: 18px; display: flex; flex-direction: column; gap: 14px; min-height: 120px; max-height: 680px; overflow-y: auto; }
+  @media (max-width: 600px) { .chat { max-height: 70vh; padding: 14px 12px; } .avatar { width: 26px; height: 26px; font-size: 14px; } }
+  .chat .placeholder { margin: auto; color: var(--muted); font-size: 14px; text-align: center; }
+  .msg-user { align-self: flex-end; max-width: 85%; background: var(--accent); color: #fff; border-radius: 16px 16px 4px 16px; padding: 9px 14px; }
+  .msg-bot { align-self: stretch; display: flex; gap: 10px; max-width: 100%; }
+  .avatar { flex: none; width: 32px; height: 32px; border-radius: 50%; background: #1f2937; display: grid; place-items: center; font-size: 17px; }
+  .bubble { flex: 1; min-width: 0; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px 16px 16px 16px; padding: 10px 14px; }
+  .bubble .who { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .steps { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
+  .steps:empty { display: none; }
+  .step summary { cursor: pointer; font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+  .step summary::-webkit-details-marker { display: none; }
+  .step summary::after { content: "▸"; margin-left: 2px; opacity: .6; }
+  .step[open] summary::after { content: "▾"; }
+  .step .st { width: 16px; display: inline-grid; place-items: center; }
+  .step .ok { color: #16a34a; font-weight: 700; }
+  .step .body { margin: 4px 0 8px 22px; padding: 8px 12px; border-left: 2px solid var(--border); font-size: 13px; }
+  .step .body pre { max-height: 280px; }
+  .spin { width: 12px; height: 12px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+  .thinking { color: var(--muted); font-size: 13px; display: flex; gap: 6px; align-items: center; }
+  .answer.typing > :last-child::after { content: "▍"; color: var(--accent); animation: blink 1s steps(1) infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blink { 50% { opacity: 0; } }
+  .asks { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 18px 0; border-top: 1px solid var(--border); }
+  .asks .chip { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .chip.done::before { content: "✓ "; }
+  .composer { display: flex; gap: 8px; padding: 12px 18px; flex-wrap: wrap; }
+  .asks + .composer { padding-top: 8px; }
+  .composer:first-child, .chat + .composer { border-top: 1px solid var(--border); }
+  .composer .ask { flex: 1 1 280px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; min-height: 42px; }
+  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: 0 18px; min-height: 42px; font: inherit; font-weight: 600; cursor: pointer; }
+  button.primary:disabled { opacity: .6; cursor: progress; }
+  .demo-foot { padding: 0 18px 14px; margin: 0; }
+  .md pre { margin: 6px 0; }
+  @media (prefers-reduced-motion: reduce) { .spin, .answer.typing > :last-child::after { animation: none; } }
   .md h4 { margin: 12px 0 4px; font-size: 15px; }
   .md table { border-collapse: collapse; margin: 8px 0; font-size: 13px; display: block; overflow-x: auto; }
   .md th, .md td { border: 1px solid var(--border); padding: 4px 8px; text-align: left; }
@@ -157,7 +193,14 @@ function md(text) {
     out.push(`<table>${rows.map((r, i) => `<tr>${r.map(c => i ? `<td>${c}</td>` : `<th>${c}</th>`).join("")}</tr>`).join("")}</table>`);
     table = null;
   };
+  let fence = null;
   for (const line of text.split("\n")) {
+    if (/^\s*```/.test(line)) {
+      if (fence) { out.push(`<pre><code>${esc(fence.join("\n"))}</code></pre>`); fence = null; }
+      else { endList(); endTable(); fence = []; }
+      continue;
+    }
+    if (fence) { fence.push(line); continue; }
     if (/^\s*\|.*\|\s*$/.test(line)) { endList(); (table ??= []).push(line.trim()); continue; }
     endTable();
     const h = line.match(/^\s*#{1,6}\s+(.*)$/);
@@ -173,6 +216,7 @@ function md(text) {
       if (line.trim()) out.push(`<p>${inline(line)}</p>`);
     }
   }
+  if (fence) out.push(`<pre><code>${esc(fence.join("\n"))}</code></pre>`);
   endTable();
   endList();
   return `<div class="md">${out.join("")}</div>`;
@@ -191,16 +235,106 @@ async function drawFlows() {
 const flowBox = (src, label) => `<div class="flow" data-src="${esc(src)}" role="img" aria-label="${esc(label)}"></div>
   <div class="legend">${esc(DATA.legend)}</div>`;
 
-// app.py prints "--- Section ---" blocks: show JSON-looking bodies as code, the rest as markdown
-function sampleHtml(text) {
-  const parts = text.split(/^--- (.+) ---$/m);
-  const blocks = parts[0].trim() ? [["", parts[0]]] : [];
-  for (let i = 1; i < parts.length; i += 2) blocks.push([parts[i], parts[i + 1] || ""]);
-  return blocks.map(([head, body]) => {
-    body = body.trim();
-    const code = /^[{\[]/.test(body) || /^\s*"[^"]+":/m.test(body);
-    return `${head ? `<h3>${esc(head)}</h3>` : ""}${code ? `<pre><code>${esc(body)}</code></pre>` : md(body)}`;
-  }).join("");
+// ------------------------------------------------------------------ "Try it": replay a recorded run
+// Everything shown is from a real run of app.py (scripts/capture_samples.py); only the timing is replayed.
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let demo = null;
+
+function demoHtml(d, u) {
+  const c = u.chat;
+  if (!c) return "";
+  const asks = c.turns.length > 1 ? `<div class="asks" role="group" aria-label="Questions">${c.turns.map((t, i) =>
+    `<button class="chip" data-turn="${i}" aria-pressed="${i === 0}" title="${esc(t.ask)}">${esc(t.ask)}</button>`).join("")}</div>` : "";
+  const took = c.seconds ? `The real run took ${c.seconds} s on a laptop GPU; the replay is sped up. ` : "";
+  return `<section class="panel full demo" id="demo">
+    <div class="demo-head"><h2>▶ Try it</h2>
+      <span class="model"><span class="dot"></span>🦙 Ollama · <code>${esc(c.model)}</code> · local</span></div>
+    <div class="chat" id="chat" aria-live="polite">
+      <div class="placeholder">Press <strong>▶ Run</strong> to ask the ${esc(u.title)} and watch it work.<br>
+        <span class="note">A replay of a real recorded run: the same question, steps and answer you'd get locally.</span></div></div>
+    ${asks}
+    <div class="composer"><div class="ask" id="ask"></div>
+      <button class="primary" id="run">▶ Run</button></div>
+    <p class="note demo-foot">${took}LLM wording varies between runs; the numbers from Python don't.
+      Run it yourself: <code>python ${esc(d.folder)}/${esc(u.slug)}/app.py</code></p></section>`;
+}
+
+function initDemo(u) {
+  if (!u.chat) return;
+  const turns = u.chat.turns;
+  const $ = id => document.getElementById(id);
+  const chat = $("chat"), run = $("run"), ask = $("ask");
+  const state = demo = { sel: 0, busy: false, skip: null, done: new Set() };
+  const alive = () => demo === state && document.body.contains(chat);
+  const select = i => {
+    state.sel = i;
+    ask.textContent = turns[i].ask;
+    document.querySelectorAll("#demo .chip").forEach(b => {
+      b.setAttribute("aria-pressed", String(+b.dataset.turn === i));
+      b.classList.toggle("done", state.done.has(+b.dataset.turn));
+    });
+  };
+  const wait = ms => new Promise(r => {
+    if (state.skip === true || reduceMotion) return r();
+    const t = setTimeout(r, ms);
+    state.skip = () => { clearTimeout(t); r(); };
+  });
+  const scroll = () => { chat.scrollTop = chat.scrollHeight; };
+  const add = html => { chat.insertAdjacentHTML("beforeend", html); scroll(); return chat.lastElementChild; };
+
+  async function play(turn) {
+    chat.querySelector(".placeholder")?.remove();
+    add(`<div class="msg-user">${esc(turn.ask)}</div>`);
+    await wait(350);
+    const bot = add(`<div class="msg-bot"><div class="avatar" aria-hidden="true">🦙</div><div class="bubble">
+      <div class="who">${esc(u.chat.model)}</div><div class="steps"></div><div class="answer md"></div></div></div>`);
+    const steps = bot.querySelector(".steps"), answer = bot.querySelector(".answer");
+    for (const st of turn.steps) {
+      if (!alive()) return;
+      const el = document.createElement("details");
+      el.className = "step";
+      el.innerHTML = `<summary><span class="st"><span class="spin"></span></span>${esc(st.icon)} ${esc(st.label)}</summary>
+        <div class="body">${st.code ? `<pre><code>${esc(st.body)}</code></pre>` : md(st.body)}</div>`;
+      steps.append(el); scroll();
+      await wait(st.label.includes("agent") ? 1400 : 800);
+      el.querySelector(".st").innerHTML = `<span class="ok">✓</span>`;
+    }
+    if (!turn.steps.length) {
+      answer.innerHTML = `<div class="thinking"><span class="spin"></span> Thinking…</div>`;
+      await wait(700);
+    }
+    const tokens = turn.answer.match(/\S+\s*/g) || [];
+    const per = Math.max(1, Math.ceil(tokens.length / 180));  // about 5 s of streaming at most
+    answer.classList.add("typing");
+    for (let i = per; i < tokens.length && alive() && state.skip !== true && !reduceMotion; i += per) {
+      answer.innerHTML = md(tokens.slice(0, i).join(""));
+      scroll();
+      await wait(28);
+    }
+    answer.classList.remove("typing");
+    answer.innerHTML = md(turn.answer);
+    scroll();
+  }
+
+  run.addEventListener("click", async () => {
+    if (state.busy) { const s = state.skip; state.skip = true; if (typeof s === "function") s(); return; }
+    if (state.done.size === turns.length) {  // everything played: start over
+      state.done.clear();
+      chat.innerHTML = "";
+      select(0);
+    }
+    state.busy = true; state.skip = null;
+    run.textContent = "⏭ Skip";
+    await play(turns[state.sel]);
+    if (!alive()) return;
+    state.busy = false;
+    state.done.add(state.sel);
+    const next = turns.findIndex((_, i) => !state.done.has(i));
+    run.textContent = next === -1 ? "↻ Replay" : "▶ Run";
+    select(next === -1 ? state.sel : next);
+  });
+  document.querySelectorAll("#demo .chip").forEach(b => b.addEventListener("click", () => { if (!state.busy) select(+b.dataset.turn); }));
+  select(0);
 }
 
 function renderTabs() {
@@ -285,11 +419,8 @@ function renderDetail(d, u) {
       <section class="panel"><h2>🤖 What the AI does</h2>
         ${md(u.description)}
         <p><strong>How it works:</strong></p>${md(u.how)}</section>
+      ${demoHtml(d, u)}
       <section class="panel full"><h2>🔀 How it flows</h2>${flowBox(u.flow, "Flow diagram for " + u.title)}</section>
-      ${u.sample ? `<section class="panel full"><h2>💬 Sample response</h2>
-        <p class="note">Real output from <code>${esc(u.sample.model)}</code> running locally via Ollama. LLM wording changes from run to run;
-          the numbers from Python stay the same.</p>
-        <div class="sample">${sampleHtml(u.sample.text)}</div></section>` : ""}
       <section class="panel full terms"><h2>📖 Key terms</h2><dl>${terms}</dl>
         <p class="note" style="margin-top:10px"><a href="#/${d.folder}/about">Full ${esc(d.name)} primer & glossary →</a></p></section>
       <section class="panel full"><h2>▶ Run it locally</h2>
@@ -302,6 +433,7 @@ function renderDetail(d, u) {
     </div></div>`;
   if (window.hljs) hljs.highlightElement(app.querySelector("pre code.language-python"));
   drawFlows();
+  initDemo(u);
   window.scrollTo(0, 0);
 }
 

@@ -55,16 +55,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 15 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** What should we offer customers R-1, R-2 and R-3 next? Draft the messages.
 
-````text
---- Propensity (top 3) ---
+<details><summary>🐍 Python · Propensity (top 3)</summary>
+
+```json
 {
   "R-1": {
     "credit_card": 0.6,
@@ -82,20 +82,45 @@ Python stay the same.
     "travel_card": 0.1
   }
 }
-
-
---- Campaign ---
-**Customer R-1:**
-"Hey R-1, with your salary increase, a credit card could be perfect! Enjoy flexible spending and rewards. Download now in-app. Opt-out anytime."
-
-**Customer R-2:**
-"Hi R-2, we noticed your interest in home loans. Let’s discuss your options. Call us soon for a detailed conversation. Opt-out anytime."
-
-**Customer R-3:**
-"Hi R-3, your fixed deposit is maturing. Consider a mutual fund SIP for growth. Learn more in your inbox. Opt-out anytime."
-````
+```
 
 </details>
+
+<details><summary>🧑‍💼 Marketing Analyst (agent)</summary>
+
+Per customer: offer, why, channel, timing.
+
+1. **Customer R-1:**
+   - **Offer:** Credit Card
+   - **Why:** The propensity score for a credit card is 0.6, which is the highest among the suggested offers. Given that R-1 has a savings product and their salary has increased by 20%, they are likely to benefit from a credit card for managing their finances and potentially increasing their spending.
+   - **Channel:** App Push
+   - **Timing:** Immediate, as the salary increase event is recent and they are likely to be receptive to new offers.
+
+2. **Customer R-2:**
+   - **Offer:** Home Loan
+   - **Why:** The propensity score for a home loan is 0.8, which is the highest among the suggested offers. R-2 has searched for home loans twice, indicating a high interest in this product. They also have a credit card and a savings account, suggesting they are already engaged with the bank.
+   - **Channel:** RM Call
+   - **Timing:** Within the next 2 weeks, to capitalize on their recent interest and ensure a personal touch.
+
+3. **Customer R-3:**
+   - **Offer:** Mutual Fund SIP
+   - **Why:** The propensity score for a mutual fund SIP is 0.6, which is the highest among the suggested offers. R-3 has a fixed deposit maturing soon, making them a good candidate for transitioning into a more dynamic investment option like a SIP.
+   - **Channel:** Email
+   - **Timing:** Within the next 7 days, to coincide with the maturity of their fixed deposit, making the transition seamless and timely.
+
+</details>
+
+**🦙 Ollama:**
+
+**Customer R-1:**
+Boost your finances with our Credit Card! Your recent salary increase makes this perfect for you. Download now in-app. Opt-out anytime.
+
+**Customer R-2:**
+Home Loan offer for you! We noticed your recent searches. Let’s chat about your options. Call us soon.
+
+**Customer R-3:**
+Your fixed deposit matures soon. Consider a Mutual Fund SIP for growth. Check your email for details. Opt-out anytime.
+
 
 ## Run
 ```bash

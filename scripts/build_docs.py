@@ -10,10 +10,10 @@ Run:  python scripts/build_docs.py
 """
 
 import json
-import re
 
 from domains import ROOT, load_domains
 from flows import LEGEND, PATTERN_CHAINS, ROOT_FLOW, use_case_flow
+from samples import conversation, readme_section
 
 DEMO_GIF = ROOT / "docs" / "demo.gif"
 REPO_URL = "https://github.com/rahulsing/Ollama-AI-Industry-Use-Cases"
@@ -150,37 +150,6 @@ term used in these use cases, in plain English.
 # --------------------------------------------------------------------------- #
 # Use-case pages
 # --------------------------------------------------------------------------- #
-def sample(d, slug) -> dict | None:
-    """Real output captured by scripts/capture_samples.py, and the model that produced it."""
-    path = d.path / slug / "sample_output.txt"
-    if not path.exists():
-        return None
-    text = path.read_text(encoding="utf-8")
-    model = re.search(r"^\s*model: (\S+)", text, re.M)
-    body = re.sub(r"\A\s*=+\n.*?\n=+\n", "", text, flags=re.S).strip()  # drop the banner
-    return {"model": model.group(1) if model else "local model", "text": body}
-
-
-def sample_section(s) -> str:
-    if not s:
-        return ""
-    return f"""## 💬 Sample response
-
-Real output from `{s["model"]}` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
-
-<details>
-<summary><b>Show the full output</b></summary>
-
-````text
-{s["text"]}
-````
-
-</details>
-
-"""
-
-
 def use_case_readme(d, u) -> str:
     slug, title, cat, fw, pattern, desc, how = u
     today, who, why, terms = d.business[slug]
@@ -219,7 +188,7 @@ More terms: [{d.name} Primer & glossary](../PRIMER.md#glossary)
 
 <sub>{LEGEND}</sub>
 
-{sample_section(sample(d, slug))}## Run
+{readme_section(conversation(d, u))}## Run
 ```bash
 # from the repo root, with Ollama running
 python {d.folder}/{slug}/app.py
@@ -281,8 +250,8 @@ def root_readme(domains) -> str:
 ---
 
 > **🌐 Browse without installing anything:** the [Interactive Explorer]({SITE_URL}) lets you pick an industry,
-> search every solution, read the business problem in plain English, see how the AI flows, read a real sample
-> response, and view the implementation code.
+> search every solution, read the business problem in plain English, see how the AI flows, replay a real
+> conversation with the model, and view the implementation code.
 
 ## 💡 What is this?
 
@@ -322,6 +291,7 @@ cp .env.example .env                                   # optional: change model 
 python {example}/app.py
 
 # 4. Or use the web UI: pick an industry and use case, then click Run
+#    (or "Replay a recorded run" to try it without Ollama)
 streamlit run ui.py
 ```
 
@@ -334,7 +304,8 @@ streamlit run ui.py
 | `qwen2.5:14b` / `gemma3:27b` | 9-17 GB | Better reasoning for the CrewAI report writers |
 | `gpt-oss:20b`, `qwen2.5:72b` | 13-47 GB | Best quality if you have the GPU memory |
 
-Switch with `OLLAMA_MODEL=llama3.1:8b python ...` or in `.env`. Set `CREW_VERBOSE=true` to watch CrewAI agents think.
+Switch with `OLLAMA_MODEL=llama3.1:8b python ...` or in `.env`. Set `CREW_VERBOSE=true` to watch CrewAI agents think, or `SHOW_STEPS=true` to also print each agent's work and
+every tool call (this is what the sample conversations show).
 
 ---
 
@@ -385,6 +356,7 @@ Each use case README has its own diagram showing the real agents and tools from 
 ├── 02_retail/  03_insurance/   # same layout
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
 ├── scripts/build_docs.py       # regenerates every README, primer, flow diagram and the explorer
+├── scripts/capture_samples.py  # records a real run of every use case for the sample conversations
 ├── ui.py                       # optional Streamlit front end
 ├── docs/                       # GitHub Pages: index.html (interactive explorer, generated) + demo.gif
 ├── requirements.txt
@@ -396,8 +368,8 @@ Each use case README has its own diagram showing the real agents and tools from 
 ## 🤝 Contributing
 
 **Add a use case:** copy a folder with the same pattern into the industry folder, keep it self-contained (one
-`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py` (business context plus a `FLOWS` entry for the
-diagram), then run `python scripts/capture_samples.py --missing` (saves a real sample response) and
+`app.py`, sample data inline, Ollama only), add it to that industry's `catalog.py` and `business.py` (business context, a `FLOWS` entry for the
+diagram and, if the app takes no question, an `ASK` entry for the sample conversation), then run `python scripts/capture_samples.py --missing` (saves a real sample response) and
 `python scripts/build_docs.py`.
 
 **Add an industry:** create `04_<industry>/` with a `catalog.py` and `business.py` (copy `02_retail/` as a template)
@@ -434,12 +406,13 @@ def site(domains) -> str:
     data = {"repo": REPO_URL, "root_flow": ROOT_FLOW, "legend": LEGEND, "industries": []}
     for d in domains:
         cases = []
-        for slug, title, cat, fw, pattern, desc, how in d.use_cases:
+        for u in d.use_cases:
+            slug, title, cat, fw, pattern, desc, how = u
             today, who, why, terms = d.business[slug]
             cases.append({"slug": slug, "title": title, "category": cat, "framework": fw, "pattern": pattern,
                           "description": desc, "how": how, "today": today, "who": who, "why": why, "terms": terms,
                           "code": (d.path / slug / "app.py").read_text(encoding="utf-8"),
-                          "flow": use_case_flow(d, (slug, title, cat, fw, pattern, desc, how)), "sample": sample(d, slug)})
+                          "flow": use_case_flow(d, u), "chat": conversation(d, u)})
         data["industries"].append({"folder": d.folder, "name": d.name, "icon": d.icon, "tagline": d.tagline,
                                    "description": d.description, "industry_101": d.industry_101,
                                    "categories": d.categories, "areas": d.areas, "glossary": d.glossary,

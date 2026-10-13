@@ -52,16 +52,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 9 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** What are our LCR and NSFR today? Write the note for ALCO.
 
-````text
---- Metrics ---
+<details><summary>🐍 Python · Metrics</summary>
+
+```json
 {
   "hqla": 10275,
   "gross_outflows": 8800,
@@ -77,9 +77,12 @@ Python stay the same.
     "internal_nsfr_trigger": 110
   }
 }
+```
 
+</details>
 
---- ALCO note ---
+**🦙 Ollama:**
+
 ### Treasury Liquidity Risk Management Report
 
 #### Headline (RAG Status)
@@ -87,31 +90,29 @@ Python stay the same.
 - **NSFR**: Amber
 
 #### Liquidity Coverage Ratio (LCR)
-- **Current LCR**: 138.9%
+- **Current Ratio**: 138.9%
 - **Regulatory Minimum**: 100%
 - **Internal Trigger**: 120%
 - **Status**: Green
 
 #### Net Stable Funding Ratio (NSFR)
-- **Current NSFR**: 132.7%
+- **Current Ratio**: 132.7%
 - **Regulatory Minimum**: 100%
 - **Internal Trigger**: 110%
 - **Status**: Amber
 
 #### Top Drivers of Outflows/RSF
-1. **Operational Wholesale Funding**: 6000 (27.27% of total gross outflows)
-2. **Non-Operational Wholesale Funding**: 9000 (50.00% of total gross outflows)
-3. **Retail Less Stable Deposits**: 15000 (17.04% of total gross outflows)
+1. **Operational Wholesale Funding**: 6000 (27.3% of total outflows)
+2. **Non-Operational Wholesale Funding**: 9000 (50.0% of total outflows)
+3. **Retail Less Stable Deposits**: 15000 (17.0% of total outflows)
 
 #### Concrete Actions
-1. **Term Out Wholesale Funding**: Reduce non-operational wholesale funding by 9000, focusing on terming out these funds to more stable sources.
-2. **Grow Stable Retail Deposits**: Increase retail stable deposits by 20000, aiming to diversify funding sources and improve the stability of funding.
-3. **Add Level 1 High-Quality Liquid Assets (HQLA)**: Increase Level 1 HQLA by 1600, bringing the total to 10275, to further strengthen the liquidity buffer.
+1. **Term Out Wholesale Funding**: Reduce non-operational wholesale funding by 9000, shifting this to more stable sources such as retail deposits or operational wholesale funding.
+2. **Grow Stable Retail Deposits**: Increase retail stable deposits by 20000, which will help in reducing the reliance on less stable funding sources.
+3. **Add Level 1 High-Quality Liquid Assets (HQLA)**: Increase the Level 1 HQLA by 1600, bringing the total to 10275, which will further strengthen the LCR and NSFR ratios.
 
-These actions will help in maintaining compliance with both the regulatory and internal liquidity triggers.
-````
+These actions will help in aligning the LCR and NSFR ratios closer to the internal triggers and regulatory minimums.
 
-</details>
 
 ## Run
 ```bash

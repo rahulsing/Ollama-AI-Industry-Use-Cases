@@ -50,16 +50,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 8 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Score today's card transactions for fraud and tell me what action to take on each.
 
-````text
---- Scores ---
+<details><summary>🐍 Python · Scores</summary>
+
+```json
 [
   {
     "id": "T1",
@@ -112,40 +112,49 @@ Python stay the same.
     ]
   }
 ]
+```
 
+</details>
 
---- Explanations ---
-### Analyst Explanation and Actions:
+**🦙 Ollama:**
+
+### Analyst Explanations and Actions:
 
 1. **Transaction T1:**
-   - **Explanation:** The transaction at Tesco for £58 has a low score, indicating no suspicious activity.
+   - **Explanation:** The transaction at Tesco for €58 has a low score, indicating no suspicious activity.
    - **Action:** APPROVE
 
 2. **Transaction T2:**
-   - **Explanation:** The transaction at CoinFast for £1450 has a very high score due to multiple risk factors, including high-risk merchant category, foreign location, and unusual behavior.
+   - **Explanation:** The transaction at CoinFast for €1450 has a very high score due to multiple risk factors, including high-risk merchant category, foreign country, and unusual behavior.
    - **Action:** BLOCK
 
 3. **Transaction T3:**
-   - **Explanation:** The transaction at LuckySpin for £980 has a high score due to risk factors such as gambling, foreign location, and rapid transaction velocity.
+   - **Explanation:** The transaction at LuckySpin for €980 has a high score due to risk factors such as gambling, foreign country, and unusual transaction velocity.
    - **Action:** BLOCK
 
 4. **Transaction T4:**
-   - **Explanation:** The transaction at Ryanair for £240 has a moderate score with some risk factors, including foreign location and card-not-present status.
+   - **Explanation:** The transaction at Ryanair for €240 has a moderate score with risk factors like foreign country and card-not-present, warranting further review.
    - **Action:** REVIEW
 
 ### SMS Messages:
 
-1. **For T2:**
-   - **SMS:** "Hi, we noticed a transaction of £1450 at CoinFast. Could you confirm this was you? Thanks!"
+1. **For BLOCK/REVIEW Transactions:**
 
-2. **For T3:**
-   - **SMS:** "Hi, we noticed a transaction of £980 at LuckySpin. Could you confirm this was you? Thanks!"
+   - **T2:**
+     ```
+     Hi, we noticed an unusual transaction from CoinFast. Could you please confirm this was you? Thanks!
+     ```
 
-3. **For T4:**
-   - **SMS:** "Hi, we noticed a transaction of £240 at Ryanair. Could you confirm this was you? Thanks!"
-````
+   - **T3:**
+     ```
+     Hi, we noticed an unusual transaction from LuckySpin. Could you please confirm this was you? Thanks!
+     ```
 
-</details>
+   - **T4:**
+     ```
+     Hi, we noticed a transaction from Ryanair that looks unusual. Could you please confirm this was you? Thanks!
+     ```
+
 
 ## Run
 ```bash

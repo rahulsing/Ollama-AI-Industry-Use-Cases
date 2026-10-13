@@ -53,20 +53,23 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 14 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Calculate the ECL for the whole portfolio and explain it.
 
-````text
---- Question ---
-Calculate the ECL for the whole portfolio and explain it.
+<details><summary>🔧 Tool calls</summary>
 
+```text
+portfolio_ecl() -> {"loans": [{"loan": "LN-1", "stage": 1, "pd_used": 0.01, "lgd": 0.35, "ead": 500000, "ecl": 1750, "coverage": "0.35%", "triggers": ["No SICR"]}, {"loan": "LN-2", "stage": 2, "pd_used": 0.18, "lgd": 0.4, "ead": 250000, "ecl": 18000, "coverage": "7.20%", "triggers": [">30 DPD backstop", "PD increased >=2.5x since origination (SICR)"]}, {"loan": "LN-3", "stage": 2, "pd_used": 0.12, "lgd": 0.45, "ead"
+```
 
---- Answer ---
+</details>
+
+**🦙 Ollama:**
+
 Here is the table summarizing the ECL for each loan in the portfolio, along with the total ECL and coverage percentage:
 
 | Loan | Stage | Triggers | ECL (€) | Coverage % |
@@ -76,26 +79,24 @@ Here is the table summarizing the ECL for each loan in the portfolio, along with
 | LN-3 | 2     | PD increased >=2.5x since origination (SICR), On credit watchlist | 43,200 | 5.40%     |
 | LN-4 | 3     | Credit-impaired: >90 DPD / default | 72,000 | 60.00%    |
 
-**Total ECL for the Portfolio: 134,950 €**
+**Total ECL for the portfolio: €134,950**
 
 ### Explanation of 12-Month vs Lifetime ECL
 
-- **12-Month ECL**: This is the expected credit loss over the next 12 months. It is calculated using the 12-month probability of default (PD) for Stage 1 loans. For Stage 2 and Stage 3 loans, the 12-month PD is used as a proxy for the lifetime PD, as the full lifetime PD is not yet realized.
+- **12-Month Expected Credit Loss (ECL):** This is the expected loss over the next 12 months. It is calculated using the 12-month Probability of Default (PD) for Stage 1 loans. For Stage 2 and Stage 3 loans, the lifetime PD is used, but the loss is only recognized over the next 12 months.
   
-- **Lifetime ECL**: This is the total expected credit loss over the entire life of the loan. For Stage 2 and Stage 3 loans, the lifetime PD is used, which reflects the full extent of the expected credit loss over the loan's remaining life.
+- **Lifetime Expected Credit Loss (ECL):** This is the total expected loss over the entire life of the loan. It is calculated using the lifetime PD for all stages. The lifetime ECL is a more conservative measure as it accounts for the full expected loss over the loan's entire term.
 
-### Main Drivers
+### Main Drivers of ECL
 
-- **Probability of Default (PD)**: The higher the PD, the greater the expected credit loss. Loans in Stage 3 (credit-impaired) have the highest PD, leading to the highest ECL.
+- **Probability of Default (PD):** The higher the PD, the higher the ECL. For example, LN-4 has a 100% PD, which significantly increases its ECL.
   
-- **Loss Given Default (LGD)**: This represents the percentage of the exposure at default that is expected to be lost. Higher LGD values increase the ECL.
+- **Loss Given Default (LGD):** This represents the percentage of the exposure at default that is expected to be lost. A higher LGD increases the ECL. For instance, LN-4 has a 60% LGD, contributing to its high ECL.
   
-- **Exposure at Default (EAD)**: This is the total amount of credit exposure at the time of default. Larger EAD values result in higher ECL.
+- **Exposure at Default (EAD):** This is the total amount of credit exposure. A higher EAD increases the ECL. LN-3 has the highest EAD, which contributes to its significant ECL despite a lower PD.
 
-In summary, the total ECL of 134,950 € is driven by the combination of high PD, LGD, and EAD for the loans in Stages 2 and 3, with the largest contribution coming from LN-4, which is in Stage 3. The coverage percentages indicate the extent to which the provisions cover the expected credit losses, with LN-4 having the highest coverage due to its high ECL.
-````
+In summary, the total ECL of €134,950 is driven by the combination of high PD, LGD, and EAD for the loans in the portfolio, with LN-4 being the primary contributor due to its high PD and EAD.
 
-</details>
 
 ## Run
 ```bash

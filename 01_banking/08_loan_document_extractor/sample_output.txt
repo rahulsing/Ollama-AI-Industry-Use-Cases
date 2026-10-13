@@ -1,6 +1,7 @@
 ==============================================================
   08 - Loan Document Extractor (LangChain structured output)
   model: qwen2.5:7b-instruct
+  runtime: 7s
 ==============================================================
 
 

@@ -55,16 +55,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Test this quarter's payment sample against our approval controls and write the audit findings.
 
-````text
---- Control testing ---
+<details><summary>🐍 Python · Control testing</summary>
+
+```json
 {
   "sample_size": 6,
   "exceptions": [
@@ -95,9 +95,12 @@ Python stay the same.
     }
   ]
 }
+```
 
+</details>
 
---- Audit report ---
+**🦙 Ollama:**
+
 ### Audit Findings
 
 #### Finding 1: P-02 - Maker-Checker / Segregation of Duties
@@ -151,9 +154,7 @@ Python stay the same.
 5. **Increase Awareness and Training**: Educate employees about the importance of internal controls and the risks associated with violations.
 
 By addressing these issues, the organization can significantly reduce the risk of fraud and ensure the integrity of its payment processes.
-````
 
-</details>
 
 ## Run
 ```bash

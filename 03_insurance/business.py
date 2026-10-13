@@ -64,3 +64,8 @@ FLOWS = {
     "02_policy_coverage_qa": ("Policy wording + schedule", "COVERED / NOT COVERED decision", "Answer with clause citations"),
     "03_motor_quote_agent": ("Driver & car details", "", "Premium + breakdown"),
 }
+
+# What the user asks in the sample conversation (for use cases without a typed question)
+ASK = {
+    "01_claims_triage_fraud": "Triage this morning's new claims. Which can we pay, and which need an adjuster or a fraud check?",
+}

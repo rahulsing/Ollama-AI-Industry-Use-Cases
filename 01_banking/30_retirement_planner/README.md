@@ -51,40 +51,35 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 9 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** I'm 40, have 150,000 saved, save 1,000 a month and spend 3,500 a month. Can I retire at 60?
 
-````text
---- Question ---
-I'm 40, have 150,000 saved, save 1,000 a month and spend 3,500 a month. Can I retire at 60?
+<details><summary>🔧 Tool calls</summary>
 
-
---- Plan ---
-To retire at age 60, you would need a total corpus of approximately $1,520,117. Based on your current savings and monthly contributions, you are projected to have a corpus of about $1,126,737 at retirement. This leaves a gap of $393,380.
-
-To bridge this gap, you would need to save an additional $755 per month. Alternatively, you could consider the following practical levers:
-
-1. **Retire Later**: If you were to retire at age 65 instead of 60, the required corpus would be lower, and you might be on track with your current savings. Let's check this:
-   
-   
-
-Retiring at age 65 would require a total corpus of approximately $1,762,232. Based on your current savings and monthly contributions, you are projected to have a corpus of about $1,668,884 at retirement. This leaves a gap of $93,348.
-
-To bridge this gap, you would need to save an additional $115 per month. Alternatively, you could consider the following practical levers:
-
-1. **Retire Later**: Retiring at age 65 would reduce the required corpus and make it easier to achieve your retirement goals with your current savings and monthly contributions.
-2. **Save More**: Increasing your monthly savings to $1,115 would help close the gap and ensure you meet your retirement needs.
-3. **Adjust Allocation**: Optimizing your investment allocation to potentially achieve a higher return before retirement could also help reduce the required corpus and the gap.
-
-These adjustments can help you better align your retirement savings with your goals.
-````
+```text
+retirement_plan(current_age=40, current_savings=150000, monthly_saving=1000, monthly_expense_today=3500, retire_age=60) -> {"years_to_retirement": 20, "required_corpus": 1520117, "projected_corpus": 1126737, "gap": 393380, "on_track": false, "required_total_monthly_saving": 1755, "extra_monthly_saving_needed": 755, "assumptions": "7.0% return before retirement, 5.0% after, 3.0% inflation, 25 years in retirement"}
+```
 
 </details>
+
+**🦙 Ollama:**
+
+To retire at age 60, you would need a total corpus of approximately $1,520,117. Based on your current savings and monthly contributions, you are projected to have a corpus of about $1,126,737. This leaves a gap of $393,380. To bridge this gap, you would need to save an additional $755 per month.
+
+Here are three practical levers to consider:
+
+1. **Retire Later**: If you can delay your retirement to age 65, the required corpus would decrease to approximately $1,337,000, and the gap would be reduced to about $183,380. Calling `retirement_plan` with a retire_age of 65 might show a more manageable gap.
+
+2. **Save More**: Increasing your monthly savings to $1,755 would help close the gap. This could be achieved by boosting your contributions or finding ways to earn more income.
+
+3. **Adjust Allocation**: Optimizing your investment allocation to target a higher return before retirement could help. For instance, if you could achieve an annual return of 8% before retirement, the required corpus would decrease, and the gap would be smaller.
+
+Would you like to explore any of these options further?
+
 
 ## Run
 ```bash

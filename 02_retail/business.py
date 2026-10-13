@@ -61,3 +61,9 @@ FLOWS = {
     "02_product_review_analyzer": ("Customer reviews", "Count themes, defects & safety issues", "Quality report + escalations"),
     "03_dynamic_pricing_advisor": ("Prices, competitors & stock", "Guard-railed prices: 30% margin floor, max 10% move", "Pricing memo"),
 }
+
+# What the user asks in the sample conversation (for use cases without a typed question)
+ASK = {
+    "02_product_review_analyzer": "What are customers saying about the AeroBlend 600W blender? Are there any safety issues?",
+    "03_dynamic_pricing_advisor": "Should we change prices on our earbuds, water bottles and other lines this week?",
+}

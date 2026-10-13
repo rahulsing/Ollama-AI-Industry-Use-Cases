@@ -4,13 +4,15 @@ Run:  streamlit run ui.py
 
 Pick an industry, a category and a use case in the sidebar and press Run. Each use
 case's app.py is run unchanged as a subprocess, so the UI never needs editing when
-use cases or industries are added.
+use cases or industries are added. "Replay a recorded run" plays back a real captured
+conversation (sample_output.txt), so you can try the UI without Ollama.
 """
 
 import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import streamlit as st
@@ -18,6 +20,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from domains import load_domains  # noqa: E402
+from samples import conversation  # noqa: E402
 
 st.set_page_config(page_title="Ollama AI Industry Use Cases", page_icon="🦙", layout="wide")
 
@@ -77,7 +80,41 @@ def render(output: str) -> None:
             st.markdown(body)
 
 
-if st.button("▶ Run", type="primary"):
+def typed(text: str):
+    """Yield the answer word by word, like a model streaming tokens (about 5 s at most)."""
+    words = text.split(" ")
+    for word in words:
+        time.sleep(min(0.03, 5 / len(words)))
+        yield word + " "
+
+
+def replay(conv: dict) -> None:
+    """Play back a recorded run as a chat: question, the steps that ran, then the streamed answer."""
+    for turn in conv["turns"]:
+        with st.chat_message("user"):
+            st.markdown(turn["ask"])
+        with st.chat_message("assistant", avatar="🦙"):
+            st.caption(conv["model"])
+            for step in turn["steps"]:
+                with st.status(f"{step['icon']} {step['label']}", expanded=False) as status:
+                    time.sleep(0.6)
+                    if step["code"]:
+                        st.code(step["body"], language="text")
+                    else:
+                        st.markdown(step["body"])
+                    status.update(state="complete")
+            st.write_stream(typed(turn["answer"]))
+    took = f"The real run took {conv['seconds']} s; " if conv["seconds"] else ""
+    st.caption(f"{took}this replay is a recording. Press ▶ Run to run it live on your own model.")
+
+
+conv = conversation(d, by_slug[selected])
+run_col, replay_col = st.columns([1, 3])
+run_clicked = run_col.button("▶ Run", type="primary")
+if conv and replay_col.button("🎬 Replay a recorded run (no Ollama needed)"):
+    replay(conv)
+
+if run_clicked:
     cmd = [sys.executable, str(app_path)] + ([question] if question.strip() else [])
     env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUNBUFFERED": "1"}
     live, log = st.empty(), ""

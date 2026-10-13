@@ -13,7 +13,7 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 from langchain.agents import create_agent
 from langchain_core.tools import tool
 
-from common import banner, get_llm, section
+from common import SHOW_STEPS, banner, get_llm, section, show_tool_calls
 
 CUSTOMER_ID = "CUST-1001"  # assume the user is already authenticated in the app
 ACCOUNTS = {"SAV-221": {"type": "Savings", "balance": 4_215.40}, "CUR-993": {"type": "Current", "balance": 812.10}}
@@ -63,7 +63,10 @@ def main():
 
     def ask(q: str) -> str:
         history.append({"role": "user", "content": q})
+        seen = len(history)
         out = agent.invoke({"messages": history})
+        if SHOW_STEPS:
+            show_tool_calls(out["messages"][seen:])
         history[:] = out["messages"]
         return out["messages"][-1].content
 

@@ -48,32 +48,41 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 12 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** ATM se ek din mein kitna paisa nikaal sakte hain?
 
-````text
---- Q: ATM se ek din mein kitna paisa nikaal sakte hain? ---
+**🦙 Ollama:**
+
 Daily ATM withdrawal limit is 1,000 for Classic debit cards and 2,500 for Platinum debit cards.
 
+---
 
---- Q: ¿Cuánto cuesta una transferencia internacional? ---
+> **👤 You:** ¿Cuánto cuesta una transferencia internacional?
+
+**🦙 Ollama:**
+
 Una transferencia internacional cuesta 15 por transferencia.
 
+---
 
---- Q: Comment réinitialiser mon code PIN de l'application ? ---
-Pour réinitialiser votre code PIN de l'application : ouvrez l'application, tappez 'Forgot PIN', vérifiez avec votre carte bancaire et un code OTP.
+> **👤 You:** Comment réinitialiser mon code PIN de l'application ?
 
+**🦙 Ollama:**
 
---- Q: मेरा कार्ड खो गया है, क्या करूं? ---
-हालाँकि संदेश में जवाब नहीं मिला, आपका कार्ड खोने के लिए उपाय अपने अप्प में कार्ड > ब्लॉक वर्ग में 24/7 ब्लॉक करें या 0800 123 456 से फोन करें.
-````
+Pour réinitialiser votre code PIN de l'application : ouvrez l'application, tapez 'Forgot PIN', vérifiez avec votre carte bancaire et un code OTP.
 
-</details>
+---
+
+> **👤 You:** मेरा कार्ड खो गया है, क्या करूं?
+
+**🦙 Ollama:**
+
+हालाँकि संदेश में जवाब नहीं मिला, आपका कार्ड खोने के लिए उपाय अपने ऐप में कार्ड > ब्लॉक वर्ग में या 0800 123 456 से फोन करके कार्ड को ब्लॉक कर सकते हैं।
+
 
 ## Run
 ```bash

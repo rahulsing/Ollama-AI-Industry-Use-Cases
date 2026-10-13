@@ -50,16 +50,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 6 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Review cardholders C-201, C-202 and C-203. Who should get a limit change, and how do we explain it to them?
 
-````text
---- Rule-based decisions ---
+<details><summary>🐍 Python · Rule-based decisions</summary>
+
+```json
 [
   {
     "id": "C-201",
@@ -98,17 +98,22 @@ Python stay the same.
     "new_limit": 5900
   }
 ]
-
-
---- Explanations ---
-**Internal File:**
-C-201's limit was increased to $7,500 due to a high average balance over the past six months and a strong on-time payment history, which indicates responsible usage and financial stability. C-202's limit was held at $8,000 as the utilization percentage is low and the account has a good payment history, suggesting no immediate need for a change. C-203's limit was decreased to $5,900 because of a high utilization percentage and a recent history of late payments, which may indicate financial strain.
-
-**Customer Notifications:**
-Your credit limit has been adjusted to better suit your financial situation. We appreciate your continued loyalty and trust.
-````
+```
 
 </details>
+
+**🦙 Ollama:**
+
+**Internal File:**
+C-201's limit was increased to $7,500 due to a high utilization percentage and strong on-time payment history, despite a slightly high average balance over the last six months. C-202's limit was held at $8,000 as the account has been performing well with a low utilization rate and consistent on-time payments. C-203's limit was decreased to $5,900 because of a high utilization rate and a recent history of late payments, which indicates potential risk.
+
+**Customer Notifications:**
+Your credit limit has been increased to $7,500 to better match your spending habits. Thank you for your continued loyalty!
+
+Your credit limit remains at $8,000 as your account continues to perform well. Keep up the good work!
+
+Your credit limit has been reduced to $5,900 to help manage your spending. Please let us know if you need any assistance.
+
 
 ## Run
 ```bash

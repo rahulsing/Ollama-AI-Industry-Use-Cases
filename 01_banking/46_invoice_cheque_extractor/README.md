@@ -50,16 +50,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 7 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Extract the data from this scanned cheque and invoice, and check it is valid.
 
-````text
---- Cheque ---
+<details><summary>🧾 Extracted · Cheque</summary>
+
+```json
 {
   "bank": "STATE BANK OF INDIA",
   "ifsc": "SBIN0001234",
@@ -70,9 +70,13 @@ Python stay the same.
   "amount_in_figures": 45600.0,
   "account_number": "30012345678"
 }
+```
 
+</details>
 
---- Invoice ---
+<details><summary>🧾 Extracted · Invoice</summary>
+
+```json
 {
   "invoice_number": "SRT/26-27/0193",
   "date": "05/10/2026",
@@ -82,13 +86,14 @@ Python stay the same.
   "total_tax": 7099.2,
   "invoice_total": 46539.2
 }
-
-
---- Validation ---
-{'cheque_words_match_figures': True, 'ifsc_format_valid': True, 'gstin_format_valid': True, 'invoice_total_adds_up': True, 'cheque_vs_invoice_difference': 939.2}
-````
+```
 
 </details>
+
+**🦙 Ollama:**
+
+{'cheque_words_match_figures': True, 'ifsc_format_valid': True, 'gstin_format_valid': True, 'invoice_total_adds_up': True, 'cheque_vs_invoice_difference': 939.2}
+
 
 ## Run
 ```bash

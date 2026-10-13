@@ -61,16 +61,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Triage this morning's new claims. Which can we pay, and which need an adjuster or a fraud check?
 
-````text
---- Triage (rules) ---
+<details><summary>🐍 Python · Triage (rules)</summary>
+
+```json
 [
   {
     "id": "CLM-501",
@@ -108,9 +108,12 @@ Python stay the same.
     "subrogation_opportunity": true
   }
 ]
+```
 
+</details>
 
---- Claims decisions ---
+**🦙 Ollama:**
+
 ### Claim CLM-501: Home - Escape of Water
 
 - **Final Handling:** PAY
@@ -154,9 +157,7 @@ Python stay the same.
   If the claim is valid and the third party is responsible, we will pursue subrogation to recover the costs from the at-fault party. Please be assured that we will handle this process discreetly and professionally.
 
 These steps will ensure that each claim is handled appropriately and fairly.
-````
 
-</details>
 
 ## Run
 ```bash

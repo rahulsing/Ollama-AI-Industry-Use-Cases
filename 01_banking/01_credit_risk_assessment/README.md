@@ -59,22 +59,23 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 40 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** New personal loan application from Priya Sharma: 12 lakh for home renovation over 5 years. Should we approve it?
 
-````text
---- Computed metrics ---
+<details><summary>🐍 Python · Computed metrics</summary>
+
+```json
 {
   "policy_assessment": {
     "dti": "29.6% vs max 50% -> WITHIN LIMIT (comfortable)",
     "lti": "0.67x vs max 5x -> WITHIN LIMIT (comfortable)",
     "credit_score": "742 vs min 680 -> PASS"
   },
+  "requested_loan": "1,200,000",
   "new_emi": 26391,
   "dti_pct": 29.6,
   "lti": 0.67,
@@ -84,32 +85,49 @@ Python stay the same.
     "None"
   ]
 }
+```
 
+</details>
 
---- Credit decision memo ---
+<details><summary>🧑‍💼 Retail Credit Analyst (agent)</summary>
+
+**Strengths:**
+- **DTI Compliance:** The debt-to-income ratio (DTI) is 29.6%, which is well within the bank's maximum limit of 50%.
+- **LTI Compliance:** The loan-to-income (LTI) ratio is 0.67x, which is within the maximum limit of 5x.
+- **Credit Score:** The credit score of 742 meets the minimum requirement of 680.
+- **No Delinquencies:** There have been no delinquencies in the past 24 months, indicating a good credit history.
+- **Low Credit Utilization:** The credit utilization ratio is 38%, which is relatively low and suggests responsible credit usage.
+
+**Weaknesses:**
+- **High Proposed EMIs:** The proposed monthly EMI of 26,391 is relatively high, which could strain the applicant's financial situation, especially considering the existing monthly EMI of 18,000.
+- **Requested Loan Amount:** The requested loan amount of 1,200,000 is significant, which could be a financial burden if the applicant's income and expenses do not support it.
+
+**Key Risk Drivers:**
+- **High DTI and Proposed EMIs:** The DTI of 29.6% is within the limit but the proposed EMI of 26,391 is high, which could indicate potential strain on the applicant's finances.
+- **Significant Loan Request:** The large loan amount of 1,200,000 could pose a risk if the applicant's income and expenses do not adequately cover the monthly payments.
+- **Existing Monthly EMIs:** The applicant already has a monthly EMI of 18,000, which, combined with the proposed EMI, could lead to financial stress if the loan is approved.
+
+</details>
+
+**🦙 Ollama:**
+
 **Credit Decision Memo**
 
 **Decision:** APPROVE WITH CONDITIONS
 
 **Risk Grade:** B
 
-**Rationale:** The applicant meets the bank's policy criteria with a debt-to-income ratio (DTI) of 29.6%, a loan-to-income (LTI) ratio of 0.67x, and a credit score of 742, all within acceptable limits. However, the proposed monthly EMI of 26,391, combined with an existing EMI of 18,000, poses a risk of financial strain. The salaried employment and the significant loan purpose for home renovation add to the risk profile.
+**Rationale:** The applicant's financial profile meets most of the bank's policy criteria, with a debt-to-income ratio (DTI) of 29.6% and a loan-to-income (LTI) ratio of 0.67x, both within the acceptable limits. The credit score of 742 also meets the minimum requirement. However, the proposed monthly EMI of 26,391 is relatively high, and the significant loan amount of 1,200,000 could pose a financial burden. The applicant already has an existing monthly EMI of 18,000, which could lead to financial strain if the loan is approved.
 
-**Conditions/Covenants:**
-1. The applicant must maintain a minimum credit score of 700 throughout the loan term.
-2. The applicant must not take on any additional debt without prior approval from the bank.
-3. The applicant must provide regular updates on the home renovation project and its progress.
-4. The applicant must maintain a minimum liquid asset reserve equivalent to 3 months of the proposed EMI.
+**Conditions and Covenants:**
+1. **Debt Service Coverage Ratio (DSCR):** The applicant must maintain a DSCR of at least 1.2x to ensure that the monthly income is sufficient to cover the proposed EMI and existing EMIs.
+2. **Regular Income Verification:** The applicant must provide updated income statements every six months to ensure that the income remains stable and sufficient to cover the loan obligations.
+3. **Loan Utilization Monitoring:** The applicant must keep the loan utilization below 60% to avoid over-leveraging.
 
-**Recommended Pricing Adjustment:** 
-- Increase the interest rate by 0.5% to reflect the higher risk associated with the high EMI and significant loan purpose.
+**Recommended Pricing Adjustment:** Given the high proposed EMI and the significant loan amount, a higher interest rate or a higher margin should be applied to this loan to reflect the increased risk. The interest rate should be set at 12.5% to account for the higher risk profile.
 
-**Memo End**
+**Conclusion:** The loan is approved with the above conditions to ensure prudent risk management while supporting the applicant's growth. Regular monitoring and updates will be necessary to ensure compliance with the covenants and to mitigate potential risks.
 
-This decision balances the applicant's strong credit profile with the need to manage potential financial stress and risk. The conditions and covenants are designed to ensure that the applicant can manage the loan effectively while minimizing risk to the bank.
-````
-
-</details>
 
 ## Run
 ```bash

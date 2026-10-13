@@ -1,7 +1,12 @@
 ============================================================
   33 - Banking Customer Support Agent (LangChain agent)
   model: qwen2.5:7b-instruct
+  runtime: 9s
 ============================================================
+
+
+--- Tool calls ---
+get_balance(account_id='') -> {"SAV-221": {"type": "Savings", "balance": 4215.4}, "CUR-993": {"type": "Current", "balance": 812.1}}
 
 
 --- You: What's my total balance? ---
@@ -10,16 +15,28 @@ Bot: Your total balance across all accounts is $5027.5. Here's a breakdown:
 - Current Account: $812.1
 
 
+--- Tool calls ---
+recent_transactions(limit=3) -> [["2026-10-09", "SAV-221", -64.2, "Amazon"], ["2026-10-08", "SAV-221", 2800.0, "Salary ACME Ltd"], ["2026-10-07", "CUR-993", -120.0, "Electric Co Direct Debit"]]
+
+
 --- You: Show my last 3 transactions ---
 Bot: Here are your last three transactions:
 
 1. On 2026-10-09, you made a purchase of $64.2 from Amazon.
 2. On 2026-10-08, you received a deposit of $2800.0 from Salary ACME Ltd.
-3. On 2026-10-07, you had a direct debit of $120.0 for the Electric Co.
+3. On 2026-10-07, you had a direct debit of $120.0 from the Electric Co.
+
+
+--- Tool calls ---
+block_card(reason='lost', last4='4821') -> Card ending 4821 blocked (lost). Replacement dispatched in 5 working days. Ref BLK-4821-2026.
 
 
 --- You: I lost my debit card ending 4821, please block it ---
 Bot: Your card ending in 4821 has been blocked due to it being lost. A replacement card will be dispatched to you in 5 working days. Your new card reference is BLK-4821-2026. Please keep this reference for future inquiries.
+
+
+--- Tool calls ---
+branch_hours(city='Leeds') -> Leeds branches: Mon-Fri 9:30-16:30, Sat 9:30-13:00. 24/7 phone support: 0800 123 456.
 
 
 --- You: What time does the Leeds branch open on Saturday? ---

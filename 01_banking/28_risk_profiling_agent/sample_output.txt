@@ -1,6 +1,7 @@
 ============================================================
   28 - Investor Risk Profiling Agent (LangChain)
   model: qwen2.5:7b-instruct
+  runtime: 4s
 ============================================================
 
 
@@ -24,12 +25,10 @@
 
 
 --- Client explanation ---
-Based on your responses, your risk profile is moderate. You have a long-term investment horizon and want maximum growth, which is great for potential long-term gains. However, you would sell everything if your portfolio drops by 20%, which is quite cautious. Given your limited investment experience, this reaction seems inconsistent with your growth objective.
+Based on your responses, your risk profile is moderate. You have a long-term investment horizon and want maximum growth, which is great for potential long-term gains. However, your reaction to a 20% portfolio fall (selling everything) and your limited investment experience suggest a more cautious approach might be better for now.
 
-To better understand your risk tolerance, let's discuss a few things:
+Here are a few follow-up questions to help us better understand your situation:
 
-1. **Why would you sell everything if your portfolio drops by 20%?** Is there a specific reason for this reaction?
-2. **How do you feel about volatility in your investments?** Understanding your comfort level with ups and downs can help tailor a more suitable strategy.
-3. **Are there any specific financial goals or concerns you have?** This can help us align your risk profile with your overall financial plan.
-
-Let's chat more to find the right balance for you!
+1. How comfortable are you with the potential ups and downs of the market?
+2. Are there any specific financial goals you're trying to achieve in the next few years?
+3. How do you feel about balancing growth with some level of stability in your investments?

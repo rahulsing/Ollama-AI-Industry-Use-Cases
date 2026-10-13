@@ -56,16 +56,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 33 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Validate our retail credit scorecard: is it still performing well enough to keep using?
 
-````text
---- Validation metrics ---
+<details><summary>🐍 Python · Validation metrics</summary>
+
+```json
 {
   "model": "Retail PD Scorecard v3 (logistic regression)",
   "gini_development": 0.588,
@@ -81,63 +81,90 @@ Python stay the same.
     "calibration_tolerance_rel": 0.1
   }
 }
+```
 
+</details>
 
---- Test results (RAG) ---
+<details><summary>🐍 Python · Test results (RAG)</summary>
+
+```json
 {
   "discrimination (Gini OOT)": "GREEN",
   "stability (PSI)": "AMBER",
   "calibration (predicted vs observed PD)": "GREEN (relative gap 10%)"
 }
+```
 
+</details>
 
---- Validation report ---
+<details><summary>🔍 Model Validator (agent)</summary>
+
+### Test-by-test Explanation:
+
+1. **Discrimination (Gini OOT): GREEN**
+   - **Meaning**: The Gini coefficient for the out-of-time (OOT) data is 0.546, which is above the minimum threshold of 0.4. A Gini coefficient of 0.546 indicates that the model has a good discriminatory power, meaning it can effectively distinguish between defaulters and non-defaulters.
+   - **Likely Causes**: The model is performing well in separating the defaulting and non-defaulting retail customers, which is a positive sign. This suggests that the model's predictors are capturing relevant risk factors.
+
+2. **Stability (PSI): AMBER**
+   - **Meaning**: The Population Stability Index (PSI) between the development and out-of-time data is 0.135, which is within the amber range (0.1 to 0.25). PSI measures the difference in the distribution of a variable between two datasets.
+   - **Likely Causes**: The slight increase in PSI suggests that there might be some changes in the customer base or risk profile over time, but these changes are not significant enough to be considered a major issue. However, it indicates that the model might need to be monitored and potentially recalibrated to ensure it remains effective in the future.
+
+3. **Calibration (Predicted vs Observed PD): GREEN (relative gap 10%)**
+   - **Meaning**: The average predicted probability of default (PD) for the out-of-time data is 0.11, and the observed default rate is 0.122. The relative gap between the predicted and observed PD is 10%, which is within the acceptable range.
+   - **Likely Causes**: The model's predictions are reasonably close to the actual observed outcomes, indicating that the model is well-calibrated. This suggests that the model's predicted probabilities are reliable and can be used to make informed decisions.
+
+### Summary:
+- **Discrimination**: The model is performing well in distinguishing between defaulters and non-defaulters, as indicated by the high Gini coefficient.
+- **Stability**: There are minor changes in the customer base, as indicated by the PSI value, but these changes are not significant enough to be classified as red.
+- **Calibration**: The model's predictions are well-calibrated, with a relative gap of 10% between the predicted and observed PD, which is within the acceptable range.
+
+These results suggest that the model is performing well overall, but the slight increase in PSI indicates that some monitoring and potential recalibration might be necessary to ensure long-term stability.
+
+</details>
+
+**🦙 Ollama:**
+
 ### Validation Report Summary
 
 #### Scope
-The validation process for the Retail PD Scorecard v3 (logistic regression) was conducted to assess the model's performance in terms of discrimination, stability, and calibration. The validation was performed using both development and out-of-time (OOT) data.
+The validation process for the Retail PD Scorecard v3 (logistic regression) focused on assessing the model's performance in terms of discrimination, stability, and calibration. The validation was conducted using out-of-time (OOT) data to ensure the model's robustness and reliability.
 
 #### Summary of Tests
 
-| Test                  | Result | Gini OOT | PSI | Predicted PD OOT | Observed Default Rate OOT | Gini Min | PSI Amber | PSI Red | Calibration Tolerance Rel |
-|-----------------------|--------|----------|-----|------------------|---------------------------|---------|----------|---------|---------------------------|
-| Discrimination        | GREEN  | 0.588    | -   | -                | -                         | 0.4     | -        | -        | -                         |
-| Stability             | AMBER  | -        | 0.135 | -                | -                         | -       | 0.1      | 0.25    | -                         |
-| Calibration           | GREEN  | -        | -    | 0.11             | 0.122                     | -       | -        | -        | 0.1                       |
+| Test                  | Result | Gini OOT (Development) | Gini OOT (OOT) | PSI (Development vs OOT) | Avg Predicted PD (OOT) | Observed Default Rate (OOT) | PSI Threshold (Amber) | PSI Threshold (Red) | Calibration Tolerance (Relative) |
+|-----------------------|--------|------------------------|----------------|--------------------------|------------------------|-----------------------------|-----------------------|----------------------|----------------------------------|
+| Discrimination        | GREEN  | 0.588                  | 0.546          | -                        | -                      | -                           | -                     | -                    | -                                |
+| Stability             | AMBER  | -                      | 0.135          | 0.1                      | 0.11                   | 0.122                       | 0.1                   | 0.25                 | 0.1                              |
+| Calibration           | GREEN  | -                      | -              | -                        | -                      | -                           | -                     | -                    | 10%                              |
 
 #### Findings with Severity and Remediation
 
 1. **Discrimination (Gini OOT): GREEN**
    - **Meaning**: The Gini coefficient for the out-of-time (OOT) data is 0.546, which is above the minimum threshold of 0.4.
-   - **Likely Causes**: The model is performing well in terms of discrimination, likely due to the effective selection of relevant features and the appropriate calibration of the logistic regression coefficients.
-   - **Severity**: Low
-   - **Remediation**: No immediate action required. Continue to monitor the model's performance and ensure that the relevant features remain relevant and effective.
+   - **Likely Causes**: The model is performing well in distinguishing between defaulters and non-defaulters.
+   - **Remediation**: No immediate action required. Continue to monitor the model's performance.
 
 2. **Stability (PSI): AMBER**
    - **Meaning**: The Population Stability Index (PSI) between the development and out-of-time data is 0.135, which is within the amber range (0.1 to 0.25).
-   - **Likely Causes**: The model shows some degree of instability, suggesting that there might be subtle shifts in the distribution of key variables over time. This could be due to changes in customer behavior, economic conditions, or other external factors that are not fully captured by the model.
-   - **Severity**: Medium
-   - **Remediation**: Implement regular monitoring and periodic retraining of the model to ensure continued stability. Consider incorporating additional features or adjusting the model to better capture changes in the underlying data distribution.
+   - **Likely Causes**: There are minor changes in the customer base, but these changes are not significant enough to be classified as red.
+   - **Remediation**: Monitor the model's performance over time and consider recalibrating the model if significant changes in the customer base or risk profile are observed.
 
 3. **Calibration (Predicted vs Observed PD): GREEN (relative gap 10%)**
    - **Meaning**: The average predicted probability of default (PD) for the out-of-time data is 0.11, and the observed default rate is 0.122. The relative gap between the predicted and observed PD is 10%, which is within the acceptable range.
-   - **Likely Causes**: The model is well-calibrated, meaning that the predicted probabilities align reasonably well with the actual observed outcomes. This suggests that the model's risk assessments are reliable and that the predicted PDs are close to the true default rates. The small gap (10%) is within the acceptable tolerance level, indicating that the model is performing as expected in terms of calibration.
-   - **Severity**: Low
-   - **Remediation**: No immediate action required. Continue to monitor the model's calibration and ensure that the model remains well-calibrated over time.
+   - **Likely Causes**: The model's predictions are reasonably close to the actual observed outcomes, indicating that the model is well-calibrated.
+   - **Remediation**: No immediate action required. Continue to monitor the model's calibration.
 
 #### Overall Rating
-The overall rating for the Retail PD Scorecard v3 (logistic regression) is **Fit with conditions**. While the model is performing well in terms of discrimination and calibration, there are some signs of potential instability that should be monitored and addressed to ensure long-term reliability.
+The overall rating for the Retail PD Scorecard v3 (logistic regression) is **Fit for use with conditions**. The model is performing well in terms of discrimination and calibration, but the slight increase in PSI indicates that some monitoring and potential recalibration might be necessary to ensure long-term stability.
 
 #### Monitoring Recommendations
-1. **Regular Monitoring**: Conduct regular performance monitoring to track changes in the model's performance metrics, particularly the PSI.
-2. **Periodic Retraining**: Implement a periodic retraining schedule to ensure that the model remains stable and effective.
-3. **Feature Review**: Regularly review the model's input features to ensure they remain relevant and effective.
-4. **External Factor Analysis**: Analyze external factors that may impact the model's performance and adjust the model as necessary.
+1. **Regular Monitoring**: Conduct regular out-of-time validation to ensure the model's performance remains consistent.
+2. **Customer Base Analysis**: Periodically review the customer base and risk profile to identify any significant changes that may require model recalibration.
+3. **Model Recalibration**: Recalibrate the model if significant changes in the customer base or risk profile are observed.
+4. **Documentation**: Maintain detailed documentation of the validation process, findings, and any actions taken.
 
-By following these recommendations, the model can continue to provide reliable and accurate predictions for the retail PD scorecard.
-````
+By following these recommendations, the model can continue to provide reliable and accurate predictions for retail PD scoring.
 
-</details>
 
 ## Run
 ```bash

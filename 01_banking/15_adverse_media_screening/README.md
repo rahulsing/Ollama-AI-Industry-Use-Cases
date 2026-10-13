@@ -50,40 +50,53 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 9 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Screen these news articles for adverse media on Rajiv Malhotra, MD of Horizon Infra Projects.
 
-````text
---- Article 1 ---
+<details><summary>🧾 Extracted · Article 1</summary>
+
+```text
 Horizon Infra Projects wins 2,400 crore highway contract; MD Rajiv Malhotra says execution starts Q1.
 -> {'summary': 'Horizon Infra Projects has secured a significant highway contract worth 2,400 crore. The Managing Director, Rajiv Malhotra, has stated that the execution of the project will begin in the first quarter.', 'about_subject': False, 'category': 'none', 'severity': 'low', 'status': 'charged'}
-
-
---- Article 2 ---
-Enforcement agency raids Horizon Infra offices in money laundering probe linked to bid-rigging; MD Rajiv Malhotra questioned for 9 hours, no charges filed yet.
--> {'summary': "An enforcement agency conducted a raid on Horizon Infra Projects' offices as part of a money laundering investigation related to bid-rigging. The Managing Director, Rajiv Malhotra, was questioned for nine hours, but no charges have been filed against him so far.", 'about_subject': True, 'category': 'sanctions', 'severity': 'medium', 'status': 'investigation'}
-
-
---- Article 3 ---
-Rajiv Malhotra, a Mumbai-based chef, opens new restaurant in Bandra.
--> {'summary': 'Rajiv Malhotra, a chef based in Mumbai, has opened a new restaurant in the Bandra area.', 'about_subject': False, 'category': 'none', 'severity': 'low', 'status': 'charged'}
-
-
---- Article 4 ---
-Court grants bail to Horizon Infra MD Rajiv Malhotra after arrest on bribery charges involving state officials.
--> {'summary': 'Rajiv Malhotra, the Managing Director of Horizon Infra Projects, has been granted bail after being arrested on bribery charges involving state officials.', 'about_subject': True, 'category': 'fraud', 'severity': 'high', 'status': 'allegation'}
-
-
---- Overall ---
-2 relevant adverse articles; highest severity: HIGH -> Escalate for EDD
-````
+```
 
 </details>
+
+<details><summary>🧾 Extracted · Article 2</summary>
+
+```text
+Enforcement agency raids Horizon Infra offices in money laundering probe linked to bid-rigging; MD Rajiv Malhotra questioned for 9 hours, no charges filed yet.
+-> {'summary': "An enforcement agency conducted a raid on Horizon Infra Projects' offices as part of a money laundering investigation related to bid-rigging. The Managing Director, Rajiv Malhotra, was questioned for nine hours, but no charges have been filed against him so far.", 'about_subject': True, 'category': 'sanctions', 'severity': 'medium', 'status': 'investigation'}
+```
+
+</details>
+
+<details><summary>🧾 Extracted · Article 3</summary>
+
+```text
+Rajiv Malhotra, a Mumbai-based chef, opens new restaurant in Bandra.
+-> {'summary': 'Rajiv Malhotra, a chef based in Mumbai, has opened a new restaurant in the Bandra area.', 'about_subject': False, 'category': 'none', 'severity': 'low', 'status': 'charged'}
+```
+
+</details>
+
+<details><summary>🧾 Extracted · Article 4</summary>
+
+```text
+Court grants bail to Horizon Infra MD Rajiv Malhotra after arrest on bribery charges involving state officials.
+-> {'summary': 'Rajiv Malhotra, the Managing Director of Horizon Infra Projects, has been granted bail after being arrested on bribery charges involving state officials.', 'about_subject': True, 'category': 'fraud', 'severity': 'high', 'status': 'allegation'}
+```
+
+</details>
+
+**🦙 Ollama:**
+
+2 relevant adverse articles; highest severity: HIGH -> Escalate for EDD
+
 
 ## Run
 ```bash

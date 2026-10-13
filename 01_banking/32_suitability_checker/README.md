@@ -51,16 +51,17 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 12 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** We plan to offer Mrs. Lata Desai (71, conservative) these three products. Are they suitable?
 
-````text
---- Structured note linked to small-cap index, capital at risk, 5-year lock-in ---
+**🦙 Ollama:**
+
+#### Structured note linked to small-cap index, capital at risk, 5-year lock-in
+```
 Rule findings: ['Product risk 5 > client risk 2', 'Lock-in 5y exceeds horizon 2y', 'Concentration >50% of liquid net worth', 'Complex product for inexperienced client']
 {
   "verdict": "NOT_SUITABLE",
@@ -68,50 +69,50 @@ Rule findings: ['Product risk 5 > client risk 2', 'Lock-in 5y exceeds horizon 2y
   "reasons": [
     "The product risk rating (5) is significantly higher than the client's risk profile (2/5).",
     "The lock-in period (5 years) exceeds the client's investment horizon (2 years).",
-    "The concentration of the proposed investment (1800000 out of 3000000) is more than 50% of the client's liquid net worth.",
-    "The complexity of the structured note is not aligned with the client's experience, who has only dealt with fixed deposits."
+    "The investment amount (1.8 million) represents more than 60% of the client's liquid net worth (3 million), which is a high concentration risk.",
+    "The structured note is a complex product, and the client has limited experience with financial instruments beyond fixed deposits."
   ],
   "required_actions": [
-    "Recommend a lower risk product that aligns with the client's risk profile.",
-    "Suggest a shorter lock-in period that fits within the client's investment horizon.",
-    "Propose a diversified investment strategy to reduce concentration risk.",
-    "Educate the client on the complexities of structured notes and ensure she is comfortable with the investment."
+    "Recommend alternative products with lower risk and shorter lock-in periods.",
+    "Advise on diversifying the investment portfolio to reduce concentration risk.",
+    "Suggest simpler investment options that align with the client's experience and risk tolerance."
   ]
 }
+```
 
-
---- Senior citizen savings scheme (government-backed) ---
+#### Senior citizen savings scheme (government-backed)
+```
 Rule findings: ['Lock-in 5y exceeds horizon 2y']
 {
   "verdict": "NOT_SUITABLE",
   "vulnerable_customer": true,
   "reasons": [
     "The lock-in period of 5 years exceeds the client's investment horizon of 2 years, which could lock up funds that the client may need sooner.",
-    "Mrs. Lata Desai has a conservative risk profile and a need for regular monthly income, which suggests a preference for more liquid and flexible investment options."
+    "The client is conservative and has a fixed deposit-only experience, suggesting a preference for liquidity and lower risk."
   ],
   "required_actions": [
-    "Recommend a more flexible investment product that aligns with her liquidity needs and risk profile.",
-    "Consider a product with a shorter lock-in period or a product that offers better liquidity."
+    "Recommend a product with a lock-in period that aligns with the client's horizon years (2 years).",
+    "Consider a product that offers better liquidity or flexibility to meet the client's need for regular monthly income."
   ]
 }
+```
 
-
---- Short-duration high-quality debt fund ---
+#### Short-duration high-quality debt fund
+```
 Rule findings: none
 {
   "verdict": "SUITABLE",
   "vulnerable_customer": true,
   "reasons": [
-    "Mrs. Lata Desai is 71 years old and has a conservative risk profile, which aligns well with the low-risk nature of a short-duration high-quality debt fund.",
-    "The client has a regular monthly income need, and the proposed product provides stable returns with minimal risk, suitable for her financial requirements.",
-    "The liquidity needs are met as the product has no lock-in period, allowing for easy access to funds if needed.",
-    "Given her experience with fixed deposits only, the short-duration high-quality debt fund is a familiar and comfortable investment for her."
+    "Mrs. Lata Desai is a conservative investor with a risk profile of 2/5, which aligns well with the proposed short-duration high-quality debt fund with a risk rating of 2.",
+    "The client's liquidity needs are met as the product has a lock-in period of 0 years, allowing for easy access to funds.",
+    "Given her age (71) and experience (fixed deposits only), the proposed product is appropriate and aligns with her risk tolerance and investment history.",
+    "The client's regular monthly income requirement can be met by this type of investment, providing a steady stream of income."
   ],
   "required_actions": []
 }
-````
+```
 
-</details>
 
 ## Run
 ```bash

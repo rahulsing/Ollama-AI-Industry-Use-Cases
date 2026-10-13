@@ -52,31 +52,37 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 9 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Underwrite APP-1001 and APP-1002 and compare them.
 
-````text
---- Question ---
-Underwrite APP-1001 and APP-1002 and compare them.
+<details><summary>🔧 Tool calls</summary>
 
+```text
+get_application(app_id='APP-1001') -> {"monthly_income": 9500, "monthly_debt": 1800, "loan_amount": 320000, "property_value": 400000, "credit_score": 728, "employment_years": 5, "loan_type": "mortgage"}
+get_application(app_id='APP-1002') -> {"monthly_income": 6000, "monthly_debt": 2600, "loan_amount": 285000, "property_value": 300000, "credit_score": 655, "employment_years": 1, "loan_type": "mortgage"}
+check_policy(app_id='APP-1001') -> {"dti": {"value": 0.189, "max": 0.43, "pass": true}, "ltv": {"value": 0.8, "max": 0.8, "pass": true}, "credit_score": {"value": 728, "min": 680, "pass": true}, "employment_years": {"value": 5, "min": 2, "pass": true}}
+check_policy(app_id='APP-1002') -> {"dti": {"value": 0.433, "max": 0.43, "pass": false}, "ltv": {"value": 0.95, "max": 0.8, "pass": false}, "credit_score": {"value": 655, "min": 680, "pass": false}, "employment_years": {"value": 1, "min": 2, "pass": false}}
+```
 
---- Answer ---
-Based on the provided data and policy checks, here is the summary for both applications:
+</details>
 
-### APP-1001 Summary
+**🦙 Ollama:**
+
+Based on the provided data and the results from the policy checks, here is a summary for both applications:
+
+### APP-1001
 - **Debt-to-Income Ratio (DTI):** 18.9% (Pass)
-- **Loan-to-Value Ratio (LTV):** 80% (Pass)
+- **Loan-to-Value Ratio (LTV):** 80.0% (Pass)
 - **Credit Score:** 728 (Pass)
 - **Employment Years:** 5 (Pass)
 
-### APP-1002 Summary
+### APP-1002
 - **Debt-to-Income Ratio (DTI):** 43.3% (Fail)
-- **Loan-to-Value Ratio (LTV):** 95% (Fail)
+- **Loan-to-Value Ratio (LTV):** 95.0% (Fail)
 - **Credit Score:** 655 (Fail)
 - **Employment Years:** 1 (Fail)
 
@@ -85,12 +91,10 @@ Based on the provided data and policy checks, here is the summary for both appli
 - **APP-1002:** Decline
 
 ### Conditions
-- **APP-1002:** No specific conditions as it fails multiple policy rules.
+- **APP-1002:** None, as it fails multiple policy rules.
 
-Would you like to proceed with the underwriting for APP-1001 or need further analysis?
-````
+The DTI, LTV, credit score, and employment years for APP-1002 do not meet the required thresholds, leading to a decline. APP-1001 meets all the policy requirements and is recommended for approval.
 
-</details>
 
 ## Run
 ```bash

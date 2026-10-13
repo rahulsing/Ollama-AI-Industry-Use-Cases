@@ -56,20 +56,15 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Review all products: what should we reorder this week and why?
 
-````text
---- Question ---
-Review all products: what should we reorder this week and why?
+**🦙 Ollama:**
 
-
---- Answer ---
 Based on the analysis of the products, here is the summary of the reorder plan and recommendations for this week:
 
 | SKU | Product                | Weeks of Cover | Order Now? | Order Units | Stock-Out Risk | Demand Status                  |
@@ -93,9 +88,7 @@ Based on the analysis of the products, here is the summary of the reorder plan a
 - **Wool scarf (grey) (SKU-103)**: Consider markdowns or cancelling open orders to reduce overstock and improve cash flow.
 
 By taking these actions, you can optimize inventory levels and ensure that you meet customer demand while managing stock efficiently.
-````
 
-</details>
 
 ## Run
 ```bash

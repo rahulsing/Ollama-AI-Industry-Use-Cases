@@ -51,28 +51,33 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 10 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Do I need senior approval to onboard a PEP, and how often must we review them?
 
-````text
---- Q: Do I need senior approval to onboard a PEP, and how often must we review them? ---
+**🦙 Ollama:**
+
 Yes, you need senior approval (Head of Compliance) to onboard a PEP. PEPs require Enhanced Due Diligence, source of wealth verification, and approval by senior management before onboarding [KYC Policy 3.4]. Their periodic KYC review should be conducted annually [KYC Policy 5.1].
 
+---
 
---- Q: A customer deposited 9,900 cash three days in a row. What should I do? ---
-Since the total amount deposited exceeds 10,000, even when split, you should report this as structuring. According to [Ops Manual 2.8], this must be escalated to the MLRO.
+> **👤 You:** A customer deposited 9,900 cash three days in a row. What should I do?
 
+**🦙 Ollama:**
 
---- Q: What is the maximum personal loan for someone earning 4,000 net per month? ---
+No action is required as the transactions do not meet the threshold of 10,000 for reporting. However, monitor the activity for any suspicious behavior. If you have concerns, escalate to the Money Laundering Reporting Officer (MLRO) as per [Ops Manual 2.8].
+
+---
+
+> **👤 You:** What is the maximum personal loan for someone earning 4,000 net per month?
+
+**🦙 Ollama:**
+
 The maximum personal loan for someone earning 4,000 net per month is 80,000 (20x net monthly income). [Credit Policy 4.2]
-````
 
-</details>
 
 ## Run
 ```bash

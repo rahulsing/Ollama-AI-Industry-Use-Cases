@@ -56,16 +56,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Which of these accounts look like money mules, and what should we do about them?
 
-````text
---- Mule scores ---
+<details><summary>🐍 Python · Mule scores</summary>
+
+```json
 [
   {
     "acct": "A-100",
@@ -92,9 +92,12 @@ Python stay the same.
     "tier": "LOW"
   }
 ]
+```
 
+</details>
 
---- Recommendations ---
+**🦙 Ollama:**
+
 ### Prioritized Action List
 
 1. **Account A-100**
@@ -120,9 +123,7 @@ Python stay the same.
 
 - **Network Link Analysis:**
   - **Reasoning:** Conduct a network link analysis for all accounts to identify any connections or patterns that might indicate a larger scheme or network of money mules. This will help in understanding the broader context and potential for coordinated fraudulent activities.
-````
 
-</details>
 
 ## Run
 ```bash

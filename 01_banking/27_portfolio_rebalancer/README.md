@@ -51,23 +51,31 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 21 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Review my portfolio and rebalance if needed.
 
-````text
---- Recommendation ---
+<details><summary>🔧 Tool calls</summary>
+
+```text
+current_allocation() -> {"total_value": 174670, "by_class": {"US equity": {"value": 119700, "weight_pct": 68.5, "target_pct": 45, "drift_pp": 23.5}, "Intl equity": {"value": 19200, "weight_pct": 11.0, "target_pct": 20, "drift_pp": -9.0}, "Bonds": {"value": 18850, "weight_pct": 10.8, "target_pct": 25, "drift_pp": -14.2}, "REITs": {"value": 7920, "weight_pct": 4.5, "target_pct": 5, "drift_pp": -0.5}, "Cash": {"value": 9000
+rebalance_trades(current_allocation={'Bonds': {'drift_pp': -14.2, 'target_pct': 25, 'value': 18850, 'weight_pct': 10.8}, 'Cash': {'drift_pp': 0.2, 'target_pct': 5, 'value': 9000, 'weight_pct': 5.2}, 'Intl equity': {'drift_pp': -9, 'target_pct': 20, 'value': 19200, 'weight_pct': 11}, 'REITs': {'drift_pp': -0.5, 'target_pct': 5, 'value': 7920, 'weight_pct': 4.5}, 'US equity': {'drift_pp': 23.5, 'target_pct': 45, 'value': 119700, 'weight_pct': 68.5}}) -> [{"ticker": "VTI", "action": "SELL", "amount": 41098, "units": 144.2, "est_gain": 13700, "term": "long-term"}, {"ticker": "VXUS", "action": "BUY", "amount": 15734, "units": 245.8}, {"ticker": "BND", "action": "BUY", "amount": 24818, "units": 342.3}, {"ticker": "VNQ", "action": "BUY", "amount": 814, "units": 9.2}]
+```
+
+</details>
+
+**🦙 Ollama:**
+
 Based on the current allocation, we need to rebalance the portfolio to align with the target weights. Here's the drift analysis:
 
-1. **US Equity**: Current weight is 68.5%, which is 23.5 percentage points (pp) higher than the target of 45%. This class is significantly over-weighted.
-2. **Intl Equity**: Current weight is 11.0%, which is 9.0 pp lower than the target of 20%. This class is under-weighted.
-3. **Bonds**: Current weight is 10.8%, which is 14.2 pp lower than the target of 25%. This class is under-weighted.
-4. **REITs**: Current weight is 4.5%, which is 0.5 pp lower than the target of 5%. This class is slightly under-weighted.
-5. **Cash**: Current weight is 5.2%, which is 0.2 pp higher than the target of 5%. This class is slightly over-weighted.
+1. **US Equity**: Currently at 68.5%, target is 45%. Drift of +23.5 percentage points.
+2. **Intl Equity**: Currently at 11.0%, target is 20%. Drift of -9.0 percentage points.
+3. **Bonds**: Currently at 10.8%, target is 25%. Drift of -14.2 percentage points.
+4. **REITs**: Currently at 4.5%, target is 5%. Drift of -0.5 percentage points.
+5. **Cash**: Currently at 5.2%, target is 5%. Drift of +0.2 percentage points.
 
 To rebalance, we will call the `rebalance_trades` function to determine the exact trades needed. This will ensure we make the necessary adjustments without inventing trade amounts or tax outcomes.
 
@@ -81,35 +89,31 @@ To rebalance the portfolio, the following trades are recommended:
    - **Amount**: $41,098
    - **Units**: 144.2
    - **Estimated Gain**: $13,700 (long-term capital gain)
-   - **Reason**: To reduce the weight of US Equity from 68.5% to 45%.
+   - **Explanation**: This sale will help reduce the overweight in US equity, bringing the allocation closer to the target.
 
 2. **Buy VXUS (Intl Equity)**
    - **Action**: BUY
    - **Amount**: $15,734
    - **Units**: 245.8
-   - **Reason**: To increase the weight of Intl Equity from 11.0% to 20%.
+   - **Explanation**: This purchase will increase the allocation in international equity, aligning it with the target weight.
 
 3. **Buy BND (Bonds)**
    - **Action**: BUY
    - **Amount**: $24,818
    - **Units**: 342.3
-   - **Reason**: To increase the weight of Bonds from 10.8% to 25%.
+   - **Explanation**: This purchase will increase the bond allocation, bringing it closer to the target weight.
 
 4. **Buy VNQ (REITs)**
    - **Action**: BUY
    - **Amount**: $814
    - **Units**: 9.2
-   - **Reason**: To increase the weight of REITs from 4.5% to 5%.
+   - **Explanation**: This small purchase will help align the REITs allocation with the target weight.
 
-These trades will help to bring the portfolio back to the target allocation. The estimated gain from selling VTI is a long-term capital gain, which is generally more favorable for tax purposes.
+These trades will help restore the portfolio to its target allocation. The estimated gain from the sale of VTI is a long-term capital gain, which is generally more favorable for tax purposes.
 
-To avoid selling more than necessary, consider using cash or new contributions to reduce the selling amount. For example, you could use $9,000 of your cash holdings to offset some of the VTI sell order.
+**Client Summary:**
+Your portfolio has drifted significantly from the target allocation, particularly in US equity. To rebalance, we will sell $41,098 worth of VTI, which will result in a long-term capital gain of $13,700. We will use the proceeds to buy $15,734 worth of VXUS, $24,818 worth of BND, and $814 worth of VNQ. This will help align your portfolio with the target allocation, ensuring better diversification and risk management.
 
-### Client Summary
-Your portfolio is currently over-weighted in US Equity and under-weighted in Intl Equity, Bonds, and REITs. The rebalance will involve selling US Equity (VTI) and buying Intl Equity (VXUS), Bonds (BND), and REITs (VNQ). The estimated gain from the sale of VTI is a long-term capital gain, which is beneficial for tax purposes. Consider using cash or new contributions to minimize the selling amount.
-````
-
-</details>
 
 ## Run
 ```bash

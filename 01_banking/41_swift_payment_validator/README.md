@@ -51,16 +51,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 11 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** This MT103 payment failed straight-through processing. What's wrong and how do we repair it?
 
-````text
---- Validation ---
+<details><summary>🐍 Python · Validation</summary>
+
+```json
 {
   "fields": {
     "20": "REF20261012-001",
@@ -78,9 +78,12 @@ Python stay the same.
     ":71A: charges code 'SHAR' invalid (OUR/SHA/BEN)"
   ]
 }
+```
 
+</details>
 
---- Repair suggestions ---
+**🦙 Ollama:**
+
 ### Issues and Corrections:
 
 1. **:57A: BIC 'DEUTDEFFX' must be 8 or 11 characters (got 9)**
@@ -113,9 +116,7 @@ MULLER MASCHINENBAU GMBH
 ```
 
 Note: The BIC and IBAN fields need to be confirmed by the customer.
-````
 
-</details>
 
 ## Run
 ```bash

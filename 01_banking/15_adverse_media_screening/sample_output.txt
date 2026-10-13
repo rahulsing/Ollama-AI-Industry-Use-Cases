@@ -1,6 +1,7 @@
 ==============================================================
   15 - Adverse Media Screening (LangChain structured output)
   model: qwen2.5:7b-instruct
+  runtime: 9s
 ==============================================================
 
 

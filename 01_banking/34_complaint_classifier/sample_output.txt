@@ -1,6 +1,7 @@
 ====================================================================
   34 - Complaint Classifier & Router (LangChain structured output)
   model: qwen2.5:7b-instruct
+  runtime: 13s
 ====================================================================
 
 

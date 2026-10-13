@@ -1,6 +1,7 @@
 ============================================================
   26 - AI Wealth Advisor (CrewAI)
   model: qwen2.5:7b-instruct
+  runtime: 67s
 ============================================================
 
 
@@ -41,6 +42,133 @@
 }
 
 
+--- Agent: Client Profiler ---
+### Client Profile Summary
+
+#### Net Worth
+- **Current Net Worth:** The Nairs have a net worth of approximately 15,000,000 INR, considering their assets and liabilities. This includes savings accounts, fixed deposits, equity stocks, employer provident fund, and gold, offset by their outstanding home loan.
+
+#### Cash Flow
+- **Annual Household Income:** 60,000,000 INR
+- **Monthly Expenses:** 150,000 INR
+- **Net Monthly Surplus Post-Tax:** 148,000 INR
+- **Total Required Monthly SIP:** 192,099 INR
+- **Monthly Shortfall:** 44,099 INR
+
+#### Protection Adequacy
+- **Term Life Cover:** The couple has a term life cover of 10,000,000 INR, which is adequate for their family's financial needs, especially considering their children and retirement goals.
+- **Health Cover:** They have a health cover of 1,000,000 INR, which is a good starting point but may need to be reviewed for adequacy, especially if they have any pre-existing conditions or higher medical needs.
+- **Emergency Fund:** The emergency fund is sufficient to cover 6 months of expenses, which is a good buffer but may need to be increased to 3-6 months of living expenses for better financial security.
+
+#### Risk Capacity vs. Tolerance
+- **Risk Questionnaire Score:** The score of 62 indicates a moderate risk tolerance, suggesting that the couple is comfortable with some level of risk in their investment portfolio.
+- **Investment Experience:** They have 5 years of experience in direct equity and mutual funds, which suggests a moderate to higher risk tolerance.
+- **Preferences:** They prefer low-cost index funds and avoid tobacco/alcohol companies, indicating a preference for socially responsible investments. This aligns with their moderate risk tolerance and ethical considerations.
+
+#### Summary
+- **Net Worth:** The Nairs have a substantial net worth, but their current investment strategy may not be sufficient to meet their long-term financial goals.
+- **Cash Flow:** They have a monthly surplus, but the shortfall in their savings plan indicates a need for better allocation of their investable surplus.
+- **Protection Adequacy:** Their current insurance coverage is adequate but may need to be reviewed for any gaps, especially in health insurance.
+- **Risk Capacity vs. Tolerance:** Their moderate risk tolerance aligns with their investment experience, but they may need to consider a more diversified portfolio to meet their goals, especially for their children's education and retirement.
+
+### Recommendations
+1. **Increase Monthly Savings:** The couple should aim to increase their monthly savings to bridge the shortfall of 44,099 INR. This could be achieved by either increasing their monthly surplus or reallocating their existing investments.
+2. **Review Insurance Coverage:** Consider reviewing and possibly increasing their health insurance coverage to ensure it meets their family's needs.
+3. **Diversify Investments:** Given their moderate risk tolerance, they should consider a more diversified investment portfolio that includes a mix of equity, debt, and alternative investments to better align with their risk capacity.
+4. **Emergency Fund:** Consider increasing their emergency fund to a more standard 3-6 months of living expenses for better financial security.
+5. **Regular Reviews:** Regularly review their financial plan to ensure it remains aligned with their changing goals and circumstances.
+
+
+--- Agent: Portfolio Strategist ---
+### Prioritised Goal-wise Plan with Allocations
+
+Given the computed figures and the client's profile, the following prioritised plan and allocations are recommended:
+
+#### 1. **Retirement Corpus**
+   - **Years:** 22
+   - **Inflated Cost:** 108,106,122 INR
+   - **Required Monthly SIP:** 113,417 INR
+   - **Allocated Portfolio:** Moderate (40-65)
+   - **Allocation:** 
+     - **Equity:** 50%
+     - **Debt:** 35%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The retirement corpus is the most critical long-term goal and requires a higher allocation to equity to meet the required return of 10%.
+
+#### 2. **Children's Higher Education**
+   - **Years:** 10
+   - **Inflated Cost:** 7,163,391 INR
+   - **Required Monthly SIP:** 34,970 INR
+   - **Allocated Portfolio:** Conservative (score <40)
+   - **Allocation:** 
+     - **Equity:** 25%
+     - **Debt:** 60%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The children's education goal is a shorter-term goal and can be allocated to a more conservative portfolio to preserve capital.
+
+#### 3. **Family Vacation Home**
+   - **Years:** 10
+   - **Inflated Cost:** 8,954,238 INR
+   - **Required Monthly SIP:** 43,712 INR
+   - **Allocated Portfolio:** Conservative (score <40)
+   - **Allocation:** 
+     - **Equity:** 25%
+     - **Debt:** 60%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The vacation home goal is also a shorter-term goal and can be allocated to a more conservative portfolio to ensure capital preservation.
+
+### Immediate Actions
+
+1. **Increase Monthly Savings:**
+   - **Current Monthly Surplus:** 148,000 INR
+   - **Required Monthly SIP:** 192,099 INR
+   - **Shortfall:** 44,099 INR
+   - **Action:** The couple should aim to increase their monthly savings by 44,099 INR. This can be achieved by either increasing their monthly surplus or reallocating their existing investments.
+
+2. **Review Insurance Coverage:**
+   - **Current Term Life Cover:** 10,000,000 INR
+   - **Current Health Cover:** 1,000,000 INR
+   - **Action:** Consider reviewing and possibly increasing their health insurance coverage to ensure it meets their family's needs.
+
+3. **Diversify Investments:**
+   - **Current Portfolio:** The existing portfolio should be diversified to include a mix of equity, debt, and gold to better align with their moderate risk tolerance.
+   - **Action:** Reallocate the existing investments to the recommended allocations for each goal.
+
+4. **Emergency Fund:**
+   - **Current Emergency Fund:** 6 months of expenses (900,000 INR)
+   - **Recommended Emergency Fund:** 3-6 months of living expenses (1,500,000 - 3,000,000 INR)
+   - **Action:** Increase the emergency fund to a more standard 3-6 months of living expenses for better financial security.
+
+5. **Regular Reviews:**
+   - **Frequency:** Review the financial plan annually or whenever there are significant changes in the client's circumstances.
+   - **Action:** Schedule regular reviews to ensure the plan remains aligned with the client's changing goals and circumstances.
+
+### Summary of Allocations
+
+- **Retirement Corpus:**
+  - **Equity:** 50%
+  - **Debt:** 35%
+  - **Gold:** 10%
+  - **Cash:** 5%
+
+- **Children's Higher Education:**
+  - **Equity:** 25%
+  - **Debt:** 60%
+  - **Gold:** 10%
+  - **Cash:** 5%
+
+- **Family Vacation Home:**
+  - **Equity:** 25%
+  - **Debt:** 60%
+  - **Gold:** 10%
+  - **Cash:** 5%
+
+By following this prioritised plan and making the recommended adjustments, the Nairs can better align their investments with their financial goals and ensure a more secure financial future.
+
+
 --- Advice ---
 ### Client-Ready Advice Letter
 
@@ -48,84 +176,80 @@
 
 Dear [Client's Name],
 
-Thank you for entrusting us with your financial planning. Based on our analysis, we have developed a comprehensive plan to help you achieve your financial goals. Here is a detailed summary of the plan and the actions required to ensure your financial security.
+We are pleased to provide you with our comprehensive financial advice based on your current profile and goals. Our analysis indicates that while you have a substantial net worth, there is a need to optimize your investment strategy to meet your long-term financial goals. Below, we outline a detailed plan to address your key financial objectives.
 
----
+#### Plan Per Goal
 
-#### 1. **Emergency Fund**
-- **Current Allocation:** The Nairs have an emergency fund that can cover 6 months of expenses, which is a good start.
-- **Action:** Increase the emergency fund to cover 3-6 months of living expenses. This will provide a more robust financial cushion.
-- **Required Amount:** 3-6 months of living expenses (150,000 INR/month) = 450,000 - 900,000 INR.
-- **Action:** Use part of the existing investable assets (5,400,000 INR) to build the emergency fund. For example, allocate 600,000 INR to the emergency fund, leaving 4,800,000 INR for other goals.
+1. **Retirement Corpus**
+   - **Years:** 22
+   - **Inflated Cost:** 108,106,122 INR
+   - **Required Monthly SIP:** 113,417 INR
+   - **Allocated Portfolio:** Moderate (40-65%)
+   - **Allocation:**
+     - **Equity:** 50%
+     - **Debt:** 35%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The retirement corpus is the most critical long-term goal and requires a higher allocation to equity to meet the required return of 10%.
 
----
+2. **Children's Higher Education**
+   - **Years:** 10
+   - **Inflated Cost:** 7,163,391 INR
+   - **Required Monthly SIP:** 34,970 INR
+   - **Allocated Portfolio:** Conservative (score <40%)
+   - **Allocation:**
+     - **Equity:** 25%
+     - **Debt:** 60%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The children's education goal is a shorter-term goal and can be allocated to a more conservative portfolio to preserve capital.
 
-#### 2. **Children's Higher Education**
-- **Required Monthly SIP:** 34,970 INR.
-- **Action:** Allocate a portion of the monthly surplus to this goal. Given the shortfall, we will prioritize this goal.
-- **Monthly Allocation:** 34,970 INR.
+3. **Family Vacation Home**
+   - **Years:** 10
+   - **Inflated Cost:** 8,954,238 INR
+   - **Required Monthly SIP:** 43,712 INR
+   - **Allocated Portfolio:** Conservative (score <40%)
+   - **Allocation:**
+     - **Equity:** 25%
+     - **Debt:** 60%
+     - **Gold:** 10%
+     - **Cash:** 5%
+   - **Explanation:** The vacation home goal is also a shorter-term goal and can be allocated to a more conservative portfolio to ensure capital preservation.
 
----
+#### Actions
 
-#### 3. **Retirement Corpus**
-- **Required Monthly SIP:** 113,417 INR.
-- **Action:** Allocate a significant portion of the remaining surplus to this goal, as it is a long-term goal.
-- **Monthly Allocation:** 113,417 INR.
+1. **Increase Monthly Savings:**
+   - **Current Monthly Surplus:** 148,000 INR
+   - **Required Monthly SIP:** 192,099 INR
+   - **Shortfall:** 44,099 INR
+   - **Action:** The couple should aim to increase their monthly savings by 44,099 INR. This can be achieved by either increasing their monthly surplus or reallocating their existing investments.
 
----
+2. **Review Insurance Coverage:**
+   - **Current Term Life Cover:** 10,000,000 INR
+   - **Current Health Cover:** 1,000,000 INR
+   - **Action:** Consider reviewing and possibly increasing your health insurance coverage to ensure it meets your family's needs.
 
-#### 4. **Family Vacation Home**
-- **Required Monthly SIP:** 43,712 INR.
-- **Action:** Allocate a portion of the remaining surplus to this goal.
-- **Monthly Allocation:** 43,712 INR.
+3. **Diversify Investments:**
+   - **Current Portfolio:** The existing portfolio should be diversified to include a mix of equity, debt, and gold to better align with your moderate risk tolerance.
+   - **Action:** Reallocate the existing investments to the recommended allocations for each goal.
 
----
+4. **Emergency Fund:**
+   - **Current Emergency Fund:** 6 months of expenses (900,000 INR)
+   - **Recommended Emergency Fund:** 3-6 months of living expenses (1,500,000 - 3,000,000 INR)
+   - **Action:** Increase the emergency fund to a more standard 3-6 months of living expenses for better financial security.
 
-#### 5. **Rebalance Investment Portfolio**
-- **Current Allocation:** The Nairs have a moderate to conservative allocation with a significant portion in fixed deposits and equity stocks.
-- **Action:** Rebalance the portfolio to better align with their moderate risk tolerance and goals.
-- **Recommended Allocation:**
-  - **Conservative (score <40):** 25% equity, 60% debt, 10% gold, 5% cash.
-  - **Moderate (40-65):** 50% equity, 35% debt, 10% gold, 5% cash.
-  - **Growth (65-80):** 70% equity, 20% debt, 5% gold, 5% cash.
-  - **Aggressive (>80):** 85% equity, 10% debt, 5% gold, 0% cash.
+5. **Regular Reviews:**
+   - **Frequency:** Review the financial plan annually or whenever there are significant changes in your circumstances.
+   - **Action:** Schedule regular reviews to ensure the plan remains aligned with your changing goals and circumstances.
 
-Given their moderate risk tolerance, we will use the **Moderate (40-65)** allocation for the majority of their investments.
+#### Risks & Disclaimers
 
----
+- **Risk of Market Fluctuations:** The value of investments can fluctuate, and you may not get back the full amount invested. The returns on your investments are not guaranteed.
+- **Risk of Inflation:** Inflation can erode the purchasing power of your savings over time, potentially reducing the real value of your investments.
+- **Risk of Illiquidity:** Some investments may be illiquid, meaning they cannot be sold quickly without a significant loss in value.
+- **Risk of Unforeseen Circumstances:** There is a risk of unforeseen circumstances such as health issues, job loss, or other personal or economic events that could impact your financial plan.
 
-#### 6. **Immediate Actions**
-- **Insurance Review:** Ensure that their term life and health insurance coverage is adequate and up-to-date. Consider reviewing the coverage limits and adding any necessary riders or additional policies.
-- **Debt Management:** If they have any outstanding debts, prioritize paying them off to reduce financial stress and improve their overall financial health.
-
----
-
-### Summary of Allocations
-
-1. **Children's Higher Education:** 34,970 INR
-2. **Retirement Corpus:** 113,417 INR
-3. **Family Vacation Home:** 43,712 INR
-4. **Equity:** 2,400,000 INR
-5. **Debt:** 1,680,000 INR
-6. **Gold:** 480,000 INR
-7. **Cash:** 240,000 INR
-8. **Emergency Fund:** 600,000 INR
-
-By following this plan, the Nairs can better align their financial strategy with their goals and ensure a more secure financial future.
-
----
-
-### Risk Disclosures and Disclaimers
-
-1. **Risk of Market Fluctuations:** The value of investments can fluctuate, and there is no guarantee that the investments will achieve their intended goals. Past performance is not a reliable indicator of future performance.
-2. **No Guaranteed Returns:** The returns on investments are not guaranteed and can be affected by various factors, including market conditions, economic factors, and other risks.
-3. **Emergency Fund:** While the emergency fund is designed to provide financial security, it is not a substitute for insurance or other financial protection measures.
-4. **Rebalancing:** Rebalancing the portfolio may result in tax implications and transaction costs. It is important to consider these factors before making any changes.
-5. **Insurance Coverage:** The adequacy of insurance coverage is subject to review and may need to be adjusted based on changes in family needs and other factors.
-
-We recommend that you review this plan with your financial advisor and make any necessary adjustments. Regular reviews and rebalancing will help ensure that your financial strategy remains aligned with your goals.
-
-Thank you for your trust and cooperation.
+We recommend that you carefully consider these risks and ensure that your investment strategy is aligned with your risk tolerance and financial goals. If you have any questions or need further clarification, please do not hesitate to contact us.
 
 Best regards,
 
@@ -136,4 +260,4 @@ Best regards,
 
 ---
 
-This advice letter is designed to be client-ready and includes all necessary disclosures and risk statements to ensure that the client is fully informed about the potential risks and uncertainties associated with the proposed financial plan.
+This advice letter is designed to be clear, balanced, and properly disclosed, ensuring that the client understands the potential risks and the steps required to achieve their financial goals.

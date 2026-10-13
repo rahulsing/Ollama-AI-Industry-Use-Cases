@@ -72,6 +72,7 @@ def assess(a: dict) -> dict:
             "credit_score": f"{a['credit_score']} vs min {POLICY['min_score']} -> "
                             f"{'PASS' if a['credit_score'] >= POLICY['min_score'] else 'FAIL'}",
         },
+        "requested_loan": f"{a['requested_loan']:,}",  # formatted, so the LLM quotes it instead of misreading digits
         "new_emi": round(new_emi),
         "dti_pct": round(dti, 1),
         "lti": round(lti, 2),

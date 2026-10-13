@@ -56,16 +56,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 42 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Check these three trade finance deals for trade-based money laundering red flags.
 
-````text
---- Pricing & route analysis ---
+<details><summary>🐍 Python · Pricing & route analysis</summary>
+
+```json
 [
   {
     "lc": "LC-301",
@@ -93,9 +93,67 @@ Python stay the same.
     ]
   }
 ]
+```
 
+</details>
 
---- TBML assessment ---
+<details><summary>🧑‍💼 Trade Finance Analyst (agent)</summary>
+
+### Per-LC Commercial Assessment
+
+#### LC-301: Cotton T-shirts
+- **Unit Price**: $3.30 per T-shirt
+- **Deviation Pct**: 3%
+- **Flags**: None
+
+**Commercial Rationale**:
+- **Unit Price**: The unit price of $3.30 per T-shirt is within a reasonable range for cotton T-shirts, considering the typical cost of production and the market price in the destination country (Germany). The deviation of 3% from the benchmark is minimal, indicating that the pricing is commercially plausible.
+- **Shipping Route**: The goods are being shipped directly from Bangladesh (BD) to Germany (DE), which is a common route for textile imports. There is no transhipment via another country, which is also typical for such shipments.
+- **Applicant and Beneficiary**: Nordmode GmbH, a German company, is the applicant, and Dhaka Knit Ltd, a Bangladeshi company, is the beneficiary. This is a standard arrangement for textile imports, where the German company sources the goods from a Bangladeshi manufacturer.
+
+**Conclusion**: The trade for cotton T-shirts is commercially plausible and aligns with typical trade practices.
+
+---
+
+#### LC-302: Used Laptops
+- **Unit Price**: $824.00 per laptop
+- **Deviation Pct**: 358%
+- **Flags**: 
+  - **Over-invoicing**: The unit price of $824.00 is significantly higher than the benchmark of $180.00, indicating over-invoicing by 358%.
+  - **Transhipment**: Transhipment via the United Arab Emirates (AE) is not required for the route from China (CN) to Nigeria (NG).
+  - **Beneficiary**: The beneficiary, Gulf Star Trading FZE, is a free-zone entity, which is not the manufacturer of the goods.
+
+**Commercial Rationale**:
+- **Unit Price**: The unit price of $824.00 per laptop is extremely high, which is not typical for used laptops. This could indicate over-invoicing, which is a red flag in trade finance.
+- **Transhipment**: Transhipment via the UAE is not necessary, and the goods can be shipped directly from China to Nigeria, which is more cost-effective and reduces the risk of delays.
+- **Beneficiary**: The beneficiary is a free-zone entity, which is not the manufacturer of the goods. This could suggest that the goods are being resold or that there is a discrepancy in the supply chain.
+
+**Conclusion**: The trade for used laptops is commercially questionable due to the high unit price and the presence of over-invoicing. Additionally, the transhipment and the beneficiary being a free-zone entity raise concerns about the authenticity and legitimacy of the trade.
+
+---
+
+#### LC-303: Frozen Shrimp (kg)
+- **Unit Price**: $0.245 per kg
+- **Deviation Pct**: -74%
+- **Flags**: 
+  - **Under-invoicing**: The unit price of $0.245 per kg is significantly lower than the benchmark of $9.50 per kg, indicating under-invoicing by 74%.
+  - **Transhipment**: Transhipment via Panama (PA) is not required for the route from Vietnam (VN) to the United States (US).
+
+**Commercial Rationale**:
+- **Unit Price**: The unit price of $0.245 per kg is unusually low for frozen shrimp, which is not typical for such high-value seafood. This could indicate under-invoicing, which is a significant risk in trade finance.
+- **Transhipment**: Transhipment via Panama is not necessary, and the goods can be shipped directly from Vietnam to the United States, which is more cost-effective and reduces the risk of delays.
+
+**Conclusion**: The trade for frozen shrimp is commercially questionable due to the low unit price and the presence of under-invoicing. Additionally, the transhipment is not required, which further raises concerns about the authenticity and legitimacy of the trade.
+
+### Summary
+- **LC-301 (Cotton T-shirts)**: Commercially plausible.
+- **LC-302 (Used Laptops)**: Commercially questionable due to over-invoicing and other discrepancies.
+- **LC-303 (Frozen Shrimp)**: Commercially questionable due to under-invoicing and other discrepancies.
+
+</details>
+
+**🦙 Ollama:**
+
 ### Per-LC Risk Rating, Red Flags, and Recommended Actions
 
 #### LC-301: Cotton T-shirts
@@ -104,57 +162,51 @@ Python stay the same.
 - **Recommended Actions**: None
 
 **Commercial Rationale**:
-- The unit price of $3.30 per T-shirt is within a reasonable range for bulk orders of this type of garment.
-- The total invoice value of $66,000 for 20,000 T-shirts is plausible.
-- The shipping route from Bangladesh to Germany is common and direct.
-- The applicant and beneficiary are typical for textile imports.
+- The unit price of $3.30 per T-shirt is within a reasonable range, and the deviation of 3% from the benchmark is minimal.
+- The shipping route is direct from Bangladesh to Germany, which is typical for such shipments.
+- The applicant and beneficiary are standard for textile imports.
+
+**Conclusion**: The trade for cotton T-shirts is commercially plausible and aligns with typical trade practices.
 
 ---
 
 #### LC-302: Used Laptops
-- **Per-LC Risk Rating**: HIGH
-- **Red Flags**:
-  - Over-invoicing: The unit price of $824.00 is significantly higher than the benchmark of $180.00.
-  - Transhipment via AE: Transhipment via the UAE is not required for the route from China to Nigeria.
-  - Beneficiary: The beneficiary, Gulf Star Trading FZE, is a free-zone entity, which is not the manufacturer.
+- **Per-LC Risk Rating**: MEDIUM
+- **Red Flags**: Over-invoicing, Beneficiary is a free-zone entity, Transhipment via UAE is not required
 - **Recommended Actions**:
-  - Request price justification for the unit price.
-  - Verify the shipment via vessel tracking.
-  - Conduct enhanced due diligence (EDD) on the beneficiary.
+  - **Request Price Justification**: Verify the justification for the high unit price of $824.00 per laptop.
+  - **Verify Shipment via Vessel Tracking**: Ensure the shipment is not transhipped via the UAE, as it is not required.
+  - **EDD on Beneficiary**: Conduct enhanced due diligence (EDD) on the beneficiary, Gulf Star Trading FZE, to verify its legitimacy and connection to the goods.
 
 **Commercial Rationale**:
 - The unit price of $824.00 per laptop is extremely high, which is not typical for used laptops.
-- The total invoice value of $412,000 for 500 laptops is unusually high.
-- The route from China to Nigeria via the UAE is not necessary.
-- The beneficiary is not the manufacturer, which is unusual.
+- Transhipment via the UAE is not necessary, and the goods can be shipped directly from China to Nigeria.
+- The beneficiary is a free-zone entity, which is not the manufacturer of the goods.
+
+**Conclusion**: The trade for used laptops is commercially questionable due to the high unit price and the presence of over-invoicing. Additionally, the transhipment and the beneficiary being a free-zone entity raise concerns about the authenticity and legitimacy of the trade.
 
 ---
 
 #### LC-303: Frozen Shrimp (kg)
-- **Per-LC Risk Rating**: HIGH
-- **Red Flags**:
-  - Under-invoicing: The unit price of $0.245 per kg is significantly lower than the benchmark of $9.50.
-  - Transhipment via PA: Transhipment via Panama is not required for the route from Vietnam to the United States.
+- **Per-LC Risk Rating**: MEDIUM
+- **Red Flags**: Under-invoicing, Transhipment via Panama is not required
 - **Recommended Actions**:
-  - Request price justification for the unit price.
-  - Verify the shipment via vessel tracking.
-  - Conduct enhanced due diligence (EDD) on the beneficiary.
+  - **Request Price Justification**: Verify the justification for the low unit price of $0.245 per kg.
+  - **Verify Shipment via Vessel Tracking**: Ensure the shipment is not transhipped via Panama, as it is not required.
+  - **EDD on Beneficiary**: Conduct enhanced due diligence (EDD) on the beneficiary to verify its legitimacy and connection to the goods.
 
 **Commercial Rationale**:
-- The unit price of $0.245 per kg is unusually low, which is not typical for frozen shrimp.
-- The total invoice value of $98,000 for 40,000 kg of frozen shrimp is also unusually low.
-- The route from Vietnam to the United States via Panama is not necessary.
-- The beneficiary is the manufacturer, which is typical, but the low unit price and invoice value are concerning.
+- The unit price of $0.245 per kg is unusually low for frozen shrimp, which is not typical for such high-value seafood.
+- Transhipment via Panama is not necessary, and the goods can be shipped directly from Vietnam to the United States.
+- The beneficiary is a free-zone entity, which is not the manufacturer of the goods.
 
----
+**Conclusion**: The trade for frozen shrimp is commercially questionable due to the low unit price and the presence of under-invoicing. Additionally, the transhipment is not required, which further raises concerns about the authenticity and legitimacy of the trade.
 
 ### Summary
-- **LC-301**: LOW risk, no further actions required.
-- **LC-302**: HIGH risk, recommend price justification, vessel tracking, and EDD on the beneficiary.
-- **LC-303**: HIGH risk, recommend price justification, vessel tracking, and EDD on the beneficiary.
-````
+- **LC-301 (Cotton T-shirts)**: LOW risk, no red flags, no recommended actions.
+- **LC-302 (Used Laptops)**: MEDIUM risk, over-invoicing, free-zone beneficiary, and unnecessary transhipment, recommend price justification, vessel tracking, and EDD.
+- **LC-303 (Frozen Shrimp)**: MEDIUM risk, under-invoicing, free-zone beneficiary, and unnecessary transhipment, recommend price justification, vessel tracking, and EDD.
 
-</details>
 
 ## Run
 ```bash

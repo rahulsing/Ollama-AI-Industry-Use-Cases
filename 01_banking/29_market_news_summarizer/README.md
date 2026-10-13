@@ -55,77 +55,104 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 35 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Prepare this morning's market briefing for our relationship managers, with talking points per client.
 
-````text
---- RM morning briefing ---
+<details><summary>🧑‍💼 Market Analyst (agent)</summary>
+
+### Theme List with Asset-Class/Sector Impacts
+
+1. **Interest Rate and Inflation Dynamics (Neutral to Positive for Equities, Negative for Bonds)**
+   - **Impact on Equities:** Neutral to Positive. The central bank's decision to hold the policy rate at 6.25% and signal one more cut this year suggests a gradual easing of monetary policy, which could support equity markets. However, the exact timing and magnitude of rate cuts are uncertain.
+   - **Impact on Bonds:** Negative. The central bank's guidance for a further rate cut could lead to a decline in bond yields, which is generally positive for bond prices. However, if the rate cut is delayed, it could negatively impact bond yields.
+
+2. **Commodity Prices and Sector Performance (Negative for Energy, Positive for Gold)**
+   - **Impact on Energy Sector:** Negative. Crude oil's jump of 6% due to supply disruption fears could negatively impact energy stocks, particularly those in the upstream sector. This could also affect airline and paint stocks, which are sensitive to fuel costs.
+   - **Impact on Gold:** Positive. Gold's record high on safe-haven demand indicates a shift towards precious metals as a hedge against economic uncertainties, which is positive for gold prices and related ETFs.
+
+3. **Technology and IT Services Sector Outlook (Negative)**
+   - **Impact on IT Services Sector:** Negative. IT services majors guiding flat revenue growth and US clients delaying discretionary spend suggests a cautious outlook for the sector. This could lead to reduced earnings expectations and potentially lower stock prices for IT services firms.
+
+4. **Government Policy and Capital Expenditure (Positive for Semiconductors)**
+   - **Impact on Semiconductor Manufacturing:** Positive. The government's announcement of a 15% capital subsidy for semiconductor manufacturing could boost investment in the sector, leading to increased capital expenditure and potentially higher stock prices for semiconductor manufacturers.
+
+5. **Yield Curve and Fixed Income Markets (Negative for Bonds)**
+   - **Impact on Fixed Income Markets:** Negative. The 10-year government bond yield falling 12 bps to 6.48% after the central bank's rate guidance could indicate a flattening of the yield curve. This is generally negative for long-term bond yields, which could affect bond prices and fixed income portfolios.
+
+### Summary
+- **Equities:** Neutral to Positive (Interest Rate and Inflation Dynamics, Government Policy)
+- **Bonds:** Negative (Interest Rate and Inflation Dynamics, Yield Curve)
+- **Commodities:** Negative (Commodity Prices and Sector Performance), Positive (Gold)
+- **IT Services Sector:** Negative (Technology and IT Services Sector Outlook)
+- **Semiconductors:** Positive (Government Policy and Capital Expenditure)
+
+</details>
+
+**🦙 Ollama:**
+
 ### Per-client Briefing
 
 #### Mr. Kapoor (Retired, Conservative)
-
 **Impact on Holdings:**
-- **Interest Rate and Inflation Dynamics:** Neutral to Positive. Given Mr. Kapoor's conservative profile, his bond-heavy portfolio (40% Long-duration gilt fund, 30% Bank FDs) may face some pressure as bond yields could potentially rise. However, the overall impact is likely to be minimal due to his conservative stance.
-- **Supply Disruptions and Energy Prices:** Negative. The potential increase in energy costs could impact his holdings in the Paint & chemicals stocks (15%) and possibly the large-cap fund, which may have exposure to these sectors.
-- **Technology Sector Headwinds:** Negative. The negative impact on IT services stocks (45% of Ms. Rao's portfolio) could indirectly affect Mr. Kapoor's large-cap fund (20%) if it has significant exposure to IT services.
-- **Government Incentives and Manufacturing:** Positive. The semiconductor theme fund (20%) and the Nifty index fund (40%) could benefit from government incentives, which could positively impact his overall portfolio.
+- **Equities:** Neutral to Positive. The neutral to positive outlook for equities could benefit Mr. Kapoor's portfolio, especially if the market gains traction.
+- **Bonds:** Negative. The negative impact on bond yields could affect the value of his fixed deposits and bond funds.
+- **Commodities:** Negative. The negative impact on energy stocks could indirectly affect his holdings in aviation stocks.
+- **Gold:** Positive. The positive impact on gold prices could benefit his gold ETF.
 
 **Talking Points:**
-1. **Interest Rate and Inflation Dynamics:** "Given the central bank's signals of a potential rate cut, it's important to review your bond holdings to ensure they are well-positioned for any potential yield curve shifts. We can discuss strategies to balance your fixed-income portfolio."
-2. **Supply Disruptions and Energy Prices:** "With the recent increase in crude oil prices, it's crucial to monitor your holdings in sectors like paint and chemicals. We can explore diversification strategies to mitigate potential risks."
-3. **Government Incentives and Manufacturing:** "The government's incentives for semiconductor manufacturing could be a positive for your portfolio. We can discuss how to capitalize on these opportunities through your investments in the semiconductor theme fund."
+1. **Interest Rate and Inflation Dynamics:** The central bank's decision to hold the policy rate and signal one more cut this year could support equity markets, which might benefit his large-cap fund.
+2. **Commodity Prices and Sector Performance:** The negative impact on energy stocks due to supply disruption fears could affect his aviation stocks, highlighting the need for diversification.
+3. **Gold's Performance:** The positive impact on gold prices could be a hedge against economic uncertainties, supporting his gold ETF.
 
-**Proactive Call Warranted:** Yes. Given the potential risks and opportunities, a proactive call is warranted to review and adjust his portfolio.
+**Proactive Call Warranted:** Yes. Given the potential impact on his fixed deposits and bond funds, a proactive call could help discuss alternative investment options that might mitigate the negative impact on his bond holdings.
 
 ---
 
 #### Ms. Rao (Tech Founder, Aggressive)
-
 **Impact on Holdings:**
-- **Interest Rate and Inflation Dynamics:** Neutral to Positive. Ms. Rao's portfolio is heavily weighted in equities, particularly in IT services stocks (45%) and semiconductor theme fund (20%). The potential for equity markets to benefit from lower borrowing costs could be significant.
-- **Supply Disruptions and Energy Prices:** Negative. The increase in energy costs could negatively impact her holdings in IT services stocks and semiconductor theme fund, which may have indirect exposure to energy costs.
-- **Technology Sector Headwinds:** Negative. The negative outlook for IT services could directly impact her IT services stocks and indirectly affect her small-cap fund (25%).
-- **Government Incentives and Manufacturing:** Positive. The capital subsidy for semiconductor manufacturing could be a significant positive for her semiconductor theme fund and the Nifty index fund (20%).
+- **Equities:** Negative. The negative outlook for the IT services sector could impact her IT services stocks and small-cap fund.
+- **Bonds:** Negative. The negative impact on bond yields could affect her cash holdings.
+- **Commodities:** Negative. The negative impact on energy stocks could affect her paint stocks.
+- **Gold:** Positive. The positive impact on gold prices could benefit her gold ETF.
 
 **Talking Points:**
-1. **Interest Rate and Inflation Dynamics:** "Given the potential for lower interest rates, we can discuss strategies to leverage this environment for your equity-heavy portfolio. We can explore opportunities in sectors that are likely to benefit from lower borrowing costs."
-2. **Supply Disruptions and Energy Prices:** "The increase in energy costs could pose risks to your portfolio. We can discuss hedging strategies or diversification options to mitigate these risks."
-3. **Technology Sector Headwinds:** "The slowdown in technology spending could impact your IT services stocks and small-cap fund. We can explore alternative growth opportunities within the technology sector that may be less affected by this slowdown."
+1. **Technology and IT Services Sector Outlook:** The cautious outlook for the IT services sector could lead to reduced earnings expectations, affecting her IT services stocks and small-cap fund.
+2. **Government Policy and Capital Expenditure:** The positive impact on semiconductor manufacturing could benefit her semiconductor theme fund, highlighting the potential for growth in the sector.
+3. **Gold's Performance:** The positive impact on gold prices could be a hedge against economic uncertainties, supporting her gold ETF.
 
-**Proactive Call Warranted:** Yes. Given the significant exposure to sectors that may be negatively impacted, a proactive call is warranted to review and adjust her portfolio.
+**Proactive Call Warranted:** Yes. Given the negative outlook for the IT services sector and the potential impact on her cash holdings, a proactive call could help explore alternative investment opportunities that might better align with her aggressive profile.
 
 ---
 
 #### Sharma Family Office (Balanced)
-
 **Impact on Holdings:**
-- **Interest Rate and Inflation Dynamics:** Neutral to Positive. The family office's balanced portfolio (15% Aviation stocks, 40% Nifty index fund, 30% Corporate bond fund, 15% Paint & chemicals stocks) is well-diversified. The potential for equity markets to benefit from lower borrowing costs could be positive, while bond yields could rise but are likely to be managed through the corporate bond fund.
-- **Supply Disruptions and Energy Prices:** Negative. The increase in energy costs could negatively impact their holdings in paint and chemicals stocks (15%).
-- **Technology Sector Headwinds:** Negative. The negative outlook for IT services could indirectly affect their Nifty index fund (40%) and corporate bond fund (30%).
-- **Government Incentives and Manufacturing:** Positive. The capital subsidy for semiconductor manufacturing could be a positive for their Nifty index fund and corporate bond fund, which may have exposure to the semiconductor sector.
+- **Equities:** Neutral to Positive. The neutral to positive outlook for equities could benefit her Nifty index fund and corporate bond fund.
+- **Bonds:** Negative. The negative impact on bond yields could affect her corporate bond fund.
+- **Commodities:** Negative. The negative impact on energy stocks could affect her aviation stocks.
+- **Gold:** Positive. The positive impact on gold prices could benefit her gold ETF.
 
 **Talking Points:**
-1. **Interest Rate and Inflation Dynamics:** "Given the potential for lower interest rates, we can discuss strategies to leverage this environment for your balanced portfolio. We can explore opportunities in sectors that are likely to benefit from lower borrowing costs."
-2. **Supply Disruptions and Energy Prices:** "The increase in energy costs could pose risks to your portfolio. We can discuss hedging strategies or diversification options to mitigate these risks."
-3. **Government Incentives and Manufacturing:** "The government's incentives for semiconductor manufacturing could be a significant positive for your portfolio. We can discuss how to capitalize on these opportunities through your investments in the Nifty index fund and corporate bond fund."
+1. **Interest Rate and Inflation Dynamics:** The central bank's decision to hold the policy rate and signal one more cut this year could support equity markets, which might benefit her Nifty index fund.
+2. **Commodity Prices and Sector Performance:** The negative impact on energy stocks due to supply disruption fears could affect her aviation stocks, highlighting the need for diversification.
+3. **Gold's Performance:** The positive impact on gold prices could be a hedge against economic uncertainties, supporting her gold ETF.
 
-**Proactive Call Warranted:** Yes. Given the potential risks and opportunities, a proactive call is warranted to review and adjust their portfolio.
+**Proactive Call Warranted:** Yes. Given the potential impact on her corporate bond fund and the need for diversification, a proactive call could help discuss alternative investment options that might better balance her portfolio.
 
 ---
 
 ### Summary
+- **Equities:** Neutral to Positive (Interest Rate and Inflation Dynamics, Government Policy)
+- **Bonds:** Negative (Interest Rate and Inflation Dynamics, Yield Curve)
+- **Commodities:** Negative (Commodity Prices and Sector Performance), Positive (Gold)
+- **IT Services Sector:** Negative (Technology and IT Services Sector Outlook)
+- **Semiconductors:** Positive (Government Policy and Capital Expenditure)
 
-- **Proactive Calls Warranted:** Yes for all clients.
-- **Key Talking Points:** Tailored to each client's portfolio and the current market themes.
-- **Strategies:** Diversification, hedging, and leveraging market opportunities based on the current economic environment.
-````
+These points should help in crafting a comprehensive and informed discussion with each client, ensuring they are aware of the potential impacts and have the opportunity to make informed decisions.
 
-</details>
 
 ## Run
 ```bash

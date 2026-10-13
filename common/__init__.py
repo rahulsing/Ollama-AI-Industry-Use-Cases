@@ -1,4 +1,5 @@
 from .llm import (
+    SHOW_STEPS,
     banner,
     get_crew_llm,
     get_llm,
@@ -9,10 +10,12 @@ from .llm import (
     run_crew,
     run_structured,
     section,
+    show_tool_calls,
 )
 from .rag import SimpleRetriever
 
 __all__ = [
+    "SHOW_STEPS",
     "banner",
     "get_crew_llm",
     "get_llm",
@@ -23,5 +26,6 @@ __all__ = [
     "run_crew",
     "run_structured",
     "section",
+    "show_tool_calls",
     "SimpleRetriever",
 ]

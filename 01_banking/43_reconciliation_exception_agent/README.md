@@ -55,16 +55,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 43 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Reconcile the general ledger against the bank statement and tell me how to clear the breaks.
 
-````text
---- Auto-matched ---
+<details><summary>🐍 Python · Auto-matched</summary>
+
+```json
 [
   {
     "gl": "GL-1",
@@ -82,9 +82,13 @@ Python stay the same.
     "date_lag_days": 1
   }
 ]
+```
 
+</details>
 
---- Breaks ---
+<details><summary>🐍 Python · Breaks</summary>
+
+```json
 [
   {
     "type": "AMOUNT_MISMATCH",
@@ -130,9 +134,88 @@ Python stay the same.
     }
   }
 ]
+```
 
+</details>
 
---- Resolution plan ---
+<details><summary>🧑‍💼 Reconciliation Analyst (agent)</summary>
+
+### Break 1: AMOUNT_MISMATCH
+- **GL Entry:**
+  - ID: GL-3
+  - Date: 2026-10-03
+  - Ref: INV-1003
+  - Amount: 3150.0
+- **Bank Entry:**
+  - ID: BK-3
+  - Date: 2026-10-03
+  - Ref: INV-1003
+  - Amount: 3135.0
+- **Difference:** 15.0
+
+**Root Cause:** **Short Payment / Fee**
+
+**Evidence:**
+- The difference in the amount is relatively small (15.0), which is consistent with a fee or a short payment. This could be a bank processing fee, a rounding error, or a small discrepancy that is typically associated with short payments or fees.
+
+### Break 2: MISSING_IN_BANK
+- **GL Entry:**
+  - ID: GL-5
+  - Date: 2026-10-05
+  - Ref: INV-1005
+  - Amount: 4999.0
+- **Bank Entry:**
+  - ID: BK-5
+  - Date: 2026-10-05
+  - Ref: INV-1005
+  - Amount: 0.0
+- **Difference:** 4999.0
+
+**Root Cause:** **Unrecorded Bank Charge**
+
+**Evidence:**
+- The GL entry is present, but the corresponding bank entry is missing. This suggests that there might be an unrecorded bank charge or a transaction that was not properly reflected in the bank statement. The large amount (4999.0) indicates that it is likely a significant transaction that should have been recorded.
+
+### Break 3: MISSING_IN_LEDGER
+- **Bank Entry:**
+  - ID: BK-5
+  - Date: 2026-10-04
+  - Ref: PAY-SUP-77
+  - Amount: -9200.0
+- **GL Entry:**
+  - ID: GL-5
+  - Date: 2026-10-04
+  - Ref: PAY-SUP-77
+  - Amount: 0.0
+- **Difference:** -9200.0
+
+**Root Cause:** **Timing**
+
+**Evidence:**
+- The bank entry is present, but the corresponding GL entry is missing. This suggests that the transaction was recorded in the bank statement but not in the GL. The negative amount (-9200.0) indicates that it is a payment or a credit entry. The timing discrepancy could be due to a delay in recording the transaction in the GL, possibly due to system processing delays or manual entry delays.
+
+### Break 4: MISSING_IN_LEDGER
+- **Bank Entry:**
+  - ID: BK-6
+  - Date: 2026-10-06
+  - Ref: BANK CHARGES
+  - Amount: -45.0
+- **GL Entry:**
+  - ID: GL-6
+  - Date: 2026-10-06
+  - Ref: BANK CHARGES
+  - Amount: 0.0
+- **Difference:** -45.0
+
+**Root Cause:** **Timing**
+
+**Evidence:**
+- The bank entry is present, but the corresponding GL entry is missing. This suggests that the transaction was recorded in the bank statement but not in the GL. The negative amount (-45.0) indicates that it is a bank charge or a fee. The timing discrepancy could be due to a delay in recording the transaction in the GL, possibly due to system processing delays or manual entry delays.
+
+</details>
+
+**🦙 Ollama:**
+
 ### Action Table and Summary
 
 #### Break 1: AMOUNT_MISMATCH
@@ -149,11 +232,11 @@ Python stay the same.
   - Amount: 3135.0
 - **Difference:** 15.0
 - **Root Cause:** Short Payment / Fee
-- **Evidence:** The difference of 15.0 between the GL and Bank entries suggests a short payment or a fee deduction.
+- **Evidence:** The difference is relatively small (15.0), consistent with a fee or a short payment.
 - **Resolution Action:** Journal Entry
 - **Owner:** Jane Doe
-- **Priority:** High
-- **Summary:** The GL entry for INV-1003 on 2026-10-03 shows a higher amount than the Bank entry. This is likely due to a fee deduction. A journal entry will be created to adjust the GL entry to match the Bank entry.
+- **Priority:** Low
+- **Summary:** This break is likely due to a small fee or short payment. A journal entry will be made to adjust the GL to match the bank statement.
 
 #### Break 2: MISSING_IN_BANK
 - **Type:** MISSING_IN_BANK
@@ -164,16 +247,16 @@ Python stay the same.
   - Amount: 4999.0
 - **Bank Entry:**
   - ID: BK-5
-  - Date: 2026-10-04
-  - Ref: PAY-SUP-77
-  - Amount: -9200.0
+  - Date: 2026-10-05
+  - Ref: INV-1005
+  - Amount: 0.0
 - **Difference:** 4999.0
-- **Root Cause:** Timing
-- **Evidence:** The GL entry is dated 2026-10-05, while the Bank entry is dated 2026-10-04, indicating a timing issue.
-- **Resolution Action:** Journal Entry
+- **Root Cause:** Unrecorded Bank Charge
+- **Evidence:** The GL entry is present, but the corresponding bank entry is missing, suggesting an unrecorded bank charge.
+- **Resolution Action:** Bank Claim
 - **Owner:** John Smith
-- **Priority:** Medium
-- **Summary:** The GL entry for INV-1005 on 2026-10-05 is recorded after the Bank entry for PAY-SUP-77 on 2026-10-04. A journal entry will be created to adjust the GL entry to match the Bank entry.
+- **Priority:** High
+- **Summary:** This break indicates a significant unrecorded transaction. A bank claim will be filed to resolve the discrepancy.
 
 #### Break 3: MISSING_IN_LEDGER
 - **Type:** MISSING_IN_LEDGER
@@ -184,16 +267,16 @@ Python stay the same.
   - Amount: -9200.0
 - **GL Entry:**
   - ID: GL-5
-  - Date: 2026-10-05
-  - Ref: INV-1005
-  - Amount: 4999.0
-- **Difference:** 9200.0
-- **Root Cause:** Unrecorded Bank Charge
-- **Evidence:** The Bank entry shows a payment of 9200.0, which is not reflected in the GL.
-- **Resolution Action:** Bank Claim
+  - Date: 2026-10-04
+  - Ref: PAY-SUP-77
+  - Amount: 0.0
+- **Difference:** -9200.0
+- **Root Cause:** Timing
+- **Evidence:** The bank entry is present, but the corresponding GL entry is missing, indicating a timing discrepancy.
+- **Resolution Action:** Journal Entry
 - **Owner:** Emily Johnson
-- **Priority:** High
-- **Summary:** The Bank entry for PAY-SUP-77 on 2026-10-04 shows a payment of 9200.0, which is not recorded in the GL. A bank claim will be submitted to resolve this discrepancy.
+- **Priority:** Medium
+- **Summary:** This break is due to a timing issue. A journal entry will be made to record the missing GL entry.
 
 #### Break 4: MISSING_IN_LEDGER
 - **Type:** MISSING_IN_LEDGER
@@ -204,27 +287,25 @@ Python stay the same.
   - Amount: -45.0
 - **GL Entry:**
   - ID: GL-6
-  - Date: 2026-10-07
-  - Ref: REF-1006
+  - Date: 2026-10-06
+  - Ref: BANK CHARGES
   - Amount: 0.0
-- **Difference:** 45.0
-- **Root Cause:** Unrecorded Bank Charge
-- **Evidence:** The Bank entry shows a charge of 45.0, which is not reflected in the GL.
-- **Resolution Action:** Bank Claim
+- **Difference:** -45.0
+- **Root Cause:** Timing
+- **Evidence:** The bank entry is present, but the corresponding GL entry is missing, indicating a timing discrepancy.
+- **Resolution Action:** Journal Entry
 - **Owner:** Michael Brown
 - **Priority:** Medium
-- **Summary:** The Bank entry for BANK CHARGES on 2026-10-06 shows a charge of 45.0, which is not recorded in the GL. A bank claim will be submitted to resolve this discrepancy.
+- **Summary:** This break is due to a timing issue. A journal entry will be made to record the missing GL entry.
 
 ### Overall Recon Summary
-- **Break 1:** AMOUNT_MISMATCH - Resolved by creating a journal entry to adjust the GL entry for INV-1003.
-- **Break 2:** MISSING_IN_BANK - Resolved by creating a journal entry to adjust the GL entry for INV-1005.
-- **Break 3:** MISSING_IN_LEDGER - Resolved by submitting a bank claim for the unrecorded payment of 9200.0.
-- **Break 4:** MISSING_IN_LEDGER - Resolved by submitting a bank claim for the unrecorded charge of 45.0.
+- **Break 1:** AMOUNT_MISMATCH - Resolved by Journal Entry, Low Priority
+- **Break 2:** MISSING_IN_BANK - Resolved by Bank Claim, High Priority
+- **Break 3:** MISSING_IN_LEDGER - Resolved by Journal Entry, Medium Priority
+- **Break 4:** MISSING_IN_LEDGER - Resolved by Journal Entry, Medium Priority
 
-These actions will ensure that all discrepancies are addressed and the GL and Bank reconciliations are accurate.
-````
+This summary outlines the resolution actions, owners, and priorities for each break, ensuring that the discrepancies are addressed efficiently.
 
-</details>
 
 ## Run
 ```bash

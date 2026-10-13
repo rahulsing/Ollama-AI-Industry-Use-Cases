@@ -50,16 +50,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 7 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Here are Rohan Mehta's payslip and bank statement. Extract the details and check they match.
 
-````text
---- Payslip ---
+<details><summary>🧾 Extracted · Payslip</summary>
+
+```json
 {
   "employee_name": "Rohan Mehta",
   "employer": "E10442",
@@ -69,9 +69,13 @@ Python stay the same.
   "net_pay": 85000.0,
   "date_of_joining": "14-Mar-2019"
 }
+```
 
+</details>
 
---- Bank statement ---
+<details><summary>🧾 Extracted · Bank statement</summary>
+
+```json
 {
   "account_holder": "ROHAN MEHTA",
   "period": "01-Aug-2026 to 31-Aug-2026",
@@ -80,13 +84,14 @@ Python stay the same.
   "salary_credits": 85000.0,
   "existing_emi_debits": 32500.0
 }
-
-
---- Cross-document checks ---
-{'name_match': True, 'salary_credit_matches_net_pay': True, 'existing_emi_to_net_pay_pct': 38.2}
-````
+```
 
 </details>
+
+**🦙 Ollama:**
+
+{'name_match': True, 'salary_credit_matches_net_pay': True, 'existing_emi_to_net_pay_pct': 38.2}
+
 
 ## Run
 ```bash

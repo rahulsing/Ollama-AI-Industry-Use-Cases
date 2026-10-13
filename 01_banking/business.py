@@ -472,3 +472,52 @@ FLOWS = {
     "49_internal_audit_assistant": ("Payment sample + approval limits", "Control tests: maker-checker, limits, SoD", "Audit report with ratings"),
     "50_operational_risk_analyzer": ("Operational risk incidents", "Aggregate losses by event type", "Incident summary"),
 }
+
+# --------------------------------------------------------------------------- #
+# What the user asks in the sample conversation (explorer + READMEs), for use cases
+# that process a batch of sample data instead of taking a typed question. Use cases
+# that print their own Question / Customer / "Q:" / "You:" sections use those instead.
+# --------------------------------------------------------------------------- #
+ASK = {
+    "01_credit_risk_assessment": "New personal loan application from Priya Sharma: 12 lakh for home renovation over 5 years. Should we approve it?",
+    "03_sme_credit_memo_writer": "Write the credit memo for GreenLeaf Foods: a 25M working capital line plus a 15M term loan for their new packaging unit.",
+    "04_credit_limit_optimizer": "Review cardholders C-201, C-202 and C-203. Who should get a limit change, and how do we explain it to them?",
+    "05_collections_strategy_agent": "These four overdue loan accounts need a collections plan. What should we do with each, fairly?",
+    "06_early_warning_signals": "Run the early warning scan on our corporate borrowers. Who needs to go on the watch-list?",
+    "08_loan_document_extractor": "Here are Rohan Mehta's payslip and bank statement. Extract the details and check they match.",
+    "09_aml_transaction_monitoring": "Our monitoring rules flagged Marco Rinaldi, a restaurant owner. Review the alerts: close, escalate or file a SAR?",
+    "10_kyc_onboarding_verifier": "Verify the current onboarding application.",
+    "11_sanctions_screening_assistant": "Screen today's payment parties against the sanctions watchlist. Are any hits real matches?",
+    "12_sar_narrative_generator": "Case INV-2026-0912 on Daniel Okafor is confirmed suspicious. Draft the SAR narrative for the regulator.",
+    "13_card_fraud_explainer": "Score today's card transactions for fraud and tell me what action to take on each.",
+    "14_tbml_detector": "Check these three trade finance deals for trade-based money laundering red flags.",
+    "15_adverse_media_screening": "Screen these news articles for adverse media on Rajiv Malhotra, MD of Horizon Infra Projects.",
+    "16_customer_risk_rating": "Rate the AML risk of these customers and justify each rating for the file.",
+    "17_mule_account_detector": "Which of these accounts look like money mules, and what should we do about them?",
+    "18_regulatory_reporting_agent": "Validate the Q3-2026 capital and liquidity return against Q2 and draft the submission commentary.",
+    "20_liquidity_lcr_nsfr_monitor": "What are our LCR and NSFR today? Write the note for ALCO.",
+    "21_regulatory_change_tracker": "A new circular on digital lending (2026/14) just came out. What does it mean for our processes?",
+    "22_stress_testing_narrator": "Run the stress scenarios on our loan portfolio and write the board summary.",
+    "25_model_risk_validator": "Validate our retail credit scorecard: is it still performing well enough to keep using?",
+    "26_wealth_advisor_agent": "Arjun and Meera Nair want a plan for their children's education and retirement. What do you recommend?",
+    "27_portfolio_rebalancer": "Review my portfolio and rebalance if needed.",
+    "28_risk_profiling_agent": "Here are the client's risk questionnaire answers. What is their risk profile, and is anything inconsistent?",
+    "29_market_news_summarizer": "Prepare this morning's market briefing for our relationship managers, with talking points per client.",
+    "31_esg_investment_screener": "Which funds fit my client's ESG preferences? Shortlist them and explain the trade-offs.",
+    "32_suitability_checker": "We plan to offer Mrs. Lata Desai (71, conservative) these three products. Are they suitable?",
+    "34_complaint_classifier": "Classify today's customer complaints and route each one to the right team with a deadline.",
+    "35_personal_finance_coach": "Here's my spending for last month on a 5,200 take-home pay. How am I doing, and where can I save?",
+    "36_next_best_offer": "What should we offer customers R-1, R-2 and R-3 next? Draft the messages.",
+    "37_churn_retention_agent": "Which customers are at risk of leaving, and how do we keep them?",
+    "40_call_center_qa": "QA this card-dispute call between agent Sam and a customer. What should Sam do better?",
+    "41_swift_payment_validator": "This MT103 payment failed straight-through processing. What's wrong and how do we repair it?",
+    "42_cash_flow_forecaster": "Give me the 13-week cash outlook and any funding needs.",
+    "43_reconciliation_exception_agent": "Reconcile the general ledger against the bank statement and tell me how to clear the breaks.",
+    "44_trade_finance_lc_checker": "Check this LC presentation from Shenzhen Lumen Electronics. Can we accept the documents?",
+    "45_fx_hedging_advisor": "Analyse our FX exposures and recommend a hedging plan.",
+    "46_invoice_cheque_extractor": "Extract the data from this scanned cheque and invoice, and check it is valid.",
+    "47_financial_statement_analyzer": "Analyse Northwind Consumer Goods' last two years of financial statements and write a research report.",
+    "48_earnings_call_analyzer": "Summarise Meridian Bank's Q3 FY26 earnings call. How confident did management sound, and what are the risks?",
+    "49_internal_audit_assistant": "Test this quarter's payment sample against our approval controls and write the audit findings.",
+    "50_operational_risk_analyzer": "Classify these operational risk incidents by Basel event type and summarise the losses.",
+}

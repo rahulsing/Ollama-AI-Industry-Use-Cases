@@ -58,16 +58,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 22 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** These four overdue loan accounts need a collections plan. What should we do with each, fairly?
 
-````text
---- Segments ---
+<details><summary>🐍 Python · Segments</summary>
+
+```json
 {
   "1-29 (early) | PTP High": [
     {
@@ -110,32 +110,46 @@ Python stay the same.
     }
   ]
 }
-
-
---- Collections strategy ---
-| Segment                  | Channel       | Frequency | Offer                                      | Escalation Trigger                                                                 |
-|--------------------------|---------------|-----------|--------------------------------------------|------------------------------------------------------------------------------------|
-| 1-29 (early)             | PTP High      | Once       | No immediate action; monitor for changes  | If outstanding amount remains unchanged after 30 days, consider a friendly reminder |
-| 30-59                    | PTP Medium    | Twice      | Offer a payment plan (3-6 months)         | If no payment received after second reminder, escalate to a collection officer      |
-| 60-89                    | PTP Medium    | Three times| Offer a payment plan (3-6 months)         | If no payment received after third reminder, escalate to a collection officer      |
-| 90+ (NPA)                | PTP Low       | Twice      | Offer a settlement (70-80% of outstanding) | If no payment received after second reminder, escalate to a legal advisor           |
-| 30-59 hardship=true      | PTP Medium    | Twice      | Offer a payment plan (3-6 months)         | If no payment received after second reminder, escalate to a collection officer      |
-
-### Conduct Notes
-1. **Early Stage (1-29 Days):** For accounts flagged as `hardship=true`, the initial approach should be gentle and supportive. The focus should be on understanding the customer's situation and offering flexible payment options. If the account remains unchanged after 30 days, a friendly reminder should be issued, but aggressive actions should be avoided.
-
-2. **30-59 Days:** For accounts flagged as `hardship=true`, the offer of a payment plan should be made twice. If no payment is received after the second reminder, escalation to a collection officer should occur. The collection officer should be trained to handle these cases with empathy and understanding, ensuring that the customer feels supported rather than pressured.
-
-3. **60-89 Days:** For accounts flagged as `hardship=true`, the offer of a payment plan should be made three times. If no payment is received after the third reminder, escalation to a collection officer should occur. The collection officer should follow the same approach as in the 30-59 days segment, focusing on understanding the customer's situation and offering support.
-
-4. **90+ Days (NPA):** For accounts flagged as `hardship=true`, the offer of a settlement should be made twice. If no payment is received after the second reminder, escalation to a legal advisor should occur. The legal advisor should be trained to handle these cases with sensitivity, ensuring that the customer is treated fairly and with respect.
-
-5. **General Guidelines:** All collection officers should be trained to recognize and handle `hardship=true` cases with empathy and understanding. They should avoid aggressive language and tactics, focusing on building a supportive relationship with the customer. Regular training and support should be provided to ensure that all staff are equipped to handle these cases effectively.
-
-By implementing these strategies, we can ensure that vulnerable customers are treated fairly and with respect, while still maintaining a balanced approach to debt collection.
-````
+```
 
 </details>
+
+<details><summary>♟️ Collections Strategist (agent)</summary>
+
+Certainly! Here is the proposed treatment for each segment based on the provided criteria:
+
+| Segment                  | Channel       | Frequency | Offer                                      | Escalation Trigger                                                                 |
+|--------------------------|---------------|-----------|--------------------------------------------|------------------------------------------------------------------------------------|
+| 1-29 (early) | PTP High      | Monthly   | No immediate action; monitor for changes   | If outstanding balance remains unpaid after 3 months, consider a gentle reminder  |
+| 30-59 | PTP Medium    | Bi-weekly  | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+| 60-89 | PTP Medium    | Weekly     | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+| 90+ (NPA) | PTP Low      | Monthly   | Offer a settlement at 70% of outstanding   | If no response, escalate to a phone call or letter; consider legal action if necessary |
+| 30-59 | PTP High      | Bi-weekly  | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+
+This treatment is designed to balance the urgency of recovery with the likelihood of payment, ensuring that resources are used efficiently while maintaining a fair and transparent approach to collections.
+
+</details>
+
+**🦙 Ollama:**
+
+| Segment                  | Channel       | Frequency | Offer                                      | Escalation Trigger                                                                 |
+|--------------------------|---------------|-----------|--------------------------------------------|------------------------------------------------------------------------------------|
+| 1-29 (early)             | PTP High      | Monthly   | No immediate action; monitor for changes   | If outstanding balance remains unpaid after 3 months, consider a gentle reminder  |
+| 30-59                    | PTP Medium    | Bi-weekly | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+| 60-89                    | PTP Medium    | Weekly    | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+| 90+ (NPA)                | PTP Low      | Monthly   | Offer a settlement at 70% of outstanding   | If no response, escalate to a phone call or letter; consider legal action if necessary |
+| hardship=true            | PTP Low      | Monthly   | Offer a payment plan with no interest      | If payment plan is not accepted, escalate to a phone call or letter                |
+
+### Conduct Notes
+1. **Vulnerable Customer Handling**: For accounts flagged with `hardship=true`, the strategy ensures that customers are offered a payment plan with no interest, which is a fair and transparent approach. This aligns with the consumer duty to treat customers fairly and consider their financial circumstances.
+2. **Frequency Adjustments**: The frequency of communication is adjusted to be less aggressive for vulnerable customers, ensuring that they are not overwhelmed by frequent contact.
+3. **Offering Payment Plans**: Offering a payment plan with no interest is a key component of the strategy, as it provides a feasible solution for customers facing financial difficulties.
+4. **Escalation Process**: If a payment plan is not accepted, the escalation process is designed to be gentle, starting with a phone call or letter, which respects the customer's privacy and dignity.
+5. **Legal Action Consideration**: While legal action is a last resort, it is included in the escalation process to ensure that all avenues are explored before resorting to more severe measures.
+6. **Monitoring and Review**: The strategy includes a review mechanism to monitor the effectiveness of the payment plans and adjust the approach as necessary to ensure fair treatment.
+
+This revised strategy ensures that customers in financial hardship are treated fairly and with empathy, aligning with the principles of consumer duty and fair debt collection.
+
 
 ## Run
 ```bash

@@ -53,40 +53,49 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** My washing machine hose burst and flooded the kitchen. Am I covered?
 
-````text
---- Q: My washing machine hose burst and flooded the kitchen. Am I covered? ---
+**🦙 Ollama:**
+
 **COVERED** (Section 1.1 Escape of water)
 
 Yes, you are covered for the damage caused by the burst washing machine hose, as per Section 1.1 Escape of water. According to your policy, this type of incident falls under the coverage for escape of water. However, please note that the excess for escape of water claims is 500, so you will need to pay this amount out of pocket before the insurance covers the rest.
 
+---
 
---- Q: I dropped my TV while moving it. Can I claim? ---
+> **👤 You:** I dropped my TV while moving it. Can I claim?
+
+**🦙 Ollama:**
+
 **NOT COVERED** (Section 1.4 Accidental damage)
 
 I'm sorry, but your claim for dropping your TV is not covered under your policy. According to Section 1.4 Accidental damage, accidental damage to contents like your TV is only covered if Accidental Damage cover is included in your schedule, and it appears that this cover is not included for you. There is no excess to pay in this case since the claim is not covered.
 
+---
 
---- Q: My named Trek bike was stolen outside a cafe; I had locked it to a railing. ---
+> **👤 You:** My named Trek bike was stolen outside a cafe; I had locked it to a railing.
+
+**🦙 Ollama:**
+
 **COVERED** (Section 2 Personal Possessions add-on)
 
 Your Trek bicycle, valued at 1,450, was covered under the Personal Possessions add-on (Section 2) because it was stolen while left unattended but locked to a fixed object outside your home. According to the policy, this meets the condition for coverage. However, please note that you will need to pay the excess of 250 for this claim.
 
+---
 
---- Q: A storm blew down my garden shed. ---
+> **👤 You:** A storm blew down my garden shed.
+
+**🦙 Ollama:**
+
 **NOT COVERED** (Section 1.2 Storm and flood)
 
 I'm sorry, but the damage to your garden shed caused by the storm is not covered under your policy. According to Section 1.2 Storm and flood, we do not cover damage to gates, fences, hedges, or garden sheds caused by storm or flood. There is no excess to pay in this case as the claim is not covered.
-````
 
-</details>
 
 ## Run
 ```bash

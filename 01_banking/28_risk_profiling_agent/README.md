@@ -49,16 +49,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 4 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Here are the client's risk questionnaire answers. What is their risk profile, and is anything inconsistent?
 
-````text
---- Score ---
+<details><summary>🐍 Python · Score</summary>
+
+```json
 {
   "points": {
     "Investment horizon": 5,
@@ -75,21 +75,20 @@ Python stay the same.
     "Aggressive objective with limited investment experience"
   ]
 }
-
-
---- Client explanation ---
-Based on your responses, your risk profile is moderate. You have a long-term investment horizon and want maximum growth, which is great for potential long-term gains. However, you would sell everything if your portfolio drops by 20%, which is quite cautious. Given your limited investment experience, this reaction seems inconsistent with your growth objective.
-
-To better understand your risk tolerance, let's discuss a few things:
-
-1. **Why would you sell everything if your portfolio drops by 20%?** Is there a specific reason for this reaction?
-2. **How do you feel about volatility in your investments?** Understanding your comfort level with ups and downs can help tailor a more suitable strategy.
-3. **Are there any specific financial goals or concerns you have?** This can help us align your risk profile with your overall financial plan.
-
-Let's chat more to find the right balance for you!
-````
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Based on your responses, your risk profile is moderate. You have a long-term investment horizon and want maximum growth, which is great for potential long-term gains. However, your reaction to a 20% portfolio fall (selling everything) and your limited investment experience suggest a more cautious approach might be better for now.
+
+Here are a few follow-up questions to help us better understand your situation:
+
+1. How comfortable are you with the potential ups and downs of the market?
+2. Are there any specific financial goals you're trying to achieve in the next few years?
+3. How do you feel about balancing growth with some level of stability in your investments?
+
 
 ## Run
 ```bash

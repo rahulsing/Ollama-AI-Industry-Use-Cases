@@ -51,32 +51,34 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 7 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** I ordered a laptop from TechMart Online (TX-902) on 22 Sept, it was due 29 Sept and never arrived. The merchant ignores my emails.
 
-````text
---- Customer ---
-I ordered a laptop from TechMart Online (TX-902) on 22 Sept, it was due 29 Sept and never arrived. The merchant ignores my emails.
+<details><summary>🔧 Tool calls</summary>
 
+```text
+lookup_transaction(txn_id='TX-902') -> {"date": "2026-09-22", "merchant": "TechMart Online", "amount": 899.0, "network": "Mastercard", "status": "posted"}
+reason_code_rules(dispute_type='goods_not_received', network='Mastercard') -> {"reason_code": "4855", "evidence_required": "Expected delivery date, merchant contact attempts", "window_days": 120}
+```
 
---- Assistant ---
-Based on the provided information and the transaction details, here is the classification for the dispute:
+</details>
+
+**🦙 Ollama:**
+
+Based on the provided information and the lookup results, here is the dispute classification and necessary details:
 
 - **Dispute Type:** Goods Not Received
 - **Reason Code:** 4855
 - **Evidence Required:** Expected delivery date, merchant contact attempts
-- **Temporary Credit:** No (typically not applicable for goods not received disputes)
-- **Summary for Back Office:** The customer ordered a laptop from TechMart Online on 22nd September, expecting delivery by 29th September. The laptop has not been received, and the merchant has not responded to the customer's emails. The customer is requesting a resolution. The merchant should be contacted first to verify the delivery status and any attempts made to contact the customer. The customer must provide the expected delivery date and evidence of their attempts to contact the merchant.
+- **Temporary Credit:** Typically applies within the network's guidelines, but this will be determined by the issuing bank.
+- **Summary for Back Office:** The customer ordered a laptop from TechMart Online on 22 September, expecting delivery by 29 September. The laptop was never received, and the merchant has not responded to the customer's emails. The customer is requesting a resolution through the dispute process. The merchant should be contacted first to attempt resolution before proceeding with the dispute.
 
-If the merchant does not respond or resolve the issue, a chargeback may be initiated. Please contact the merchant first to attempt a resolution.
-````
+Please contact the merchant first to resolve the issue. If no resolution is reached, the customer will need to provide the expected delivery date and evidence of their attempts to contact the merchant.
 
-</details>
 
 ## Run
 ```bash

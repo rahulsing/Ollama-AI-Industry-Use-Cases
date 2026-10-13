@@ -58,16 +58,16 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Should we change prices on our earbuds, water bottles and other lines this week?
 
-````text
---- Guard-railed price proposals ---
+<details><summary>🐍 Python · Guard-railed price proposals</summary>
+
+```json
 [
   {
     "sku": "P-1",
@@ -112,9 +112,12 @@ Python stay the same.
     "pricing_reason": "Overstock (22.0 weeks of stock): cut to clear"
   }
 ]
+```
 
+</details>
 
---- Pricing memo ---
+**🦙 Ollama:**
+
 ### Pricing Memo
 
 | SKU | Current Price | Proposed Price | Decision | Reason | Expected Profit Impact | Notes for Marketing and Store Teams |
@@ -130,9 +133,7 @@ Python stay the same.
 - **Sales Volume:** Price changes can impact sales volume, both positively and negatively.
 
 By carefully considering these risks, the proposed price changes can be implemented more effectively to balance volume, margin, and price perception.
-````
 
-</details>
 
 ## Run
 ```bash

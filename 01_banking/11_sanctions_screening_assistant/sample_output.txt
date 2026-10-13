@@ -1,6 +1,7 @@
 ============================================================
   11 - Sanctions Screening Assistant (LangChain)
   model: qwen2.5:7b-instruct
+  runtime: 6s
 ============================================================
 
 
@@ -59,16 +60,16 @@
 
 --- Adjudication ---
 1. **Victor A. Petrov**:
-   - **Decision**: FALSE POSITIVE
-   - **Reason**: The DOBs do not match (1988-07-19 vs 1965-03-12).
+   - **Match Type**: FALSE POSITIVE
+   - **Reason**: The DOB (1988-07-19 vs 1965-03-12) is clearly different.
    - **Action**: Release payment.
 
 2. **Hasan Al Rashid**:
-   - **Decision**: TRUE MATCH
-   - **Reason**: The DOB, nationality, and name match closely.
-   - **Action**: Hold payment and escalate.
+   - **Match Type**: TRUE MATCH
+   - **Reason**: The DOB (1972-11-02) and nationality (SY) match exactly.
+   - **Action**: Hold payment for further review.
 
 3. **Golden Crescent Shipping**:
-   - **Decision**: POSSIBLE MATCH (Escalate)
-   - **Reason**: The names are nearly identical, but the nationality differs (AE vs IR). This could indicate a front company.
-   - **Action**: Hold payment and escalate.
+   - **Match Type**: POSSIBLE MATCH (Escalate)
+   - **Reason**: The name is nearly identical, but the nationality differs (AE vs IR). This could indicate a front company.
+   - **Action**: Hold payment for further review.

@@ -52,26 +52,30 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 7 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** I earn 8,500 a month and pay 650 a month on a car loan. How much can I borrow, and what would the monthly payment be on a 25 year term at 6.2%?
 
-````text
---- Customer ---
-I earn 8,500 a month and pay 650 a month on a car loan. How much can I borrow, and what would the monthly payment be on a 25 year term at 6.2%?
+<details><summary>🔧 Tool calls</summary>
 
-
---- Assistant ---
-Based on your monthly income and current monthly debt, you can afford a maximum loan amount of approximately $418,836, keeping your total debt payments within the bank's 40% Debt-to-Income (DTI) limit. For a 25-year term at an annual interest rate of 6.2%, the monthly repayment for a loan amount of $145,558 would be approximately $956.
-
-This is an indicative estimate and not a loan offer. Please consult with a financial advisor or mortgage lender for a personalized assessment. A sensible down payment is typically around 20% of the property price, which would be about $83,767 in this case. This would help you to estimate an affordable property price and ensure you have enough equity in the property.
-````
+```text
+max_affordable_loan(annual_rate_pct=6.2, monthly_debts=650, monthly_income=8500, years=25) -> Max loan ~418,836 (monthly payment budget 2,750, 6.2% over 25y)
+monthly_emi(annual_rate_pct=6.2, loan_amount=145657.94, years=25) -> Monthly payment: 956 for 145,658 at 6.2% over 25 years
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Based on your monthly income and current monthly debt, you can afford a maximum loan of approximately $418,836, keeping your total debt payments within the bank's 40% Debt-to-Income (DTI) limit. 
+
+For a 25-year term at an annual interest rate of 6.2%, borrowing $145,658 would result in a monthly payment of approximately $956.
+
+This is an indicative estimate and not a loan offer. Please consult with a financial advisor or mortgage lender for a personalized assessment. A sensible down payment is typically around 20%, so with a 20% down payment on a property priced at around $418,836, you would be looking at a down payment of approximately $83,767.20.
+
 
 ## Run
 ```bash

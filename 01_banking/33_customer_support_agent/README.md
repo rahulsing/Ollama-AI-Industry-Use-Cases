@@ -49,38 +49,79 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 9 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** What's my total balance?
 
-````text
---- You: What's my total balance? ---
-Bot: Your total balance across all accounts is $5027.5. Here's a breakdown:
+<details><summary>🔧 Tool calls</summary>
+
+```text
+get_balance(account_id='') -> {"SAV-221": {"type": "Savings", "balance": 4215.4}, "CUR-993": {"type": "Current", "balance": 812.1}}
+```
+
+</details>
+
+**🦙 Ollama:**
+
+Your total balance across all accounts is $5027.5. Here's a breakdown:
 - Savings Account: $4215.4
 - Current Account: $812.1
 
+---
 
---- You: Show my last 3 transactions ---
-Bot: Here are your last three transactions:
+> **👤 You:** Show my last 3 transactions
+
+<details><summary>🔧 Tool calls</summary>
+
+```text
+recent_transactions(limit=3) -> [["2026-10-09", "SAV-221", -64.2, "Amazon"], ["2026-10-08", "SAV-221", 2800.0, "Salary ACME Ltd"], ["2026-10-07", "CUR-993", -120.0, "Electric Co Direct Debit"]]
+```
+
+</details>
+
+**🦙 Ollama:**
+
+Here are your last three transactions:
 
 1. On 2026-10-09, you made a purchase of $64.2 from Amazon.
 2. On 2026-10-08, you received a deposit of $2800.0 from Salary ACME Ltd.
-3. On 2026-10-07, you had a direct debit of $120.0 for the Electric Co.
+3. On 2026-10-07, you had a direct debit of $120.0 from the Electric Co.
 
+---
 
---- You: I lost my debit card ending 4821, please block it ---
-Bot: Your card ending in 4821 has been blocked due to it being lost. A replacement card will be dispatched to you in 5 working days. Your new card reference is BLK-4821-2026. Please keep this reference for future inquiries.
+> **👤 You:** I lost my debit card ending 4821, please block it
 
+<details><summary>🔧 Tool calls</summary>
 
---- You: What time does the Leeds branch open on Saturday? ---
-Bot: The Leeds branch is open on Saturdays from 9:30 AM to 1:00 PM. For any further assistance, you can contact our 24/7 phone support at 0800 123 456.
-````
+```text
+block_card(reason='lost', last4='4821') -> Card ending 4821 blocked (lost). Replacement dispatched in 5 working days. Ref BLK-4821-2026.
+```
 
 </details>
+
+**🦙 Ollama:**
+
+Your card ending in 4821 has been blocked due to it being lost. A replacement card will be dispatched to you in 5 working days. Your new card reference is BLK-4821-2026. Please keep this reference for future inquiries.
+
+---
+
+> **👤 You:** What time does the Leeds branch open on Saturday?
+
+<details><summary>🔧 Tool calls</summary>
+
+```text
+branch_hours(city='Leeds') -> Leeds branches: Mon-Fri 9:30-16:30, Sat 9:30-13:00. 24/7 phone support: 0800 123 456.
+```
+
+</details>
+
+**🦙 Ollama:**
+
+The Leeds branch is open on Saturdays from 9:30 AM to 1:00 PM. For any further assistance, you can contact our 24/7 phone support at 0800 123 456.
+
 
 ## Run
 ```bash

@@ -55,16 +55,15 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** Summarise Meridian Bank's Q3 FY26 earnings call. How confident did management sound, and what are the risks?
 
-````text
---- Earnings call note ---
+**🦙 Ollama:**
+
 ### Investor Note: Tone Score, Top 3 Positives, Top 3 Risks, Watch-list, One-line Takeaway
 
 **Tone Score:** -2
@@ -90,9 +89,7 @@ Python stay the same.
 
 **One-line Takeaway:**
 The bank's management is being realistic about the challenges ahead, with lowered loan growth and increased credit costs, but the strong deposit base and stable credit quality provide some reassurance.
-````
 
-</details>
 
 ## Run
 ```bash

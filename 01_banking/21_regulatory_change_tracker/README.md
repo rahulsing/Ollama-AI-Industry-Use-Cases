@@ -54,40 +54,59 @@ flowchart LR
 
 <sub>🟦 data · 🟩 Python: maths & rules (auditable) · 🟪 AI: reasoning & writing · ⬛ local LLM · 🟨 result</sub>
 
-## 💬 Sample response
+## 💬 Sample conversation
 
-Real output from `qwen2.5:7b-instruct` running locally on a laptop. LLM wording changes from run to run; the numbers from
-Python stay the same.
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 24 s). Expand a step to see what happened
+behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
-<details>
-<summary><b>Show the full output</b></summary>
+> **👤 You:** A new circular on digital lending (2026/14) just came out. What does it mean for our processes?
 
-````text
---- Impact assessment ---
+<details><summary>🧑‍💼 Regulatory Analyst (agent)</summary>
+
+1. ID: 2026/14-1
+   Requirement: Regulated entities shall provide a Key Fact Statement (KFS) with the all-in annual percentage rate (APR) to every digital loan applicant before contract execution.
+   Effective Date: 1 April 2027
+
+2. ID: 2026/14-2
+   Requirement: Loan disbursements and repayments shall flow only between the borrower's account and the lender's account; no pass-through via third-party lending service provider (LSP) accounts.
+   Effective Date: 1 April 2027
+
+3. ID: 2026/14-3
+   Requirement: A cooling-off period of at least 3 days shall be given during which the borrower may exit by repaying principal and proportionate APR without penalty.
+   Effective Date: 1 April 2027
+
+4. ID: 2026/14-4
+   Requirement: Each lender shall appoint a nodal grievance redressal officer for digital lending; complaints not resolved in 30 days may be escalated to the Ombudsman.
+   Effective Date: 1 April 2027
+
+5. ID: 2026/14-5
+   Requirement: Lenders shall report all digital lending apps (DLAs) used, including those of LSPs, to the regulator quarterly.
+   Effective Date: 1 April 2027
+
+</details>
+
+**🦙 Ollama:**
+
 ### Gap Table
 
 | Obligation | Impacted Unit | Current State | Gap | Action | Owner | Priority (H/M/L) |
 |------------|---------------|---------------|-----|--------|--------|------------------|
 | 2026/14-1  | Loan Origination System | No APR shown, shows flat interest rate | Does not provide all-in APR | Update Loan Origination System to include all-in APR | IT & Product Teams | H |
-| 2026/14-2  | Retail Lending, Loan Origination System | EMI collected via QuickCred's escrow account | Disbursements and repayments flow through third-party accounts | Modify system to ensure direct flow between borrower and lender accounts | IT & Retail Lending Teams | H |
-| 2026/14-3  | Product Team | No cooling-off feature | No cooling-off period available | Implement cooling-off feature with no prepayment penalty | Product Team | H |
-| 2026/14-4  | Compliance, Customer Service | No nodal grievance redressal officer appointed | No grievance redressal mechanism in place | Appoint nodal grievance redressal officer and update complaint SLA to 30 days | Compliance & Customer Service Teams | H |
-| 2026/14-5  | Compliance | No DLA register exists | No record of digital lending apps | Establish and maintain a DLA register for all digital lending apps | Compliance Team | H |
+| 2026/14-2  | Retail Lending, Compliance | EMI collected via QuickCred's escrow account | Disbursements and repayments flow through third-party accounts | Modify Retail Lending process to ensure direct flow between borrower and lender accounts | Retail Lending & Compliance Teams | H |
+| 2026/14-3  | Product Team | No cooling-off feature | No cooling-off period available | Implement cooling-off feature in product design and update terms & conditions | Product Team | H |
+| 2026/14-4  | Compliance | No nodal grievance redressal officer appointed | No designated officer for digital lending complaints | Appoint a nodal grievance redressal officer for digital lending | Compliance Team | H |
+| 2026/14-5  | Compliance | No DLA register exists | No record of digital lending apps used | Establish and maintain a DLA register for all digital lending apps, including LSPs | Compliance Team | H |
 
 ### Executive Summary
 
-1. **Obligation 2026/14-1**: The current Loan Origination System does not provide the Key Fact Statement (KFS) with the all-in annual percentage rate (APR). This needs to be updated to include the APR before contract execution. The IT and Product Teams are responsible for this task, and it is a high priority.
+1. **Obligation 2026/14-1**: The current Loan Origination System does not display the all-in APR, which is required by the new regulation. The IT and Product Teams must update the system to include this information to ensure compliance.
+2. **Obligation 2026/14-2**: The current process allows EMIs to be collected via QuickCred's escrow account, which is not compliant with the new regulation. The Retail Lending and Compliance Teams need to modify the process to ensure that all disbursements and repayments flow directly between the borrower and the lender.
+3. **Obligation 2026/14-3**: The Product Team currently does not have a cooling-off feature, which is required by the new regulation. The Product Team must implement this feature and update the terms and conditions to reflect the new requirement.
+4. **Obligation 2026/14-4**: There is no designated nodal grievance redressal officer for digital lending, which is required by the new regulation. The Compliance Team must appoint such an officer to ensure that complaints are handled promptly.
+5. **Obligation 2026/14-5**: The Compliance Team does not maintain a DLA register, which is required by the new regulation. The Compliance Team must establish and maintain a register for all digital lending apps, including those of LSPs, to ensure compliance.
 
-2. **Obligation 2026/14-2**: The current process allows EMIs to be collected via QuickCred's escrow account, which violates the requirement for disbursements and repayments to flow only between the borrower's and lender's accounts. The IT and Retail Lending Teams must modify the system to ensure direct flow, and this is a high priority.
+All identified gaps are high priority and must be addressed by the respective teams to ensure the bank is fully compliant by the effective date of 1 April 2027.
 
-3. **Obligation 2026/14-3**: The Product Team needs to implement a cooling-off feature with no prepayment penalty to comply with the new cooling-off period requirement. This is a high priority task.
-
-4. **Obligation 2026/14-4**: The Compliance and Customer Service Teams must appoint a nodal grievance redressal officer and update the complaint SLA to 30 days. This is a high priority task.
-
-5. **Obligation 2026/14-5**: The Compliance Team needs to establish and maintain a DLA register for all digital lending apps, including those of LSPs. This is a high priority task.
-````
-
-</details>
 
 ## Run
 ```bash

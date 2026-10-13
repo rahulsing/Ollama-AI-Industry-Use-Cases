@@ -1,6 +1,7 @@
 ============================================================
   24 - Bank Policy Q&A (LangChain RAG)
   model: qwen2.5:7b-instruct
+  runtime: 10s
 ============================================================
 
 
@@ -9,7 +10,7 @@ Yes, you need senior approval (Head of Compliance) to onboard a PEP. PEPs requir
 
 
 --- Q: A customer deposited 9,900 cash three days in a row. What should I do? ---
-Since the total amount deposited exceeds 10,000, even when split, you should report this as structuring. According to [Ops Manual 2.8], this must be escalated to the MLRO.
+No action is required as the transactions do not meet the threshold of 10,000 for reporting. However, monitor the activity for any suspicious behavior. If you have concerns, escalate to the Money Laundering Reporting Officer (MLRO) as per [Ops Manual 2.8].
 
 
 --- Q: What is the maximum personal loan for someone earning 4,000 net per month? ---

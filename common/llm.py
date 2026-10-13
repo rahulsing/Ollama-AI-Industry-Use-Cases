@@ -7,6 +7,7 @@ Everything runs locally against an Ollama server. Configure with env vars
     OLLAMA_MODEL        default qwen2.5:7b-instruct   (good tool-calling)
     OLLAMA_EMBED_MODEL  default nomic-embed-text      (used by RAG use cases)
     CREW_VERBOSE        default false
+    SHOW_STEPS          default false   (also print each agent's work and every tool call)
 """
 
 from __future__ import annotations
@@ -33,6 +34,7 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b-instruct")
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 CREW_VERBOSE = os.getenv("CREW_VERBOSE", "false").lower() in {"1", "true", "yes"}
+SHOW_STEPS = os.getenv("SHOW_STEPS", "false").lower() in {"1", "true", "yes"}
 
 
 # --------------------------------------------------------------------------- #
@@ -66,6 +68,8 @@ def run_agent(system_prompt: str, tools: list, question: str) -> str:
 
     agent = create_agent(model=get_llm(), tools=tools, system_prompt=system_prompt)
     result = agent.invoke({"messages": [{"role": "user", "content": question}]})
+    if SHOW_STEPS:
+        show_tool_calls(result["messages"])
     # The model may write part of its answer before a follow-up tool call, so keep all of its text
     texts = [m.content for m in result["messages"] if m.type == "ai" and isinstance(m.content, str) and m.content.strip()]
     return "\n\n".join(texts)
@@ -108,7 +112,11 @@ def run_crew(agents: list, tasks: list, inputs: dict | None = None) -> str:
     from crewai import Crew, Process
 
     crew = Crew(agents=agents, tasks=tasks, process=Process.sequential, verbose=CREW_VERBOSE, tracing=False)
-    return str(crew.kickoff(inputs=inputs or {}))
+    result = crew.kickoff(inputs=inputs or {})
+    if SHOW_STEPS:  # the final task's output is the return value; show the agents' work before it
+        for task, out in zip(tasks[:-1], result.tasks_output):
+            section(f"Agent: {task.agent.role}", out.raw)
+    return str(result)
 
 
 # --------------------------------------------------------------------------- #
@@ -121,3 +129,13 @@ def banner(title: str) -> None:
 
 def section(title: str, body) -> None:
     print(f"\n--- {title} ---\n{body}\n")
+
+
+def show_tool_calls(messages: list) -> None:
+    """Print every tool the agent called, with its arguments and (shortened) result."""
+    outputs = {m.tool_call_id: m.content for m in messages if m.type == "tool"}
+    calls = [(c["name"], c["args"], outputs.get(c["id"], "")) for m in messages if m.type == "ai"
+             for c in getattr(m, "tool_calls", [])]
+    lines = [f"{name}({', '.join(f'{k}={v!r}' for k, v in args.items())}) -> {str(out)[:400]}"
+             for name, args, out in calls]
+    section("Tool calls", "\n".join(lines) or "(no tools called)")
