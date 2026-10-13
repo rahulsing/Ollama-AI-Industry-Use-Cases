@@ -1,6 +1,7 @@
 ============================================================
   Insurance 01 - Claims Triage & Fraud Detection (CrewAI)
   model: qwen2.5:7b-instruct
+  runtime: 30s
 ============================================================
 
 
@@ -44,47 +45,157 @@
 ]
 
 
---- Claims decisions ---
-### Claim CLM-501: Home - Escape of Water
+--- Agent: Claims Adjuster ---
+### Per-Claim Assessment
 
+#### Claim CLM-501: Home - Escape of Water
+**Summary:**
+A washing machine hose burst, causing damage to the kitchen floor and cabinet plinths. The plumber's invoice is attached.
+
+**Coverage Questions:**
+- Is the damage covered under the policy?
+- Does the policy cover water damage from appliances?
+
+**Evidence Needed:**
+- Plumber's invoice
+- Photos of the damage
+- Policy document (to verify coverage)
+
+**Final Handling:**
+- **Route:** Fast-track payment
 - **Final Handling:** PAY
-- **Evidence Needed:**
-  - Plumber's invoice for repairs.
-  - Photos of the damage before and after repairs.
-  - Any manufacturer's warranty or recall information for the washing machine.
-- **Customer Message:**
-  Thank you for your claim. We have reviewed the information provided and are pleased to inform you that the damage is covered under your policy. Please ensure that the plumber's invoice and any relevant photos are submitted for processing. If you have any further questions, feel free to contact us.
-- **Recovery Action:**
-  None.
+- **Subrogation Opportunity:** No
 
 ---
 
-### Claim CLM-502: Home - Theft
+#### Claim CLM-502: Home - Theft
+**Summary:**
+A burglary occurred while the policyholder was on holiday, resulting in the theft of a laptop, two watches, and jewellery. The policyholder reported the claim 21 days after the loss and provided no receipts or evidence of forced entry.
 
+**Coverage Questions:**
+- Is the policy valid for the time of the loss?
+- Does the policy cover theft while the policyholder is away?
+- Is there any evidence of forced entry or other suspicious activity?
+
+**Evidence Needed:**
+- Police report
+- Receipts for stolen items
+- Photos of the damage or theft
+- Policy document (to verify coverage and terms)
+
+**Final Handling:**
+- **Route:** SIU referral
 - **Final Handling:** REFER TO SIU
-- **Evidence Needed:**
-  - Police report or incident report.
-  - Receipts or purchase documents for the stolen items.
-  - Proof of ownership for the stolen items.
-  - Any security system logs or other evidence of the break-in.
-- **Customer Message:**
-  We appreciate your prompt reporting of the incident. To ensure a thorough investigation, we need to gather additional information. Please provide the police report, any receipts or purchase documents, and any other relevant evidence. If you have any security system logs or other evidence, please share them as well. We will review this information and keep you updated.
-- **Recovery Action:**
-  None.
+- **Subrogation Opportunity:** No
 
 ---
 
-### Claim CLM-503: Motor - Collision
+#### Claim CLM-503: Motor - Collision
+**Summary:**
+The policyholder's vehicle was rear-ended at traffic lights. The third party admitted fault at the scene, and dashcam footage is available.
 
+**Coverage Questions:**
+- Is the damage covered under the policy?
+- Does the policy cover collision damage?
+- Is the third party's liability clear?
+
+**Evidence Needed:**
+- Dashcam footage
+- Police report
+- Photos of the damage
+- Policy document (to verify coverage and terms)
+
+**Final Handling:**
+- **Route:** Adjuster review
 - **Final Handling:** ADJUSTER REVIEW, THEN PAY IF VALID
-- **Evidence Needed:**
-  - Third party's insurance information and contact details.
-  - Dashcam footage of the incident.
-  - Police report or accident report.
-  - Repair estimates and invoices.
-- **Customer Message:**
-  We have received your claim and are currently reviewing the information provided. To ensure a fair and accurate assessment, we need to gather additional details. Please provide the third party's insurance information, any dashcam footage, the police report, and repair estimates and invoices. If you have any further information, please share it with us. We will review this information and keep you updated.
-- **Recovery Action:**
-  If the claim is valid and the third party is responsible, we will pursue subrogation to recover the costs from the at-fault party. Please be assured that we will handle this process discreetly and professionally.
+- **Subrogation Opportunity:** Yes
 
-These steps will ensure that each claim is handled appropriately and fairly.
+---
+
+This assessment provides a clear understanding of each claim, the necessary evidence, and the appropriate handling route based on the given rules.
+
+
+--- Claims decisions ---
+### Per Claim Assessment
+
+#### Claim CLM-501: Home - Escape of Water
+**Summary:**
+A washing machine hose burst, causing damage to the kitchen floor and cabinet plinths. The plumber's invoice is attached.
+
+**Final Handling:**
+- **Route:** Fast-track payment
+- **Final Handling:** PAY
+
+**Evidence Needed:**
+- Plumber's invoice
+- Photos of the damage
+- Policy document (to verify coverage)
+
+**Customer Message:**
+Dear [Policyholder],
+
+Thank you for your claim. We have reviewed the information provided and are in the process of processing your claim. Please ensure that all the necessary documents are submitted to us for your records. If you have any further questions or need assistance, please do not hesitate to contact us.
+
+Best regards,
+[Your Name]
+
+**Recovery Action:**
+None
+
+---
+
+#### Claim CLM-502: Home - Theft
+**Summary:**
+A burglary occurred while the policyholder was on holiday, resulting in the theft of a laptop, two watches, and jewellery. The policyholder reported the claim 21 days after the loss and provided no receipts or evidence of forced entry.
+
+**Final Handling:**
+- **Route:** SIU referral
+- **Final Handling:** REFER TO SIU
+
+**Evidence Needed:**
+- Police report
+- Receipts for stolen items
+- Photos of the damage or theft
+- Policy document (to verify coverage and terms)
+
+**Customer Message:**
+Dear [Policyholder],
+
+Thank you for your claim. We are currently investigating the details to ensure the validity of your claim. Please provide any additional information or documents that may assist us in processing your claim. If you have any further questions or need assistance, please do not hesitate to contact us.
+
+Best regards,
+[Your Name]
+
+**Recovery Action:**
+None
+
+---
+
+#### Claim CLM-503: Motor - Collision
+**Summary:**
+The policyholder's vehicle was rear-ended at traffic lights. The third party admitted fault at the scene, and dashcam footage is available.
+
+**Final Handling:**
+- **Route:** Adjuster review
+- **Final Handling:** ADJUSTER REVIEW, THEN PAY IF VALID
+
+**Evidence Needed:**
+- Dashcam footage
+- Police report
+- Photos of the damage
+- Policy document (to verify coverage and terms)
+
+**Customer Message:**
+Dear [Policyholder],
+
+Thank you for your claim. We are currently reviewing the details to ensure the validity of your claim. Please provide any additional information or documents that may assist us in processing your claim. If you have any further questions or need assistance, please do not hesitate to contact us.
+
+Best regards,
+[Your Name]
+
+**Recovery Action:**
+- If the claim is valid and the third party is identified, initiate subrogation proceedings to recover the costs from the at-fault party.
+
+---
+
+This assessment provides a clear understanding of each claim, the necessary evidence, and the appropriate handling route based on the given rules.

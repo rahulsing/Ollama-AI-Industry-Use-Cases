@@ -57,23 +57,36 @@ flowchart LR
 
 ## 💬 Sample conversation
 
-A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 10 s). Expand a step to see what happened
 behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
 > **👤 You:** I'm 23, licensed 2 years, driving a group 22 car in a high-risk area, 1 claim in 5 years, 9,000 miles a year. What's my quote, and how much would I save with a 500 voluntary excess?
 
+<details><summary>🔧 Tool calls</summary>
+
+```text
+rate_quote(annual_mileage=9000, area_risk='high', claims_last_5y=1, driver_age=23, vehicle_group=22, voluntary_excess=0, years_licensed=2) -> {"annual_premium": 1656.21, "monthly_premium": 144.92, "base_premium": 420.0, "factors": {"driver_age": 1.6, "experience": 1.15, "vehicle_group": 1.27, "area": 1.35, "claims_history": 1.25, "mileage": 1.0, "voluntary_excess": 1.0}, "biggest_driver": "driver_age", "excess_options": {"voluntary_excess_0": {"annual_premium": 1656.21, "annual_saving_vs_0": 0.0}, "voluntary_excess_250": {"annual_premiu
+```
+
+</details>
+
 **🦙 Ollama:**
 
-Based on your details, your annual motor insurance premium would be £1,656.21. This breaks down as follows:
+Your annual premium for the motor insurance policy is £1,656.21, which breaks down as follows:
 
-- **Driver Age**: Your age of 23 is a significant factor, increasing the premium by 60%.
-- **Experience**: You have been licensed for 2 years, which slightly increases the premium by 15%.
-- **Vehicle Group**: The group 22 car increases the premium by 27%.
-- **Area Risk**: Driving in a high-risk area increases the premium by 35%.
-- **Claims History**: You have one claim in the last 5 years, which increases the premium by 25%.
-- **Mileage**: Your annual mileage of 9,000 miles does not affect the premium in this case.
+- **Base Premium**: £420.00
+- **Factors Affecting Premium**:
+  - **Driver Age**: 1.6 (You are 23 years old, which is a higher risk factor)
+  - **Experience**: 1.15 (You have been licensed for 2 years, which is a moderate risk factor)
+  - **Vehicle Group**: 1.27 (Your car is in group 22, which is a moderate risk factor)
+  - **Area Risk**: 1.35 (You are in a high-risk area, which is a higher risk factor)
+  - **Claims History**: 1.25 (You have 1 claim in the last 5 years, which is a higher risk factor)
+  - **Mileage**: 1.0 (Your annual mileage of 9,000 miles is average and does not affect the premium)
+  - **Voluntary Excess**: 1.0 (No voluntary excess chosen)
 
-If you choose to increase your voluntary excess to £500, your annual premium would reduce to £1,490.59, saving you £165.62 annually.
+The biggest driver of your premium is your **driver age**.
+
+If you choose a voluntary excess of £500, your annual premium would be £1,490.59, saving you £165.62 compared to the current premium.
 
 Would you like to proceed with this voluntary excess or consider other options?
 

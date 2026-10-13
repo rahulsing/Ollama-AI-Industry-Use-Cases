@@ -55,7 +55,7 @@ flowchart LR
 
 ## 💬 Sample conversation
 
-A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 27 s). Expand a step to see what happened
 behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
 > **👤 You:** My washing machine hose burst and flooded the kitchen. Am I covered?
@@ -64,7 +64,7 @@ behind the answer. LLM wording changes from run to run; the numbers from Python 
 
 **COVERED** (Section 1.1 Escape of water)
 
-Yes, you are covered for the damage caused by the burst washing machine hose, as per Section 1.1 Escape of water. According to your policy, this type of incident falls under the coverage for escape of water. However, please note that the excess for escape of water claims is 500, so you will need to pay this amount out of pocket before the insurance covers the rest.
+Yes, you are covered for this incident. According to Section 1.1 Escape of water in your policy, damage to buildings and contents caused by water escaping from a washing machine is covered. However, please note that the excess for escape of water claims is 500, so you will need to pay this amount out of pocket before we cover the rest of the claim.
 
 ---
 
@@ -74,7 +74,7 @@ Yes, you are covered for the damage caused by the burst washing machine hose, as
 
 **NOT COVERED** (Section 1.4 Accidental damage)
 
-I'm sorry, but your claim for dropping your TV is not covered under your policy. According to Section 1.4 Accidental damage, accidental damage to contents like your TV is only covered if Accidental Damage cover is included in your schedule, and it appears that this cover is not included for you. There is no excess to pay in this case since the claim is not covered.
+I'm sorry, but your claim for accidental damage to your TV is not covered under your policy. According to Section 1.4 Accidental damage, this coverage is not included in your schedule, so unfortunately, you won't be able to make a claim for this incident. There is no excess to pay in this case since the claim is not covered.
 
 ---
 

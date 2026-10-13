@@ -52,7 +52,7 @@ flowchart LR
 
 ## 💬 Sample conversation
 
-A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 26 s). Expand a step to see what happened
 behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
 > **👤 You:** What are customers saying about the AeroBlend 600W blender? Are there any safety issues?
@@ -177,13 +177,16 @@ behind the answer. LLM wording changes from run to run; the numbers from Python 
 - **Blade assembly cracked; I'm worried about plastic bits in my drink.**
 
 **Urgent Actions:**
-1. **Supplier Quality Check:** Conduct a thorough quality inspection of the AeroBlend 600W Personal Blender with the supplier to identify and address the root causes of the durability and safety issues.
-2. **Listing Description Fix:** Update the product listing to include clear warnings about potential safety hazards, such as the risk of burning plastic and cracked blade assemblies, and provide detailed instructions on proper usage and maintenance.
-3. **Customer Replies:** Respond promptly to all negative reviews, especially those related to safety concerns, offering solutions such as free repairs or replacements, and assure customers of the steps being taken to improve product quality.
+1. **Supplier Quality Check:** Conduct a thorough quality check with the supplier to address the durability and performance issues, particularly focusing on the motor and blade assembly.
+2. **Listing Description Fix:** Update the product listing to include more detailed information about the expected lifespan of the product, the materials used, and safety guidelines to prevent misuse.
+3. **Customer Replies:** Respond to all negative reviews, especially those related to safety concerns, to address customer fears and provide reassurance. Offer solutions such as free repairs or replacements for affected customers.
 
 **Next Steps:**
-- Review the safety issues with the quality assurance team to determine if a product recall is necessary.
-- Implement the above actions to mitigate customer dissatisfaction and improve product safety and quality.
+- Escalate the safety issues to the quality assurance team for immediate review and potential recall consideration.
+- Implement the suggested actions to improve product quality and customer satisfaction.
+
+**Conclusion:**
+The AeroBlend 600W Personal Blender faces significant challenges in terms of performance and durability, with safety concerns that require urgent attention. Immediate corrective actions are necessary to mitigate these issues and improve the overall customer experience.
 
 
 ## Run

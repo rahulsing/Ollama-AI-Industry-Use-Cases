@@ -58,36 +58,41 @@ flowchart LR
 
 ## 💬 Sample conversation
 
-A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 13 s). Expand a step to see what happened
 behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
 > **👤 You:** Review all products: what should we reorder this week and why?
 
+<details><summary>🔧 Tool calls</summary>
+
+```text
+list_products() -> {"SKU-101": "Organic oat milk 1L", "SKU-102": "Sunscreen SPF50 200ml", "SKU-103": "Wool scarf (grey)"}
+forecast_demand(sku='SKU-101') -> {"sku": "SKU-101", "trend_units_per_week": 8.3, "weekly_forecast": [478, 486, 494, 503], "promo_next_week": false}
+forecast_demand(sku='SKU-102') -> {"sku": "SKU-102", "trend_units_per_week": 28.3, "weekly_forecast": [394, 320, 349, 377], "promo_next_week": true}
+forecast_demand(sku='SKU-103') -> {"sku": "SKU-103", "trend_units_per_week": -5.0, "weekly_forecast": [9, 4, 0, 0], "promo_next_week": false}
+reorder_plan(sku='SKU-101') -> {"sku": "SKU-101", "available_units": 900, "weeks_of_cover": "1.9", "lead_time_weeks": 1, "reorder_point": 521, "order_now": false, "recommended_order_units": 0, "stockout_risk_before_delivery": false, "demand_status": "STEADY"}
+reorder_plan(sku='SKU-102') -> {"sku": "SKU-102", "available_units": 380, "weeks_of_cover": "1.0", "lead_time_weeks": 2, "reorder_point": 870, "order_now": true, "recommended_order_units": 1224, "stockout_risk_before_delivery": true, "demand_status": "GROWING DEMAND (do not discount)"}
+reorder_plan(sku='SKU-103') -> {"sku": "SKU-103", "available_units": 840, "weeks_of_cover": "12+", "lead_time_weeks": 4, "reorder_point": 66, "order_now": false, "recommended_order_units": 0, "stockout_risk_before_delivery": false, "demand_status": "SLOW SELLER / OVERSTOCK (consider markdown or cancelling open orders)"}
+```
+
+</details>
+
 **🦙 Ollama:**
 
-Based on the analysis of the products, here is the summary of the reorder plan and recommendations for this week:
+Based on the analysis of the products, here is the summary for each SKU:
 
-| SKU | Product                | Weeks of Cover | Order Now? | Order Units | Stock-Out Risk | Demand Status                  |
-|-----|------------------------|----------------|------------|-------------|----------------|--------------------------------|
-| SKU-101 | Organic oat milk 1L    | 1.9            | No         | 0           | No             | Steady                         |
-| SKU-102 | Sunscreen SPF50 200ml  | 1.0            | Yes        | 1224        | Yes            | Growing Demand (do not discount)|
-| SKU-103 | Wool scarf (grey)      | 12+            | No         | 0           | No             | Slow Seller / Overstock (consider markdown or cancelling open orders) |
+| SKU | Product                | Weeks of Cover | Order Now? | Order Units | Stock-Out Risk | Trends & Promotions | Actions for Slow Sellers |
+|-----|------------------------|----------------|------------|-------------|----------------|---------------------|-------------------------|
+| SKU-101 | Organic oat milk 1L    | 1.9            | No         | 0           | No             | Steady demand       | None                    |
+| SKU-102 | Sunscreen SPF50 200ml  | 1.0            | Yes        | 1224        | Yes            | Growing demand (no promotion) | None                    |
+| SKU-103 | Wool scarf (grey)      | 12+            | No         | 0           | No             | Slow seller / overstock | Consider markdown or cancelling open orders |
 
-### Stock-Out Risks:
-- **Sunscreen SPF50 200ml (SKU-102)**: There is a high risk of stock-out before delivery due to the low weeks of cover (1.0) and growing demand. Immediate action is needed to reorder to avoid stock-outs.
+### Summary:
+- **SKU-101 (Organic oat milk 1L)**: The product has a steady demand with 1.9 weeks of cover. No immediate action is required.
+- **SKU-102 (Sunscreen SPF50 200ml)**: There is a stock-out risk before delivery, and the demand is growing. We should place an order now to avoid stockouts.
+- **SKU-103 (Wool scarf (grey))**: The product is a slow seller with 12+ weeks of cover. Consider markdown or cancelling open orders to reduce overstock.
 
-### Trends and Promotions:
-- **Sunscreen SPF50 200ml (SKU-102)**: The product is experiencing growing demand, and there is a promotion next week. This indicates a positive trend, and it's important to ensure adequate stock to meet the increased demand.
-
-### Slow Sellers:
-- **Wool scarf (grey) (SKU-103)**: The product is a slow seller, with a high weeks of cover (12+). Consider markdowns or cancelling open orders to reduce inventory and free up space for faster-moving items.
-
-### Recommendations:
-- **Organic oat milk 1L (SKU-101)**: The product is steady, and there is no immediate need to reorder. Continue monitoring the trend.
-- **Sunscreen SPF50 200ml (SKU-102)**: Reorder now to ensure there is enough stock to meet the growing demand and avoid stock-outs.
-- **Wool scarf (grey) (SKU-103)**: Consider markdowns or cancelling open orders to reduce overstock and improve cash flow.
-
-By taking these actions, you can optimize inventory levels and ensure that you meet customer demand while managing stock efficiently.
+These recommendations are based on the current demand trends and stock levels. Adjustments may be necessary as new data becomes available.
 
 
 ## Run

@@ -51,7 +51,7 @@ flowchart LR
 
 ## 💬 Sample conversation
 
-A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop). Expand a step to see what happened
+A real recorded run on `qwen2.5:7b-instruct` (local, on a laptop, 24 s). Expand a step to see what happened
 behind the answer. LLM wording changes from run to run; the numbers from Python stay the same.
 
 > **👤 You:** Classify these operational risk incidents by Basel event type and summarise the losses.
