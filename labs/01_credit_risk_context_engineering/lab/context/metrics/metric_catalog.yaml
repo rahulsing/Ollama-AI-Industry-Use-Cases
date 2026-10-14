@@ -1,0 +1,33 @@
+# Certified metric definitions (business side of the semantic layer).
+# Each measure lives in a metric view; the AI must use these instead of re-deriving formulas.
+metrics:
+  dpd30_rate:
+    view: portfolio_performance
+    name: 30+ Day Delinquency Rate
+    owner: Second Line Credit Risk
+    definition: Balance of OPEN accounts 30+ days past due divided by balance of all OPEN accounts, at a month-end snapshot. Balance-weighted, not a count of accounts.
+  dpd60_balance:
+    view: portfolio_performance
+    name: Seriously Delinquent Balance (60+ DPD)
+    owner: Second Line Credit Risk
+    definition: Outstanding balance of OPEN accounts 60 or more days past due, at a month-end snapshot.
+  dpd60_rate:
+    view: portfolio_performance
+    name: 60+ Day Delinquency Rate
+    owner: Second Line Credit Risk
+    definition: dpd60_balance divided by outstanding balance of open accounts.
+  net_charge_off_rate_annualized:
+    view: portfolio_performance
+    name: Net Charge-Off Rate (annualized)
+    owner: Second Line Credit Risk
+    definition: 12 x (charge-offs in the month - recoveries in the month) / outstanding balance.
+  outstanding_balance:
+    view: portfolio_performance
+    name: Outstanding Principal Balance
+    owner: Finance
+    definition: Sum of current principal balance of OPEN accounts (charged-off and closed accounts excluded).
+  cum_charge_off_rate:
+    view: vintage_performance
+    name: Cumulative Charge-Off Rate by Vintage
+    owner: Second Line Credit Risk
+    definition: Cumulative gross charge-offs / original amount for an origination vintage. Only compare vintages at the SAME months_on_book; the standard comparison point is months_on_book = 12. Always filter months_on_book to a single value.

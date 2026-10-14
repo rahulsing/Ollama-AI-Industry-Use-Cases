@@ -1,0 +1,22 @@
+# Step 4 - Semantic model: the business entities and how they relate (FIBO-aligned where a match exists).
+classes:
+  - {id: Member,          fibo: "fibo-fbc-dae-dbt:Borrower (relatedMatch)",           definition: "A person who holds membership and borrows on one or more accounts."}
+  - {id: LoanAccount,     fibo: "fibo-fbc-pas-caa:LoanOrCreditAccount (closeMatch)",  definition: "A loan or credit line account held by a member."}
+  - {id: Product,         fibo: "fibo-fbc-fps-fps:FinancialProduct (closeMatch)",     definition: "Cards, Personal Loan or Auto."}
+  - {id: Division,        fibo: null,                                                 definition: "Lending division (West / East)."}
+  - {id: Vintage,         fibo: null,                                                 definition: "Origination-month cohort, used to compare loan performance at equal age (months on book)."}
+  - {id: AccountSnapshot, fibo: null,                                                 definition: "State of an account at a month-end."}
+  - {id: DelinquencyStatus, fibo: "fibo-loan-ln-ln:PaymentHistory (relatedMatch)",    definition: "Days-past-due bucket at a snapshot (Metro 2 code)."}
+  - {id: ChargeOffEvent,  fibo: "fibo-loan-ln-lnevt:LoanDefaultProceeding (relatedMatch)", definition: "Balance written off as a loss."}
+  - {id: RecoveryEvent,   fibo: null,                                                 definition: "Money recovered after a charge-off."}
+  - {id: Metric,          fibo: null,                                                 definition: "A certified calculation over snapshots or originations."}
+relations:
+  - [Member, holdsAccount, LoanAccount]
+  - [LoanAccount, isOfProduct, Product]
+  - [LoanAccount, bookedIn, Division]
+  - [LoanAccount, belongsToVintage, Vintage]
+  - [LoanAccount, observedIn, AccountSnapshot]
+  - [AccountSnapshot, hasDelinquencyStatus, DelinquencyStatus]
+  - [LoanAccount, experiences, ChargeOffEvent]
+  - [ChargeOffEvent, isFollowedBy, RecoveryEvent]
+  - [Metric, measures, AccountSnapshot]

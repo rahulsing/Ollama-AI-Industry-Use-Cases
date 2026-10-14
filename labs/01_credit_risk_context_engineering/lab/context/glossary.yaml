@@ -1,0 +1,42 @@
+# Step 2 - Standardize: the business glossary bound to physical columns.
+# term = glossary term from the Context Engineering Studio; fibo = ontology alignment.
+# classification: Public | Internal | Restricted | PII  (PII must never be returned to users)
+columns:
+  t_acct:
+    ACCT_ID:  {term: Account Number, definition: "Surrogate identifier of the loan or line account. Join key to t_acct_mth.", classification: Restricted, fibo: "fibo-fbc-pas-caa:AccountIdentifier"}
+    MBR_ID:   {term: Member ID, definition: "Identifier of the primary member (borrower). Join key to t_mbr.", classification: Restricted}
+    PRD_CD:   {term: Original Product Code, definition: "Product code at origination. V31 = Auto new vehicle, V32 = Auto used vehicle, U20 = Personal Loan (unsecured), C10 = Credit Card. Auto loans = PRD_CD IN ('V31','V32').", classification: Internal, fibo: "fibo-fbc-fps-fps:FinancialProduct"}
+    DIV_CD:   {term: Division, definition: "Lending division. R01 = West division, R02 = East division.", classification: Internal}
+    CH_CD:    {term: Account Open Channel, definition: "Channel the account was opened through. BR = Branch, DG = Digital, DL = Auto dealer (indirect), TP = Third-party partner lender.", classification: Internal}
+    OPN_DT:   {term: Origination Date, definition: "Date the loan was funded / line opened. The origination vintage is the year-month of this date.", classification: Restricted, fibo: "fibo-fbc-pas-caa:OpenDate"}
+    ORIG_AMT: {term: Original Principal Balance, definition: "Funded amount at origination (credit limit for cards). Denominator of vintage loss rates.", classification: Restricted, fibo: "fibo-fbc-dae-dbt:Principal"}
+    ORIG_SCR: {term: Original Credit Score, definition: "FICO-type credit score (300-850) used to decision the loan at origination.", classification: Restricted}
+    ORIG_RT:  {term: Original Interest Rate, definition: "Note rate at origination, as a decimal (0.075 = 7.5%).", classification: Restricted}
+    TRM_MO:   {term: Original Contractual Term, definition: "Contractual term in months (0 for revolving cards).", classification: Restricted}
+  t_mbr:
+    MBR_ID:   {term: Member ID, definition: "Identifier of the member.", classification: Restricted}
+    MBR_NM:   {term: Member Name, definition: "Full name of the member.", classification: PII}
+    SSN_L4:   {term: SSN Last Four, definition: "Last four digits of the member's Social Security Number.", classification: PII}
+    ZIP_CD:   {term: Primary Zip Code, definition: "Zip code of the member's primary address.", classification: PII}
+  t_acct_mth:
+    ACCT_ID:  {term: Account Number, definition: "Account identifier. Join key to t_acct.", classification: Restricted}
+    SNAP_DT:  {term: Snapshot Date, definition: "Month-end date of the snapshot. 'Current' or 'latest' means MAX(SNAP_DT).", classification: Internal}
+    CUR_BAL:  {term: Current Principal Balance, definition: "Outstanding principal at month-end for OPEN accounts. WARNING: for charged-off rows (STAT_CD = 'CO') this holds the balance that was written off, which is no longer outstanding - exclude STAT_CD <> 'OP' from any balance or delinquency rate.", classification: Restricted, fibo: "fibo-fbc-dae-dbt:TotalOutstandingPrincipal"}
+    DLQ_CD:   {term: Delinquency Status, definition: "Metro 2 account status code. 11 = current (0-29 days past due), 71 = 30-59 DPD, 78 = 60-89 DPD, 80 = 90-119 DPD, 82 = 120-149 DPD, 83 = 150-179 DPD, 97 = charged off, 13 = paid / closed. 30+ DPD = codes 71,78,80,82,83. 60+ DPD = 78,80,82,83.", classification: Internal}
+    STAT_CD:  {term: Account Status, definition: "OP = open, CL = closed / paid off, CO = charged off.", classification: Internal}
+    CO_AMT:   {term: Charge Off Amount MTD, definition: "Gross amount charged off in the snapshot month.", classification: Restricted}
+    RCV_AMT:  {term: Recovery Amount MTD, definition: "Amount recovered in the month on previously charged-off accounts.", classification: Restricted}
+  t_prd:
+    PRD_CD:   {term: Product Code, definition: "Product code. V31/V32 = Auto, U20 = Personal Loan, C10 = Credit Card.", classification: Internal}
+    PRD_DSC:  {term: Product Description, definition: "Short product description from the core system.", classification: Internal}
+    LN_LN_FLG: {term: Loan or Line Flag, definition: "L = closed-end installment loan, R = revolving line of credit.", classification: Internal}
+  t_org:
+    DIV_CD:   {term: Division, definition: "R01 = West division, R02 = East division.", classification: Internal}
+    ORG_NM:   {term: Division Name, definition: "System name of the division (REGION 01 = West, REGION 02 = East).", classification: Internal}
+
+# Data-quality contract (ODCS-style rules), enforced as table constraints.
+quality_rules:
+  - {table: t_acct_mth, name: valid_delinquency_code, check: "DLQ_CD IN ('11','71','78','80','82','83','97','13')", why: "Only Metro 2 codes in the crosswalk are allowed."}
+  - {table: t_acct_mth, name: valid_status, check: "STAT_CD IN ('OP','CL','CO')", why: "Status drives which balances count as outstanding."}
+  - {table: t_acct_mth, name: non_negative_balance, check: "CUR_BAL >= 0", why: "Negative balances indicate a load error."}
+  - {table: t_acct, name: credit_score_range, check: "ORIG_SCR BETWEEN 300 AND 850", why: "FICO-type scale."}

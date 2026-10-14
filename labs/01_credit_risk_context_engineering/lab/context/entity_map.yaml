@@ -1,0 +1,39 @@
+# Step 1 - Discover: which raw table holds which business entity.
+# Entities come from the Credit Risk ontology (Context Engineering Studio, stage 1).
+# status: use | deprecated | out_of_scope
+tables:
+  t_acct:
+    entity: Loan Account
+    description: One row per loan or credit-line account, with its origination (underwriting) attributes.
+    grain: one row per account
+    status: use
+  t_mbr:
+    entity: Member
+    description: The member (borrower) who holds the account. Contains personal data.
+    grain: one row per member
+    status: use
+  t_acct_mth:
+    entity: Account Snapshot
+    description: Month-end snapshot of every account - balance, delinquency status, charge-offs and recoveries. System of record for portfolio performance.
+    grain: one row per account per month-end (SNAP_DT)
+    status: use
+  t_acct_mth_bkp:
+    entity: Account Snapshot (backup copy)
+    description: DEPRECATED stale backup of t_acct_mth that stopped refreshing in December 2025. Never use for reporting.
+    grain: one row per account per month-end
+    status: deprecated
+  t_prd:
+    entity: Product
+    description: Product code lookup. V31/V32 = Auto (new/used vehicle), U20 = Personal Loan (unsecured), C10 = Credit Card.
+    grain: one row per product code
+    status: use
+  t_org:
+    entity: Division
+    description: Lending division lookup (R01, R02).
+    grain: one row per division
+    status: use
+  t_cmp_resp:
+    entity: Marketing Campaign Response
+    description: Marketing campaign responses. Not credit-risk data.
+    grain: one row per member per campaign
+    status: out_of_scope

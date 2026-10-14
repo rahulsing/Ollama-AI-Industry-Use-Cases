@@ -1,0 +1,19 @@
+# Step 6 - Scope rules for the grounded agent (from the Context Engineering Studio runtime).
+guardrails:
+  - id: decision
+    title: Credit decisioning is out of scope
+    pattern: '\b(approve|decline|underwrit|should we (lend|approve|give)|set (the )?(rate|price)|reprice|auto.?decision)'
+    why: The assistant explains portfolio risk; people make credit decisions. Underwriting and pricing advice needs model-risk and fair-lending review.
+  - id: pii
+    title: Member-level personal data is blocked
+    pattern: '\b(ssn|social security|member names?|names? (of|and)|which (members|customers|borrowers)|list (the )?(members|customers|borrowers))'
+    why: Only aggregate, certified metrics are served. Columns classified PII are never returned.
+  - id: predict
+    title: Predictive modelling is a later phase
+    pattern: '\b(predict|forecast|will (\w+ ){0,3}default|probability of default|stress test)'
+    why: Forecasting models need model-risk review first.
+rules:
+  - Answer only from published, certified context. If a question cannot be answered from it, say so.
+  - Never return columns classified PII (names, SSN, zip) or member-level rows.
+  - Never recommend approving, declining or pricing a loan.
+  - Prefer the certified metric views over raw tables for any metric.

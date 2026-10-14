@@ -234,7 +234,7 @@ def root_readme(domains) -> str:
 
 ### Simple, local AI agents for real business problems, built with **Ollama**, **CrewAI** and **LangChain**
 
-**[🌐 Interactive Explorer]({SITE_URL})** · [Industries](#-industries) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
+**[🌐 Interactive Explorer]({SITE_URL})** · [Industries](#-industries) · [Hands-on Labs](#-hands-on-labs) · [Quick Start](#-quick-start) · [How It Works](#-how-it-works) · [Project Structure](#-project-structure) · [Contribute](#-contributing)
 
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
@@ -271,6 +271,17 @@ problem with a small, readable Python file.
 {chr(10).join(industries)}
 
 {chr(10).join(sections)}
+---
+
+## 🧪 Hands-on Labs
+
+Longer, guided labs that teach one AI engineering idea step by step. They live in [`labs/`](labs/) and run
+outside Ollama, so they're kept apart from the use cases above.
+
+| # | Lab | What you learn | Runs on |
+|---|---|---|---|
+| 01 | 🏦 **[Context Engineering for Credit Risk](labs/01_credit_risk_context_engineering/)** | Same model, same prompt, better context: an AI answering 5 credit-risk questions climbs from 0.5 to **5 / 5** as you add an entity map, glossary, documents, a semantic layer, approved vocabulary and guardrails. [Walkthrough with screenshots](labs/01_credit_risk_context_engineering/docs/WALKTHROUGH.md) | Databricks Free Edition (hosted models) |
+
 ---
 
 ## 🚀 Quick Start
@@ -354,6 +365,7 @@ Each use case README has its own diagram showing the real agents and tools from 
 │       ├── sample_output.txt   # real output from a local run (scripts/capture_samples.py)
 │       └── README.md
 ├── 02_retail/  03_insurance/   # same layout
+├── labs/                       # guided hands-on labs (not Ollama; see labs/README.md)
 ├── common/                     # shared Ollama helpers (LangChain + CrewAI) and RAG retriever
 ├── scripts/build_docs.py       # regenerates every README, primer, flow diagram and the explorer
 ├── scripts/capture_samples.py  # records a real run of every use case for the sample conversations

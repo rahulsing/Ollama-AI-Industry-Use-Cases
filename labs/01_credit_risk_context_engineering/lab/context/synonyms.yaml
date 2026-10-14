@@ -1,0 +1,13 @@
+# Step 5 - Steward-curated business vocabulary.
+# The AI drafts candidates; a data steward adds institutional knowledge and approves.
+synonyms:
+  - {phrase: "bad loans",         means: "dpd60_balance (seriously delinquent: open accounts 60+ days past due, outstanding balance)", note: "Credit committee usage. Does NOT include charged-off balances."}
+  - {phrase: "bad book",          means: "dpd60_balance"}
+  - {phrase: "problem loans",     means: "dpd60_balance"}
+  - {phrase: "late loans / arrears / past due", means: "dpd30_rate"}
+  - {phrase: "losses / write-offs / NCO", means: "net_charge_off_rate_annualized"}
+  - {phrase: "cohort / book month / origination month", means: "vintage"}
+  - {phrase: "performing worst (vintage)", means: "highest cum_charge_off_rate at months_on_book = 12"}
+  - {phrase: "West / western region / R01", means: "division = 'West'"}
+  - {phrase: "East / eastern region / R02", means: "division = 'East'"}
+  - {phrase: "right now / current / latest", means: "the latest snapshot_date"}

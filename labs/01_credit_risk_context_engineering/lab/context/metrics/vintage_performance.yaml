@@ -1,0 +1,18 @@
+version: 0.1
+source: __GOLD__.loan_snapshot
+dimensions:
+  - name: vintage
+    expr: vintage
+  - name: months_on_book
+    expr: months_on_book
+  - name: product
+    expr: product
+  - name: division
+    expr: division
+  - name: channel
+    expr: channel
+measures:
+  - name: cum_charge_off_rate
+    expr: SUM(cum_charge_off_amount) / SUM(original_amount)
+  - name: accounts
+    expr: COUNT(DISTINCT account_id)

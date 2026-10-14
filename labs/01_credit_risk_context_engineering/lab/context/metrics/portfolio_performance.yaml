@@ -1,0 +1,26 @@
+version: 0.1
+source: __GOLD__.loan_snapshot
+dimensions:
+  - name: snapshot_date
+    expr: snapshot_date
+  - name: product
+    expr: product
+  - name: division
+    expr: division
+  - name: channel
+    expr: channel
+  - name: fico_band
+    expr: fico_band
+measures:
+  - name: outstanding_balance
+    expr: SUM(outstanding_balance)
+  - name: dpd30_rate
+    expr: SUM(dpd30_balance) / SUM(outstanding_balance)
+  - name: dpd60_balance
+    expr: SUM(dpd60_balance)
+  - name: dpd60_rate
+    expr: SUM(dpd60_balance) / SUM(outstanding_balance)
+  - name: net_charge_off_rate_annualized
+    expr: 12 * (SUM(charge_off_amount) - SUM(recovery_amount)) / SUM(outstanding_balance)
+  - name: open_accounts
+    expr: COUNT_IF(is_open)

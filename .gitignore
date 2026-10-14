@@ -8,3 +8,6 @@ venv/
 output/
 .playwright-mcp/
 
+
+# Keep the reference-run exports that the labs ship with
+!labs/**/output/
