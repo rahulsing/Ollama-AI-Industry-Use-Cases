@@ -11,7 +11,7 @@ Run:  python scripts/build_docs.py
 
 import json
 
-from domains import ROOT, load_domains
+from domains import ROOT, load_domains, load_labs
 from flows import LEGEND, PATTERN_CHAINS, ROOT_FLOW, use_case_flow
 from samples import conversation, readme_section
 
@@ -208,7 +208,17 @@ python {d.folder}/{slug}/app.py
 # --------------------------------------------------------------------------- #
 # Top-level README
 # --------------------------------------------------------------------------- #
-def root_readme(domains) -> str:
+def labs_table(labs) -> str:
+    rows = []
+    for lab in labs:
+        path = f"labs/{lab['slug']}"
+        rows.append(f"| {lab['slug'][:2]} | {lab['icon']} **[{lab['title']}]({path}/)** | {lab['summary']} "
+                    f"[Walkthrough with screenshots]({path}/{lab['walkthrough']}) · [Open in the explorer]({SITE_URL}#/labs/{lab['slug']}) "
+                    f"| {lab['runs_on']} ({lab['llm'].split(' (')[0].replace('Databricks ', '')}) |")
+    return "\n".join(rows)
+
+
+def root_readme(domains, labs) -> str:
     total = sum(len(d.use_cases) for d in domains)
     n_crew = sum(u[3] == "CrewAI" for d in domains for u in d.use_cases)
     demo = ("\n![Demo: pick an industry and use case, run it on a local LLM, read the result](docs/demo.gif)\n"
@@ -280,7 +290,7 @@ outside Ollama, so they're kept apart from the use cases above.
 
 | # | Lab | What you learn | Runs on |
 |---|---|---|---|
-| 01 | 🏦 **[Context Engineering for Credit Risk](labs/01_credit_risk_context_engineering/)** | Same model, same prompt, better context: an AI answering 5 credit-risk questions climbs from 0.5 to **5 / 5** as you add an entity map, glossary, documents, a semantic layer, approved vocabulary and guardrails. [Walkthrough with screenshots](labs/01_credit_risk_context_engineering/docs/WALKTHROUGH.md) | Databricks Free Edition (hosted models) |
+{labs_table(labs)}
 
 ---
 
@@ -414,8 +424,9 @@ Calculations are simplified illustrations of industry concepts and are **not** p
 # --------------------------------------------------------------------------- #
 # Interactive explorer (GitHub Pages: docs/index.html)
 # --------------------------------------------------------------------------- #
-def site(domains) -> str:
-    data = {"repo": REPO_URL, "root_flow": ROOT_FLOW, "legend": LEGEND, "industries": []}
+def site(domains, labs) -> str:
+    data = {"repo": REPO_URL, "root_flow": ROOT_FLOW, "legend": LEGEND, "industries": [],
+            "labs": labs}
     for d in domains:
         cases = []
         for u in d.use_cases:
@@ -436,9 +447,10 @@ def site(domains) -> str:
 
 def main():
     domains = load_domains()
+    labs = load_labs()
     (ROOT / "docs").mkdir(exist_ok=True)
-    (ROOT / "docs" / "index.html").write_text(site(domains), encoding="utf-8", newline="\n")
-    (ROOT / "README.md").write_text(root_readme(domains), encoding="utf-8", newline="\n")
+    (ROOT / "docs" / "index.html").write_text(site(domains, labs), encoding="utf-8", newline="\n")
+    (ROOT / "README.md").write_text(root_readme(domains, labs), encoding="utf-8", newline="\n")
     pages = 1
     for d in domains:
         (d.path / "README.md").write_text(domain_readme(d), encoding="utf-8", newline="\n")
@@ -454,7 +466,7 @@ def main():
             (folder / "README.md").write_text(use_case_readme(d, u), encoding="utf-8", newline="\n")
             pages += 1
     print(f"Wrote docs/index.html and {pages} pages for {len(domains)} industries: "
-          + ", ".join(f"{d.name} ({len(d.use_cases)})" for d in domains))
+          + ", ".join(f"{d.name} ({len(d.use_cases)})" for d in domains) + f"; {len(labs)} lab(s)")
 
 
 if __name__ == "__main__":

@@ -35,3 +35,9 @@ def load_domains() -> list[SimpleNamespace]:
             glossary=business.GLOSSARY, business=business.BUSINESS, flows=business.FLOWS, ask=getattr(business, "ASK", {}),
         ))
     return domains
+
+
+def load_labs() -> list[dict]:
+    """Hands-on labs from labs/catalog.py (kept apart from the industry use cases)."""
+    path = ROOT / "labs" / "catalog.py"
+    return _load(path, "labs_catalog").LABS if path.exists() else []

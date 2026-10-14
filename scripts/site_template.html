@@ -142,6 +142,39 @@
   .md hr { border: 0; border-top: 1px solid var(--border); }
   details.how { margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; }
   details.how summary { cursor: pointer; font-weight: 600; }
+  .lab-banner { display: flex; align-items: center; gap: 14px; background: var(--accent-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin: 14px 0 0; color: var(--text); flex-wrap: wrap; }
+  .lab-banner:hover { text-decoration: none; border-color: var(--accent); }
+  .lab-banner b { color: var(--accent); }
+  .badge.lab { color: var(--accent); }
+  .callout { background: var(--accent-soft); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 14px; margin-bottom: 16px; }
+  .scores { display: grid; grid-template-columns: 28px 1fr; gap: 8px; margin: 6px 0 4px; }
+  .yaxis { position: relative; height: 200px; font-size: 12px; color: var(--muted); }
+  .yaxis span { position: absolute; right: 0; transform: translateY(50%); }
+  .plot { position: relative; height: 200px; display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 10px; align-items: end; border-bottom: 1px solid var(--muted); }
+  .plot .grid-line { position: absolute; left: 0; right: 0; border-top: 1px solid var(--border); pointer-events: none; }
+  .bar { position: relative; height: 100%; border: 0; background: none; padding: 0; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; font: inherit; color: var(--text); }
+  .bar .fill { width: 100%; max-width: 56px; background: var(--accent); opacity: .45; border-radius: 4px 4px 0 0; transition: opacity .12s; }
+  .bar:hover .fill, .bar:focus-visible .fill { opacity: .7; }
+  .bar[aria-pressed="true"] .fill { opacity: 1; }
+  .bar:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .bar .val { position: absolute; left: 0; right: 0; text-align: center; font-size: 13px; font-weight: 700; padding-bottom: 3px; }
+  .bar .tip { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); font-size: 12px; padding: 4px 8px; border-radius: 6px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .1s; z-index: 2; }
+  .bar:hover .tip, .bar:focus-visible .tip { opacity: 1; }
+  .bar:hover .val, .bar:focus-visible .val { opacity: 0; }
+  .plot .bar:nth-of-type(-n+2) .tip { left: 0; transform: none; }
+  .plot .bar:nth-last-of-type(-n+2) .tip { left: auto; right: 0; transform: none; }
+  .setup { overflow-wrap: anywhere; }
+  .steptable td:nth-child(3) { white-space: nowrap; }
+  .xlabels { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 10px; margin-left: 36px; margin-top: 6px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.3; }
+  .xlabels .on { color: var(--text); font-weight: 700; }
+  @media (max-width: 600px) { .xlabels .nm { display: none; } .plot, .xlabels { gap: 5px; } }
+  .stepview { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; align-items: start; }
+  @media (max-width: 800px) { .stepview { grid-template-columns: 1fr; } }
+  .stepview h3 { margin: 0 0 6px; font-size: 16px; }
+  .stepview img { width: 100%; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+  .stepnav { display: flex; gap: 8px; margin-top: 10px; }
+  button.btn:disabled { opacity: .5; cursor: default; }
+  .steptable tr.on td { background: var(--accent-soft); }
   footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; padding: 18px 0 30px; }
 </style>
 </head>
@@ -172,6 +205,8 @@
 const DATA = JSON.parse(document.getElementById("data").textContent);
 const IND = Object.fromEntries(DATA.industries.map(d => [d.folder, d]));
 const ALL = DATA.industries.flatMap(d => d.use_cases.map(u => ({ ...u, ind: d })));
+const LABS = DATA.labs || [];
+const RAW = DATA.repo.replace("https://github.com/", "https://raw.githubusercontent.com/") + "/main";  // lab screenshots
 const app = document.getElementById("app");
 const state = { industry: "all", category: "all", query: "" };
 
@@ -339,9 +374,11 @@ function initDemo(u) {
 
 function renderTabs() {
   const tabs = [{ key: "all", label: `All (${ALL.length})` },
-    ...DATA.industries.map(d => ({ key: d.folder, label: `${d.icon} ${d.name} (${d.use_cases.length})` }))];
+    ...DATA.industries.map(d => ({ key: d.folder, label: `${d.icon} ${d.name} (${d.use_cases.length})` })),
+    ...(LABS.length ? [{ key: "labs", label: `🧪 Labs (${LABS.length})` }] : [])];
   document.getElementById("tabs").innerHTML = tabs.map(t =>
     `<button class="tab" role="tab" aria-selected="${state.industry === t.key}" data-ind="${t.key}">${esc(t.label)}</button>`).join("");
+  document.querySelector('.tab[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });
 }
 document.getElementById("tabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
@@ -379,7 +416,9 @@ function renderList() {
          <span><b>${ALL.filter(u => u.framework === "LangChain").length}</b>LangChain agents</span></div>
          <details class="how" open><summary>⚙️ How every solution works</summary>
            <p class="note">Python does the maths and rules (auditable), the AI explains and writes, and nothing leaves your machine.</p>
-           ${flowBox(DATA.root_flow, "How every solution works")}</details></div>`;
+           ${flowBox(DATA.root_flow, "How every solution works")}</details>
+         ${LABS.length ? `<a class="lab-banner" href="#/labs"><span aria-hidden="true">🧪</span><span><b>Hands-on labs:</b>
+           ${esc(LABS[0].title)}. ${esc(LABS[0].tagline)}.</span><span style="margin-left:auto">Open →</span></a>` : ""}</div>`;
   const cats = d ? Object.entries(d.categories) : [];
   const chips = d ? `<div class="chips">${[["all", "All categories"], ...cats].map(([k, v]) =>
       `<button class="chip" aria-pressed="${state.category === k}" data-cat="${k}">${esc(v)}</button>`).join("")}</div>` : "";
@@ -470,8 +509,96 @@ function renderAbout(d) {
   window.scrollTo(0, 0);
 }
 
+// ------------------------------------------------------------------ Hands-on labs (labs/catalog.py)
+// Steps are [num, name, context added, score, what happened, screenshot]; all from a real recorded run.
+const fmtScore = (v, max) => `${v} / ${max}`;
+
+function renderLabs() {
+  app.innerHTML = `<div class="hero"><h1>🧪 Hands-on labs</h1>
+      <p>Longer, guided exercises that teach one AI engineering idea step by step, with a score after every step.
+      Unlike the solutions, labs don't run on Ollama: each one says where it runs.</p></div>
+    <div class="grid">${LABS.map(lab => `<button class="card" data-link="#/labs/${lab.slug}">
+      <div class="meta"><span>${lab.icon} ${esc(lab.industry)} · 🧪 Lab</span><span>#${lab.slug.slice(0, 2)}</span></div>
+      <h3>${esc(lab.title)}</h3><p>${esc(lab.tagline)}.</p>
+      <div class="badges"><span class="badge lab">${esc(lab.runs_on)}</span><span class="badge">${lab.steps.length} steps</span><span class="badge">⏱ ${esc(lab.time)}</span></div>
+    </button>`).join("")}</div>`;
+  window.scrollTo(0, 0);
+}
+
+function renderLab(lab) {
+  const max = lab.max_score, n = lab.steps.length;
+  const folderUrl = `${DATA.repo}/tree/main/labs/${lab.slug}`, blobUrl = `${DATA.repo}/blob/main/labs/${lab.slug}`;
+  const ticks = Array.from({ length: max + 1 }, (_, i) => i);
+  app.innerHTML = `<div class="detail">
+    <a class="back" href="#/labs">← All labs</a>
+    <h1>${lab.icon} ${esc(lab.title)}</h1>
+    <div class="crumbs">🧪 Hands-on lab · ${esc(lab.industry)} · <span class="badge lab">${esc(lab.runs_on)}</span>
+      <span class="badge">${n} steps</span> <span class="badge">⏱ ${esc(lab.time)}</span></div>
+    <div class="callout">ℹ️ This lab runs on <strong>${esc(lab.runs_on)}</strong> with ${esc(lab.llm)}.
+      Everything below comes from a real run with <code>${esc(lab.model)}</code>, so you can follow it without running anything.</div>
+    <div class="cols">
+      <section class="panel"><h2>❌ The problem</h2><p>${esc(lab.problem)}</p></section>
+      <section class="panel"><h2>💡 The idea</h2><p>${esc(lab.idea)}</p></section>
+      <section class="panel full"><h2>📈 Score after each step</h2>
+        <p class="note">Same 5 questions, same model, same prompt: only the context changes. Pick a step to see what was added.</p>
+        <div class="scores">
+          <div class="yaxis" aria-hidden="true">${ticks.map(t => `<span style="bottom:${t / max * 100}%">${t}</span>`).join("")}</div>
+          <div class="plot" style="--n:${n}" role="group" aria-label="Score out of ${max} after each step">
+            ${ticks.slice(1).map(t => `<div class="grid-line" style="bottom:${t / max * 100}%"></div>`).join("")}
+            ${lab.steps.map(([num, name, , score], i) => `<button class="bar" data-step="${i}" aria-pressed="false"
+                aria-label="Step ${num} ${esc(name)}: ${fmtScore(score, max)}">
+              <span class="tip">${num} ${esc(name)} · ${fmtScore(score, max)}</span>
+              <span class="val" style="bottom:${score / max * 100}%"></span><span class="fill" style="height:${score / max * 100}%"></span></button>`).join("")}
+          </div></div>
+        <div class="xlabels" style="--n:${n}" aria-hidden="true">${lab.steps.map(([num, name]) => `<span>${num}<span class="nm"><br>${esc(name)}</span></span>`).join("")}</div>
+        <div class="stepview" id="stepview" aria-live="polite"></div></section>
+      <section class="panel full"><h2>❓ The ${lab.questions.length} questions</h2><ol>${lab.questions.map(([topic, q]) =>
+        `<li><strong>${esc(topic)}:</strong> ${esc(q)}</li>`).join("")}</ol></section>
+      <section class="panel full"><h2>🔀 How the lab works</h2><pre><code>${esc(lab.flow)}</code></pre></section>
+      <section class="panel full"><h2>📋 All steps</h2><div class="md"><table class="steptable">
+        <tr><th>Step</th><th>Context added</th><th>Score</th><th>What changed</th></tr>
+        ${lab.steps.map(([num, name, added, score, result], i) => `<tr data-row="${i}"><td>${num} ${esc(name)}</td><td>${esc(added)}</td>
+          <td><strong>${fmtScore(score, max)}</strong></td><td>${esc(result)}</td></tr>`).join("")}</table></div></section>
+      <section class="panel full"><h2>▶ Run it yourself</h2><ol class="setup">${lab.setup.map(x => `<li>${esc(x)}</li>`).join("")}</ol>
+        <p class="note">Local check of the context files, data traps and grader (no Databricks needed):</p>
+        <div class="run"><code>${esc(lab.local_check)}</code><button class="btn" data-copy="${esc(lab.local_check)}">Copy</button></div>
+        <p style="margin-top:12px"><a href="${blobUrl}/${lab.walkthrough}" target="_blank" rel="noopener">📸 Full walkthrough with screenshots ↗</a> ·
+          <a href="${folderUrl}" target="_blank" rel="noopener">View the lab on GitHub ↗</a></p></section>
+    </div></div>`;
+
+  const view = document.getElementById("stepview");
+  const show = i => {
+    const [num, name, added, score, result, shot] = lab.steps[i];
+    app.querySelectorAll(".bar").forEach((b, j) => {
+      b.setAttribute("aria-pressed", String(j === i));
+      // direct labels only on the start, the end and the selected step; hover shows the rest
+      b.querySelector(".val").textContent = j === i || j === 0 || j === n - 1 ? String(lab.steps[j][3]) : "";
+    });
+    app.querySelectorAll(".xlabels > span").forEach((x, j) => x.classList.toggle("on", j === i));
+    app.querySelectorAll(".steptable tr[data-row]").forEach(r => r.classList.toggle("on", +r.dataset.row === i));
+    view.innerHTML = `<div><h3>Step ${num} · ${esc(name)}</h3>
+        <p><strong>Score:</strong> ${fmtScore(score, max)}</p>
+        <p><strong>Context added:</strong> ${esc(added)}</p>
+        <p><strong>What happened:</strong> ${esc(result)}</p>
+        <div class="stepnav"><button class="btn" data-go="${i - 1}" ${i === 0 ? "disabled" : ""}>← Previous</button>
+          <button class="btn" data-go="${i + 1}" ${i === n - 1 ? "disabled" : ""}>Next →</button></div></div>
+      <figure style="margin:0"><img src="${RAW}/labs/${lab.slug}/${lab.shots_dir}/${shot}" alt="Scorecard after step ${num} ${esc(name)}" loading="lazy">
+        <figcaption class="note">Scorecard from the real run after step ${num}.</figcaption></figure>`;
+  };
+  app.querySelectorAll(".bar").forEach(b => b.addEventListener("click", () => show(+b.dataset.step)));
+  view.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if (g && !g.disabled) show(+g.dataset.go); });
+  show(n - 1);
+  window.scrollTo(0, 0);
+}
+
 function route() {
   const [folder = "", slug = ""] = location.hash.replace(/^#\/?/, "").split("/");  // "#/<industry>/<use case>"
+  if (folder === "labs" && LABS.length) {  // "#/labs/<lab>"
+    state.industry = "labs";
+    renderTabs();
+    const lab = LABS.find(x => x.slug === slug);
+    return lab ? renderLab(lab) : renderLabs();
+  }
   const d = IND[folder];
   const prev = state.industry;
   state.industry = d ? folder : "all";

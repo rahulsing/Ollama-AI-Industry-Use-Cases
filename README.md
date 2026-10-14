@@ -83,7 +83,7 @@ outside Ollama, so they're kept apart from the use cases above.
 
 | # | Lab | What you learn | Runs on |
 |---|---|---|---|
-| 01 | 🏦 **[Context Engineering for Credit Risk](labs/01_credit_risk_context_engineering/)** | Same model, same prompt, better context: an AI answering 5 credit-risk questions climbs from 0.5 to **5 / 5** as you add an entity map, glossary, documents, a semantic layer, approved vocabulary and guardrails. [Walkthrough with screenshots](labs/01_credit_risk_context_engineering/docs/WALKTHROUGH.md) | Databricks Free Edition (hosted models) |
+| 01 | 🏦 **[Context Engineering for Credit Risk](labs/01_credit_risk_context_engineering/)** | An AI is asked the same 5 credit-risk questions after every module. The model and the prompt never change; only the context does: entity map, glossary, documents, a semantic layer, approved vocabulary and guardrails. [Walkthrough with screenshots](labs/01_credit_risk_context_engineering/docs/WALKTHROUGH.md) · [Open in the explorer](https://rahulsing.github.io/Ollama-AI-Industry-Use-Cases/#/labs/01_credit_risk_context_engineering) | Databricks Free Edition (hosted pay-per-token models) |
 
 ---
 
