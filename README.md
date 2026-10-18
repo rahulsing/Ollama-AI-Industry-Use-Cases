@@ -9,9 +9,9 @@
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
 ![Industries](https://img.shields.io/badge/industries-3-blueviolet)
-![Use cases](https://img.shields.io/badge/use%20cases-63-success)
-![CrewAI](https://img.shields.io/badge/CrewAI-26-FF5A50)
-![LangChain](https://img.shields.io/badge/LangChain-37-1C3C3C)
+![Use cases](https://img.shields.io/badge/use%20cases-70-success)
+![CrewAI](https://img.shields.io/badge/CrewAI-29-FF5A50)
+![LangChain](https://img.shields.io/badge/LangChain-41-1C3C3C)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -27,7 +27,7 @@
 
 ## 💡 What is this?
 
-A hands-on collection of **63 runnable AI solutions across 3 industries**. Each one solves a real business
+A hands-on collection of **70 runnable AI solutions across 3 industries**. Each one solves a real business
 problem with a small, readable Python file.
 
 - **100% local LLMs via [Ollama](https://ollama.com)**: no data leaves your machine. CrewAI telemetry and trace upload are switched off.
@@ -44,7 +44,7 @@ problem with a small, readable Python file.
 |---|---|---|---|---|
 | 01 | 🏦 **[Banking](01_banking/)** | Retail, corporate and investment banking: Credit & Lending · Financial Crime & Compliance · Regulatory & Risk Reporting · Wealth & Investment Management · Retail Banking & Customer Experience · Treasury, Payments & Operations · Enterprise Analytics & Audit | **50** | [Use cases](01_banking/) · [Primer](01_banking/PRIMER.md) |
 | 02 | 🛒 **[Retail](02_retail/)** | Stores, e-commerce and consumer brands: Supply Chain & Inventory · Customer Insight · Merchandising & Pricing · E-commerce & Customer Service · Store Operations & Loss Prevention | **10** | [Use cases](02_retail/) · [Primer](02_retail/PRIMER.md) |
-| 03 | 🛡️ **[Insurance](03_insurance/)** | Property & casualty, motor and home insurers: Claims & Fraud · Policy & Customer Service · Underwriting & Pricing | **3** | [Use cases](03_insurance/) · [Primer](03_insurance/PRIMER.md) |
+| 03 | 🛡️ **[Insurance](03_insurance/)** | Property & casualty, motor and home insurers: Claims & Fraud · Policy & Customer Service · Underwriting & Pricing · Actuarial & Risk | **10** | [Use cases](03_insurance/) · [Primer](03_insurance/PRIMER.md) |
 
 ### 🏦 [Banking](01_banking/)
 
@@ -70,11 +70,12 @@ AI agents for forecasting, pricing, ranging, customer service and store operatio
 
 ### 🛡️ [Insurance](03_insurance/)
 
-AI agents for claims handling, fraud detection, coverage questions and pricing.
+AI agents for claims handling, fraud detection, coverage questions, underwriting, pricing, reserving and catastrophe risk.
 
-- **🧾 Claims & Fraud** (1): [Claims Triage & Fraud Detection](03_insurance/01_claims_triage_fraud/)
+- **🧾 Claims & Fraud** (4): [Claims Triage & Fraud Detection](03_insurance/01_claims_triage_fraud/) · [FNOL Claim Intake](03_insurance/05_fnol_claim_intake/) · [Motor Total Loss Settlement Agent](03_insurance/07_total_loss_settlement/) · [Claims Leakage Auditor](03_insurance/10_claims_leakage_auditor/)
 - **🙋 Policy & Customer Service** (1): [Policy Coverage Q&A (RAG)](03_insurance/02_policy_coverage_qa/)
-- **📝 Underwriting & Pricing** (1): [Motor Insurance Quote Agent](03_insurance/03_motor_quote_agent/)
+- **📝 Underwriting & Pricing** (3): [Motor Insurance Quote Agent](03_insurance/03_motor_quote_agent/) · [Home Insurance Underwriting Assessor](03_insurance/04_home_underwriting_assessor/) · [Renewal Pricing & Retention Advisor](03_insurance/06_renewal_pricing_advisor/)
+- **📊 Actuarial & Risk** (2): [Claims Reserving Analyst (Chain-Ladder)](03_insurance/08_claims_reserving_analyst/) · [Catastrophe Exposure Monitor](03_insurance/09_cat_exposure_monitor/)
 
 ---
 
@@ -174,7 +175,7 @@ Each use case README has its own diagram showing the real agents and tools from 
 | Best for | Role-based collaboration, long-form reports | Tools, chains, extraction, RAG, chatbots |
 | Multi-agent | ✅ native (crews, tasks, context) | ✅ via LangGraph |
 | Local LLM (Ollama) | ✅ `LLM(model="ollama/...")` | ✅ `ChatOllama` |
-| Used here for | 26 use cases | 37 use cases |
+| Used here for | 29 use cases | 41 use cases |
 
 ---
 
