@@ -1,0 +1,29 @@
+=================================================================
+  Retail 07 - Returns & Refund Policy Assistant (LangChain RAG)
+  model: qwen2.5:7b-instruct
+  runtime: 16s
+=================================================================
+
+
+--- Q: I bought a laptop 10 days ago and opened it, but I don't like it. Can I return it? I have the receipt. ---
+**RETURN ACCEPTED** (Section 2 Electronics, Section 5 Proof of purchase)
+
+According to our policy, you can return the laptop within 15 days of purchase, and since you have the receipt, we can process your return. However, as the laptop was opened, a 15% restocking fee will apply. You will be refunded via your original payment method. If you need any further assistance or have other options, please let us know.
+
+
+--- Q: Can I return a swimsuit I bought on clearance 5 days ago? I tried it on. ---
+**RETURN DECLINED** (Section 3 Final sale)
+
+I understand you'd like to return the swimsuit you purchased on clearance. According to our policy, [Section 3 Final sale] items marked as final sale, like clearance items, cannot be returned or exchanged unless they are faulty. Since your swimsuit is marked as a final sale, it cannot be returned. However, if the swimsuit is faulty, please contact us and we can assist you further.
+
+
+--- Q: My blender stopped working after 3 months. I have the order confirmation email. ---
+**RETURN ACCEPTED** (Section 4 Faulty items, Section 5 Proof of purchase)
+
+Thank you for reaching out. According to our policy, as your blender developed a fault within the first year of purchase, we can accept a return and offer a repair, replacement, or refund for the blender. Since you have the order confirmation email, which is acceptable proof of purchase, we can proceed with this. There will be no restocking fee. Please let us know if you'd like to proceed with a repair or replacement, or if you prefer a refund.
+
+
+--- Q: I lost the receipt for a jacket I bought 20 days ago, but I paid with my debit card. It still has the tags. ---
+**RETURN ACCEPTED** (Section 1 Standard returns, Section 5 Proof of purchase)
+
+Thank you for understanding, [Section 5 Proof of purchase] allows us to accept your debit card as proof of purchase since your purchase was within the last 90 days. Therefore, we can process a refund for your jacket. The refund will be returned to your original payment method. If you need any further assistance or an alternative like store credit, please let us know.

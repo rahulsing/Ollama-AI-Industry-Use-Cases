@@ -9,9 +9,9 @@
 ![Python](https://img.shields.io/badge/Python-3.10--3.13-3776AB?logo=python&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Ollama%20(local)-000000)
 ![Industries](https://img.shields.io/badge/industries-3-blueviolet)
-![Use cases](https://img.shields.io/badge/use%20cases-56-success)
-![CrewAI](https://img.shields.io/badge/CrewAI-24-FF5A50)
-![LangChain](https://img.shields.io/badge/LangChain-32-1C3C3C)
+![Use cases](https://img.shields.io/badge/use%20cases-63-success)
+![CrewAI](https://img.shields.io/badge/CrewAI-26-FF5A50)
+![LangChain](https://img.shields.io/badge/LangChain-37-1C3C3C)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -27,7 +27,7 @@
 
 ## 💡 What is this?
 
-A hands-on collection of **56 runnable AI solutions across 3 industries**. Each one solves a real business
+A hands-on collection of **63 runnable AI solutions across 3 industries**. Each one solves a real business
 problem with a small, readable Python file.
 
 - **100% local LLMs via [Ollama](https://ollama.com)**: no data leaves your machine. CrewAI telemetry and trace upload are switched off.
@@ -43,7 +43,7 @@ problem with a small, readable Python file.
 | # | Industry | What's inside | Use cases | Explore |
 |---|---|---|---|---|
 | 01 | 🏦 **[Banking](01_banking/)** | Retail, corporate and investment banking: Credit & Lending · Financial Crime & Compliance · Regulatory & Risk Reporting · Wealth & Investment Management · Retail Banking & Customer Experience · Treasury, Payments & Operations · Enterprise Analytics & Audit | **50** | [Use cases](01_banking/) · [Primer](01_banking/PRIMER.md) |
-| 02 | 🛒 **[Retail](02_retail/)** | Stores, e-commerce and consumer brands: Supply Chain & Inventory · Customer Insight · Merchandising & Pricing | **3** | [Use cases](02_retail/) · [Primer](02_retail/PRIMER.md) |
+| 02 | 🛒 **[Retail](02_retail/)** | Stores, e-commerce and consumer brands: Supply Chain & Inventory · Customer Insight · Merchandising & Pricing · E-commerce & Customer Service · Store Operations & Loss Prevention | **10** | [Use cases](02_retail/) · [Primer](02_retail/PRIMER.md) |
 | 03 | 🛡️ **[Insurance](03_insurance/)** | Property & casualty, motor and home insurers: Claims & Fraud · Policy & Customer Service · Underwriting & Pricing | **3** | [Use cases](03_insurance/) · [Primer](03_insurance/PRIMER.md) |
 
 ### 🏦 [Banking](01_banking/)
@@ -60,11 +60,13 @@ problem with a small, readable Python file.
 
 ### 🛒 [Retail](02_retail/)
 
-AI agents for forecasting, pricing and customer insight in stores and e-commerce.
+AI agents for forecasting, pricing, ranging, customer service and store operations in stores and e-commerce.
 
-- **📦 Supply Chain & Inventory** (1): [Demand Forecasting & Replenishment Agent](02_retail/01_demand_forecasting_agent/)
-- **🙋 Customer Insight** (1): [Product Review Analyzer](02_retail/02_product_review_analyzer/)
-- **🏷️ Merchandising & Pricing** (1): [Dynamic Pricing Advisor](02_retail/03_dynamic_pricing_advisor/)
+- **📦 Supply Chain & Inventory** (2): [Demand Forecasting & Replenishment Agent](02_retail/01_demand_forecasting_agent/) · [Supplier Notice Extractor](02_retail/09_supplier_notice_extractor/)
+- **🙋 Customer Insight** (2): [Product Review Analyzer](02_retail/02_product_review_analyzer/) · [Customer Segmentation & Campaign Planner](02_retail/10_customer_segmentation/)
+- **🏷️ Merchandising & Pricing** (3): [Dynamic Pricing Advisor](02_retail/03_dynamic_pricing_advisor/) · [Promotion Performance Analyzer](02_retail/04_promotion_performance_analyzer/) · [Range Review & Assortment Planner](02_retail/05_range_review_assistant/)
+- **💬 E-commerce & Customer Service** (2): [Online Shopping Assistant](02_retail/06_online_shopping_assistant/) · [Returns & Refund Policy Assistant (RAG)](02_retail/07_returns_policy_assistant/)
+- **🏬 Store Operations & Loss Prevention** (1): [Store Shrink & Loss Prevention Analyzer](02_retail/08_shrink_loss_analyzer/)
 
 ### 🛡️ [Insurance](03_insurance/)
 
@@ -172,7 +174,7 @@ Each use case README has its own diagram showing the real agents and tools from 
 | Best for | Role-based collaboration, long-form reports | Tools, chains, extraction, RAG, chatbots |
 | Multi-agent | ✅ native (crews, tasks, context) | ✅ via LangGraph |
 | Local LLM (Ollama) | ✅ `LLM(model="ollama/...")` | ✅ `ChatOllama` |
-| Used here for | 24 use cases | 32 use cases |
+| Used here for | 26 use cases | 37 use cases |
 
 ---
 

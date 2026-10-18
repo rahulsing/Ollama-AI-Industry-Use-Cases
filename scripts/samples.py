@@ -14,7 +14,7 @@ from flows import role_icon
 USER_SECTIONS = {"Question", "Customer"}
 ANSWER_SECTIONS = {"Answer", "Assistant", "Plan", "Quote"}
 USER_PREFIXES = ("Q: ", "You: ")
-SUMMARY_SECTIONS = {"Summary", "Overall", "Quality report", "Validation", "Cross-document checks"}
+SUMMARY_SECTIONS = {"Summary", "Overall", "Quality report", "Validation", "Cross-document checks", "Action list"}
 
 
 def looks_like_data(body: str) -> bool:

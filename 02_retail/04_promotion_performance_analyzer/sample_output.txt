@@ -1,0 +1,89 @@
+================================================================
+  Retail 04 - Promotion Performance Analyzer (LangChain chain)
+  model: qwen2.5:7b-instruct
+  runtime: 8s
+================================================================
+
+
+--- Incremental profit by promotion ---
+[
+  {
+    "id": "PR-01",
+    "product": "Coffee beans 1kg",
+    "mechanic": "25% off",
+    "volume_uplift_pct": 242,
+    "promo_week_profit": 2050,
+    "normal_week_profit": 960,
+    "post_promo_dip_units": 90,
+    "post_promo_dip_loss": 720,
+    "cannibalisation_loss": 192,
+    "cannibalised_product": "Coffee beans 500g",
+    "marketing_spend": 800,
+    "incremental_profit": -622,
+    "biggest_drag_on_profit": "marketing spend (800)",
+    "verdict": "REWORK",
+    "extra_supplier_funding_per_unit_to_break_even": 1.52
+  },
+  {
+    "id": "PR-02",
+    "product": "Pasta sauce 500g",
+    "mechanic": "2 for 5.00",
+    "volume_uplift_pct": 200,
+    "promo_week_profit": 1170,
+    "normal_week_profit": 480,
+    "post_promo_dip_units": 40,
+    "post_promo_dip_loss": 64,
+    "cannibalisation_loss": 81,
+    "cannibalised_product": "Own-brand pasta sauce",
+    "marketing_spend": 300,
+    "incremental_profit": 245,
+    "biggest_drag_on_profit": "marketing spend (300)",
+    "verdict": "REPEAT",
+    "extra_supplier_funding_per_unit_to_break_even": null
+  },
+  {
+    "id": "PR-03",
+    "product": "Kitchen towels 4-pack",
+    "mechanic": "10% off",
+    "volume_uplift_pct": 15,
+    "promo_week_profit": 437,
+    "normal_week_profit": 500,
+    "post_promo_dip_units": 0,
+    "post_promo_dip_loss": 0,
+    "cannibalisation_loss": 0,
+    "cannibalised_product": null,
+    "marketing_spend": 250,
+    "incremental_profit": -313,
+    "biggest_drag_on_profit": "marketing spend (250)",
+    "verdict": "DROP",
+    "extra_supplier_funding_per_unit_to_break_even": null
+  }
+]
+
+
+--- Post-promotion review ---
+### Promotion Review Summary
+
+1. **PR-01 (Coffee beans 1kg)**
+   - **Verdict:** REWORK
+   - **Incremental Profit:** -622
+   - **Biggest Drag on Profit:** marketing spend (800)
+   - **Fix Suggestion:** Increase supplier funding by 1.52 per unit to break even.
+
+2. **PR-02 (Pasta sauce 500g)**
+   - **Verdict:** REPEAT
+   - **Incremental Profit:** 245
+   - **Biggest Drag on Profit:** marketing spend (300)
+   - **Fix Suggestion:** None needed, as the promotion is already profitable.
+
+3. **PR-03 (Kitchen towels 4-pack)**
+   - **Verdict:** DROP
+   - **Incremental Profit:** -313
+   - **Biggest Drag on Profit:** marketing spend (250)
+   - **Fix Suggestion:** None needed, as the promotion is not profitable.
+
+### Lessons for Next Quarter
+
+1. **Optimize Marketing Spend:** High marketing spend can significantly impact profitability. Consider more targeted marketing strategies to reduce costs without compromising sales.
+2. **Balance Discounts with Profitability:** Shallow discounts can be more effective in maintaining profit margins while still driving sales. Evaluate the impact of deeper discounts on overall profitability.
+3. **Monitor Cannibalization:** Ensure that promotions do not negatively impact sales of other products. Target promotions to specific product lines to avoid cannibalization and maintain overall category health.

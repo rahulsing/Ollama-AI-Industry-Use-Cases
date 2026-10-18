@@ -1,0 +1,152 @@
+==========================================================================
+  Retail 10 - Customer Segmentation & Campaign Planner (LangChain chain)
+  model: qwen2.5:7b-instruct
+  runtime: 15s
+==========================================================================
+
+
+--- RFM segments ---
+[
+  {
+    "segment": "Champions",
+    "customers": 3,
+    "share_of_revenue_pct": 45,
+    "avg_spend": 1867,
+    "avg_orders": 14.3,
+    "avg_days_since_last_order": 14,
+    "max_discount_pct": 0,
+    "guardrail": "they buy anyway: reward with early access, not discounts",
+    "customer_ids": [
+      "CU-01",
+      "CU-02",
+      "CU-03"
+    ]
+  },
+  {
+    "segment": "Loyal",
+    "customers": 3,
+    "share_of_revenue_pct": 19,
+    "avg_spend": 787,
+    "avg_orders": 7.0,
+    "avg_days_since_last_order": 38,
+    "max_discount_pct": 5,
+    "guardrail": "nudge toward Champions with bonus points",
+    "customer_ids": [
+      "CU-04",
+      "CU-05",
+      "CU-06"
+    ]
+  },
+  {
+    "segment": "New",
+    "customers": 3,
+    "share_of_revenue_pct": 2,
+    "avg_spend": 82,
+    "avg_orders": 1.3,
+    "avg_days_since_last_order": 10,
+    "max_discount_pct": 10,
+    "guardrail": "win the second purchase",
+    "customer_ids": [
+      "CU-07",
+      "CU-08",
+      "CU-09"
+    ]
+  },
+  {
+    "segment": "At risk",
+    "customers": 3,
+    "share_of_revenue_pct": 27,
+    "avg_spend": 1133,
+    "avg_orders": 9.0,
+    "avg_days_since_last_order": 122,
+    "max_discount_pct": 15,
+    "guardrail": "win back valuable customers before they lapse",
+    "customer_ids": [
+      "CU-10",
+      "CU-11",
+      "CU-12"
+    ]
+  },
+  {
+    "segment": "Hibernating",
+    "customers": 4,
+    "share_of_revenue_pct": 6,
+    "avg_spend": 201,
+    "avg_orders": 2.8,
+    "avg_days_since_last_order": 206,
+    "max_discount_pct": 0,
+    "guardrail": "low-cost email only; don't spend on customers unlikely to return",
+    "customer_ids": [
+      "CU-13",
+      "CU-14",
+      "CU-15",
+      "CU-16"
+    ]
+  }
+]
+
+
+--- Campaign plan ---
+### Segment: At Risk
+**Goal:** To re-engage customers who are at risk of lapsing by offering a compelling incentive to return.
+
+**Offer:** 15% off their next purchase.
+
+**Channel:** Email
+
+**One-Line Message Idea:** "Don't let us go cold! Get 15% off your next order and stay warm with us."
+
+**Why:** This segment represents 27% of the revenue and has a high average spend, making them valuable to retain. Offering a significant discount can incentivize them to make another purchase before they lapse.
+
+### Segment: Champions
+**Goal:** To reward loyal customers with early access to new products or services.
+
+**Offer:** Early access to a new product launch.
+
+**Channel:** App Push Notification
+
+**One-Line Message Idea:** "Be the first to try our new [product name]! Get early access now."
+
+**Why:** Champions already buy frequently and in high volumes. Rewarding them with exclusive access can further cement their loyalty and encourage repeat purchases.
+
+### Segment: Loyal
+**Goal:** To nudge loyal customers toward the Champions tier by offering bonus points.
+
+**Offer:** 5% bonus points on their next purchase.
+
+**Channel:** App Push Notification
+
+**One-Line Message Idea:** "Stay loyal and earn more! Get 5% bonus points on your next order."
+
+**Why:** This segment has a 19% share of revenue and is close to the Champions tier. Offering bonus points can motivate them to increase their spend and frequency, moving them closer to the Champions level.
+
+### Segment: New
+**Goal:** To incentivize new customers to make a second purchase.
+
+**Offer:** 10% off their second purchase.
+
+**Channel:** Email
+
+**One-Line Message Idea:** "Love what you bought? Get 10% off your second purchase!"
+
+**Why:** This segment has a low share of revenue but represents potential future high-value customers. Encouraging them to make a second purchase can significantly increase their lifetime value.
+
+### Segment: Hibernating
+**Goal:** To maintain low-cost engagement with customers unlikely to return.
+
+**Offer:** None; focus on re-engagement through content.
+
+**Channel:** Email
+
+**One-Line Message Idea:** "We miss you! Stay connected with our latest news and offers."
+
+**Why:** This segment has a low share of revenue and is unlikely to return. The focus is on maintaining a low-cost engagement strategy to keep the possibility of future purchases open.
+
+### Measuring Success:
+- **At Risk:** Track the number of re-engaged customers and their subsequent purchase behavior.
+- **Champions:** Monitor the frequency and value of their purchases post-campaign.
+- **Loyal:** Measure the increase in spend and frequency among these customers.
+- **New:** Track the conversion rate of new customers to repeat customers.
+- **Hibernating:** Assess the engagement level and any potential future purchases.
+
+By implementing these targeted campaigns, we can effectively manage and grow our customer base, ensuring the highest return on investment.

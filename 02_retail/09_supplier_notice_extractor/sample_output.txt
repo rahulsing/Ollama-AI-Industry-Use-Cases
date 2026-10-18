@@ -1,0 +1,109 @@
+=======================================================================
+  Retail 09 - Supplier Notice Extractor (LangChain structured output)
+  model: qwen2.5:7b-instruct
+  runtime: 19s
+=======================================================================
+
+
+--- Nordic Dairy Co ---
+{
+  "notice_type": "delay",
+  "sku": "SKU-101",
+  "original_date": "14 Oct 2026",
+  "new_date": "21 Oct 2026 product_name: Organic oat milk 1L (SKU-101), quantity: 1,200 units, supplier: Nordic Dairy Co"
+}
+
+
+--- SunShield Labs ---
+{
+  "notice_type": "price_change",
+  "sku": "SKU-102",
+  "old_cost": 4.8,
+  "new_cost": 5.3,
+  "effective_date": "2026-11-01T00:00:00Z+00:00"
+}
+
+
+--- WoolWorks Ltd ---
+{
+  "notice_type": "short_shipment",
+  "sku": "SKU-103",
+  "qty_ordered": 200,
+  "qty_shipped": 120
+}
+
+
+--- PastaPrima ---
+{
+  "notice_type": "substitution",
+  "sku": "SKU-210",
+  "old_pack_size": 500.0,
+  "new_pack_size": 450.0
+}
+
+
+--- Validation ---
+[
+  {
+    "supplier": "Nordic Dairy Co",
+    "sku": "SKU-101",
+    "type": "delay",
+    "days_of_stock_cover": 8.9,
+    "delivery_in_days": 11,
+    "stockout_risk": true,
+    "days_without_stock": 2
+  },
+  {
+    "supplier": "SunShield Labs",
+    "sku": "SKU-102",
+    "type": "price_change",
+    "days_of_stock_cover": 10.2,
+    "increase_pct": 10.4,
+    "notice_days": 22,
+    "breaches_contract": true,
+    "contract_terms": "max 3.0% increase, 60 days notice",
+    "extra_cost_per_year": 6760
+  },
+  {
+    "supplier": "WoolWorks Ltd",
+    "sku": "SKU-103",
+    "type": "short_shipment",
+    "days_of_stock_cover": 298.7,
+    "shortfall_units": 80,
+    "stockout_risk": false,
+    "overstocked_so_cancel_balance": true
+  },
+  {
+    "supplier": "PastaPrima",
+    "sku": "SKU-210",
+    "type": "substitution",
+    "days_of_stock_cover": 25.7,
+    "pack_change": "500 -> 450",
+    "hidden_cost_increase_pct": 11.1,
+    "needs": "new barcode, product listing and shelf-edge unit price"
+  }
+]
+
+
+--- Action list ---
+**Action List:**
+
+1. **Nordic Dairy Co (SKU-101) - Stock-out Risk**
+   - **What Happened:** Expected delivery in 11 days, but only 8.9 days of stock cover.
+   - **Impact:** 2 days without stock.
+   - **Action:** Expedite the order to ensure stock is replenished within 2 days.
+
+2. **SunShield Labs (SKU-102) - Contract Breach**
+   - **What Happened:** Price increase of 10.4%, exceeding the contract terms of a maximum 3.0% increase with 60 days notice.
+   - **Impact:** Additional cost of $6,760 per year.
+   - **Action:** Push back on the price increase citing the contract terms. Negotiate a reduction or seek alternative suppliers.
+
+3. **WoolWorks Ltd (SKU-103) - Short Shipment**
+   - **What Happened:** Short shipment of 80 units, with 298.7 days of stock cover.
+   - **Impact:** No immediate stockout risk.
+   - **Action:** Cancel the balance of the order and update inventory records to reflect the shortfall.
+
+4. **PastaPrima (SKU-210) - Substitution**
+   - **What Happened:** Pack size changed from 500 to 450, with a hidden cost increase of 11.1%.
+   - **Impact:** Requires new barcode, product listing, and shelf-edge unit price updates.
+   - **Action:** Update product listings, shelf labels, and barcodes to reflect the new pack size and price.
